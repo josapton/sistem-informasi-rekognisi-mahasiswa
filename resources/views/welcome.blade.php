@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Sistem Informasi Rekognisi Mahasiswa | Login</title>
+    <title>SI Rekognisi Mahasiswa</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('sbadmin2/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -43,30 +43,37 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Selamat Datang di Sistem Konversi SKS</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Selamat Datang di Sistem Informasi Rekognisi Mahasiswa</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" method="POST" action="{{ route('loginProcess') }}">
+                                        @csrf
                                         <div class="form-group">
-                                            <input type="username" class="form-control form-control-user"
-                                                placeholder="Masukkan NIM/NPM..." name="username">
+                                            <input type="username" class="form-control form-control-user @error('username') is-invalid @enderror"
+                                                placeholder="Masukkan Username/NIM/NPM..." name="username" value="{{ old('username') }}">
+                                                @error('username')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
+                                            <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror"
                                                 placeholder="Password" name="password">
+                                                @error('password')
+                                                    <small class="text-danger">{{ $message }}</small>
+                                                @enderror
                                         </div>
                                         <div class="form-group">
                                             <div class="text-center">
                                                 <label class="small">Masukkan NIM/NPM dan Password SIAKAD</label>
                                             </div>
                                         </div>
-                                        <button type="submit" href="#" class="btn btn-primary btn-user btn-block">
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
                                     </form>
                                     <hr>
                                     <div class="text-center">
                                         <label class="small">Mengalami kendala?</label>
-                                        <a class="small" style="cursor:pointer;" onclick="window.open('https://web.whatsapp.com/send?phone=62811264556', '_blank')">Hubungi Staff/Admin</a>
+                                        <a class="small" style="cursor:pointer;" onclick="window.open('https://web.whatsapp.com/send?phone=6285174209474', '_blank')">Hubungi Staff/Admin</a>
                                     </div>
                                 </div>
                             </div>
@@ -89,6 +96,27 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('sbadmin2/js/sb-admin-2.min.js') }}"></script>
+
+    <script src="{{ asset('sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
+
+    @session('success')
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: '{{ session('success') }}'
+            });
+        </script>
+    @endsession
+    @session('error')
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: '{{ session('error') }}'
+            });
+        </script>
+    @endsession
 
 </body>
 
