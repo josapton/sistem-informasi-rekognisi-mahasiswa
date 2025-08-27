@@ -2,8 +2,9 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-graduation-cap"></i>
+        <div class="sidebar-brand-icon">
+            {{-- <i class="fas fa-graduation-cap"></i> --}}
+            <img src="logo-ti-2.png" alt="Logo Untad" width="60">
         </div>
         <div class="sidebar-brand-text mx-3">SI Rekognisi Mahasiswa</div>
     </a>
@@ -31,6 +32,13 @@
         <a class="nav-link" href="{{ route('users') }}">
             <i class="fas fa-fw fa-users"></i>
             <span>Data User</span></a>
+    </li>
+
+    <!-- Nav Item - Users -->
+    <li class="nav-item {{ $menuAdminKegiatan ?? '' }}">
+        <a class="nav-link" href="{{ route('kegiatan') }}">
+            <i class="fas fa-fw fa-list"></i>
+            <span>Data Kegiatan</span></a>
     </li>
 
     <!-- Nav Item - Users -->

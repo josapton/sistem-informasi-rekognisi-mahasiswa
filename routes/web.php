@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\KonversiController;
 
@@ -25,6 +26,10 @@ Route::middleware('checkLogin')->group(function () {
     Route::post('users/store', [UserController::class, 'store'])->name('usersStore');
     Route::get('users/update/{id}', [UserController::class, 'update'])->name('usersUpdate');
     Route::post('users/update/{id}', [UserController::class, 'update2'])->name('usersUpdate2');
+    Route::delete('users/destroy/{id}', [UserController::class, 'destroy'])->name('usersDestroy');
+    Route::get('users/excel', [UserController::class, 'excel'])->name('usersExcel');
+
+    Route::get('kegiatan', [KegiatanController::class, 'index'])->name('kegiatan');
 
     Route::get('pengajuan', [PengajuanController::class, 'index'])->name('pengajuan');
     

@@ -16,6 +16,10 @@
             <i class="fas fa-plus mr-1"></i>
             Tambah Data
         </a>
+        <a href="{{ route('usersExcel') }}" class="btn btn-sm btn-success">
+            <i class="fas fa-file-excel mr-1"></i>
+            Export Excel
+        </a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -39,18 +43,15 @@
                         <td><a href="mailto:{{ $item->email }}">{{ $item->email }}</a></td>
                         <td><span class="badge badge-{{ $item->role === 'Admin' ? 'primary' : ($item->role === 'Dosen' ? 'info' : 'secondary') }}">{{ $item->role }}</span></td>
                         <td>
-                            <a href="{{ route('usersUpdate', $item->id) }}">
-                                <i class="btn btn-sm btn-warning">
-                                    <i class="fas fa-edit mr-1"></i>
-                                    Edit
-                                </i>
+                            <a href="{{ route('usersUpdate', $item->id) }}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit mr-1"></i>
+                                Edit
                             </a>
-                            <a href="#">
-                                <i class="btn btn-sm btn-danger">
-                                    <i class="fas fa-trash mr-1"></i>
-                                    Hapus
-                                </i>
-                            </a>
+                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal{{ $item->id }}">
+                                <i class="fas fa-trash mr-1"></i>
+                                Hapus
+                            </button>
+                            @include('admin.users.modal')
                         </td>
                     </tr>
                     @endforeach

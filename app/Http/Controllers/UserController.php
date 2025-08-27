@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cache; 
 
 class UserController extends Controller
 {
@@ -33,7 +35,7 @@ class UserController extends Controller
             'nama' => 'required|string|max:255',
             'email' => 'string|email|max:255|',
             'role' => 'required|string|in:Admin,Dosen,Mahasiswa',
-            'password' => 'required|string|confirmed',
+            'password' => 'required|string|min:8|confirmed',
         ],[
             'username.required' => 'Username tidak boleh kosong',
             'username.unique' => 'Username sudah ada',
@@ -41,6 +43,7 @@ class UserController extends Controller
             'email.email' => 'Format email tidak valid',
             'role.required' => 'Role harus dipilih',
             'password.required' => 'Password tidak boleh kosong',
+            'password.min' => 'Password harus terdiri dari minimal 8 karakter',
             'password.confirmed' => 'Password konfirmasi tidak cocok',
         ]);
 
@@ -69,7 +72,7 @@ class UserController extends Controller
             'nama' => 'required|string|max:255',
             'email' => 'string|email|max:255|',
             'role' => 'required|string|in:Admin,Dosen,Mahasiswa',
-            'password' => 'nullable|string|confirmed',
+            'password' => 'nullable|string|min:8|confirmed',
         ],[
             'username.required' => 'Username tidak boleh kosong',
             'username.unique' => 'Username sudah ada',
@@ -77,6 +80,7 @@ class UserController extends Controller
             'email.email' => 'Format email tidak valid',
             'role.required' => 'Role harus dipilih',
             'password.required' => 'Password tidak boleh kosong',
+            'password.min' => 'Password harus terdiri dari minimal 8 karakter',
             'password.confirmed' => 'Password konfirmasi tidak cocok',
         ]);
 
@@ -91,5 +95,15 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('users')->with('success', 'Data berhasil diubah.');
+    }
+    public function destroy($id){
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('users')->with('success', 'Data berhasil dihapus.');
+    }
+    public function excel(){
+        $filename = now()->format('Y-m-d_His') . '_DataUsers.xlsx';
+        return Excel::download(new UsersExport, $filename);
     }
 }
