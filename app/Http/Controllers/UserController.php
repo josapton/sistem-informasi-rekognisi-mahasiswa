@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache; 
 
@@ -105,5 +106,16 @@ class UserController extends Controller
     public function excel(){
         $filename = now()->format('Y-m-d_His') . '_DataUsers.xlsx';
         return Excel::download(new UsersExport, $filename);
+    }
+    public function pdf(){
+        $filename = now()->format('Y-m-d_His') . '_DataUsers.pdf';
+        $data = array(
+            'title' => 'Laporan Data Users',
+            'users' => User::get(),
+            'date' => now()->format('Y-m-d'),
+            'jam' => now()->format('H:i:s'),
+        );
+        $pdf = Pdf::loadView('admin.users.pdf', $data);
+        return $pdf->setPaper('a4', 'portrait')->stream($filename);
     }
 }

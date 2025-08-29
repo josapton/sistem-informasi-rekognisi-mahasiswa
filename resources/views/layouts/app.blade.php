@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SI Rekognisi Mahasiswa | {{ $title }}</title>
+    <title>Rekognisi Mahasiswa | {{ $title }}</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('sbadmin2/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -74,7 +74,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Keluar dari SI Rekognisi Mahasiswa</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Keluar dari Sistem Informasi Rekognisi Mahasiswa ?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>

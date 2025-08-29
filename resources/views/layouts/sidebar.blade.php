@@ -6,7 +6,7 @@
             {{-- <i class="fas fa-graduation-cap"></i> --}}
             <img src="logo-ti-2.png" alt="Logo Untad" width="60">
         </div>
-        <div class="sidebar-brand-text mx-3">SI Rekognisi Mahasiswa</div>
+        <div class="sidebar-brand-text mx-3">Rekognisi Mahasiswa</div>
     </a>
 
     <!-- Divider -->

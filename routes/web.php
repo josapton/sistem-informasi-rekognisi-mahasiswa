@@ -28,6 +28,7 @@ Route::middleware('checkLogin')->group(function () {
     Route::post('users/update/{id}', [UserController::class, 'update2'])->name('usersUpdate2');
     Route::delete('users/destroy/{id}', [UserController::class, 'destroy'])->name('usersDestroy');
     Route::get('users/excel', [UserController::class, 'excel'])->name('usersExcel');
+    Route::get('users/pdf', [UserController::class, 'pdf'])->name('usersPdf');
 
     Route::get('kegiatan', [KegiatanController::class, 'index'])->name('kegiatan');
 
