@@ -16,17 +16,17 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Kegiatan</th>
-                        <th>Mitra</th>
-                        <th></th>
-                        <th>Jumlah SKS</th>
-                        <th>Aksi</th>
+                        <th>Nomor</th>
+                        <th>Nama Kegiatan</th>
+                        <th>Tipe Konversi</th>
+                        <th>Bobot</th>
+                        <th>Deskripsi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>F2306103501017</td>
-                        <td>Joko Saptono</td>
+                        <td>MBKM Wirausaha</td>
                         <td>
                             <span class="badge badge-primary">Admin</span>
                         </td>

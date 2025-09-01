@@ -32,9 +32,6 @@
                 {{ $user->username }}
             </td>
             <td style="font-family: 'Times New Roman', Times, serif; font-size: 12;">
-                {{ $user->nama }}
-            </td>
-            <td style="font-family: 'Times New Roman', Times, serif; font-size: 12;">
                 <a href="mailto:{{ $user->email }}">
                     {{ $user->email }}
                 </a>

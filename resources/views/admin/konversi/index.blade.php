@@ -16,22 +16,48 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>NIM/NPM</th>
+                        <th>NIM</th>
                         <th>Nama</th>
-                        <th>Matakuliah Diajukan</th>
-                        <th>Jumlah SKS</th>
-                        <th>Aksi</th>
+                        <th>Kegiatan Diterima</th>
+                        <th>Pilih CPL</th>
+                        <th>Tipe_Konversi</th>
+                        <th>Jumlah_Konversi</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>F2306103501017</td>
                         <td>Joko Saptono</td>
+                        <td>MBKM Wirausaha</td>
                         <td>
-                            <span class="badge badge-primary">Admin</span>
+                        <select class="form-control">
+                            <option value="1">CPL 1</option>
+                            <option value="2">CPL 2</option>
+                            <option value="3">CPL 3</option>
+                            <option value="4">CPL 4</option>
+                            <option value="5">CPL 5</option>
+                            <option value="6">CPL 6</option>
+                            <option value="7">CPL 7</option>
+                            <option value="8">CPL 8</option>
+                            <option value="9">CPL 9</option>
+                            <option value="10">CPL 10</option>
+                        </select>
+                        </td>
+
+
+                        <td>
+                            <select class="form-control">
+                                <option value="1">SKS</option>
+                                <option value="2">Mikrokredensial</option>
+                            </select>
                         </td>
                         <td>
-                            <span class="badge badge-secondary">Aktif</span>
+                            <select class="form-control">
+                                <option value="1">1 sks</option>
+                                <option value="2">2 sks</option>
+                                <option value="3">3 sks</option>
+                            </select>
                         </td>
                         <td>
                             <a href="#" class="btn btn-sm btn-primary">Validasi</a>

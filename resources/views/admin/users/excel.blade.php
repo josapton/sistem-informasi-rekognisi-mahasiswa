@@ -38,7 +38,7 @@
                 {{ $user->username }}
             </td>
             <td style="border: 1px solid black; font-family: 'Times New Roman', Times, serif; font-size: 12;">
-                {{ $user->nama }}
+                
             </td>
             <td style="border: 1px solid black; font-family: 'Times New Roman', Times, serif; font-size: 12;">
                 <a href="mailto:{{ $user->email }}">

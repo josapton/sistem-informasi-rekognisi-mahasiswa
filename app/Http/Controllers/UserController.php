@@ -33,14 +33,12 @@ class UserController extends Controller
     public function store(Request $request){
         $request->validate([
             'username' => 'required|string|max:255|unique:users,username',
-            'nama' => 'required|string|max:255',
             'email' => 'string|email|max:255|',
             'role' => 'required|string|in:Admin,Dosen,Mahasiswa',
             'password' => 'required|string|min:8|confirmed',
         ],[
             'username.required' => 'Username tidak boleh kosong',
             'username.unique' => 'Username sudah ada',
-            'nama.required' => 'Nama tidak boleh kosong',
             'email.email' => 'Format email tidak valid',
             'role.required' => 'Role harus dipilih',
             'password.required' => 'Password tidak boleh kosong',
@@ -50,7 +48,6 @@ class UserController extends Controller
 
         $user = new User;
         $user->username = $request->username;
-        $user->nama = $request->nama;
         $user->email = $request->email;
         $user->role = $request->role;
         $user->password = Hash::make($request->password);
@@ -70,14 +67,12 @@ class UserController extends Controller
     public function update2(Request $request, $id){
         $request->validate([
             'username' => 'required|string|max:255|unique:users,username,'.$id,
-            'nama' => 'required|string|max:255',
             'email' => 'string|email|max:255|',
             'role' => 'required|string|in:Admin,Dosen,Mahasiswa',
             'password' => 'nullable|string|min:8|confirmed',
         ],[
             'username.required' => 'Username tidak boleh kosong',
             'username.unique' => 'Username sudah ada',
-            'nama.required' => 'Nama tidak boleh kosong',
             'email.email' => 'Format email tidak valid',
             'role.required' => 'Role harus dipilih',
             'password.required' => 'Password tidak boleh kosong',
@@ -87,7 +82,6 @@ class UserController extends Controller
 
         $user = User::findOrFail($id);
         $user->username = $request->username;
-        $user->nama = $request->nama;
         $user->email = $request->email;
         $user->role = $request->role;
         if($request->filled('password')){

@@ -17,12 +17,6 @@
                 : {{ $item->username }}
             </div>
             <div class="col-6">
-                <strong>Nama</strong>
-            </div>
-            <div class="col-6">
-                : {{ $item->nama }}
-            </div>
-            <div class="col-6">
                 <strong>Email</strong>
             </div>
             <div class="col-6">
@@ -32,7 +26,7 @@
                 <strong>Role</strong>
             </div>
             <div class="col-6">
-                : <span class="badge badge-{{ $item->role === 'Admin' ? 'primary' : ($item->role === 'Dosen' ? 'info' : 'secondary') }}">{{ $item->role }}</span>
+                : <span class="badge badge-{{ $item->role === 'Admin' ? 'primary' : ($item->role === 'Kaprodi' ? 'info' : 'secondary') }}">{{ $item->role }}</span>
             </div>
         </div>
       </div>

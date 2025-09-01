@@ -33,16 +33,6 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <span class="text-danger">*</span>
-                    <label for="nama">Nama</label>
-                    <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}" placeholder="Masukkan nama">
-                    @error('nama')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" placeholder="Masukkan email">
                 </div>
@@ -54,7 +44,7 @@
                     <select name="role" id="role" class="form-control @error('role') is-invalid @enderror">
                         <option selected disabled>Pilih role</option>
                         <option value="Admin">Admin</option>
-                        <option value="Dosen">Dosen</option>
+                        <option value="Kaprodi">Kaprodi</option>
                         <option value="Mahasiswa">Mahasiswa</option>
                     </select>
                     @error('role')

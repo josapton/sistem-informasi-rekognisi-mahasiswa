@@ -20,7 +20,7 @@
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown">
                 <div class="d-flex justify-content-center">
-                    <span class="badge badge-{{ auth()->user()->role === 'Admin' ? 'primary' : (auth()->user()->role === 'Dosen' ? 'info' : 'secondary') }}">
+                    <span class="badge badge-{{ auth()->user()->role === 'Admin' ? 'primary' : (auth()->user()->role === 'Kaprodi' ? 'info' : 'secondary') }}">
                         {{ auth()->user()->role }}
                     </span>
                 </div>

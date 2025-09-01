@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Admin;
+use App\Models\Kaprodi;
+use App\Models\Mahasiswa;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Hash;
 use Illuminate\Database\Seeder;
@@ -18,24 +21,45 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'username' => 'admin',
-            'nama' => 'Admin Rekognisi',
             'email' => 'admin@test.com',
             'role' => 'Admin',
             'password' => Hash::make('admin0123'),
-        ]);
+        ])->each(function ($user) {
+            if ($user->role === 'Admin') {
+            Admin::create([
+                'username' => $user->username,
+                'nama' => 'Admin ',
+            ]);
+        }
+        });
         User::create([
-            'username' => 'dosen',
-            'nama' => 'Dosen Rekognisi',
-            'email' => 'dosen@test.com',
-            'role' => 'Dosen',
-            'password' => Hash::make('dosen0123'),
-        ]);
+            'username' => 'kaprodi',
+            'email' => 'kaprodi@test.com',
+            'role' => 'Kaprodi',
+            'password' => Hash::make('kaprodi0123'),
+        ])->each(function ($user) {
+            if ($user->role === 'Kaprodi') {
+            Kaprodi::create([
+                'username' => $user->username,
+                'nama' => 'Kaprodi',
+                'program_studi' => 'Teknik Informatika',
+            ]);
+        }
+        });
         User::create([
             'username' => 'mahasiswa',
-            'nama' => 'Mahasiswa Rekognisi',
             'email' => 'mahasiswa@test.com',
             'role' => 'Mahasiswa',
             'password' => Hash::make('mahasiswa0123'),
-        ]);
+        ])->each(function ($user) {
+            if ($user->role === 'Mahasiswa') {
+            Mahasiswa::create([
+                'username' => $user->username,
+                'nama' => 'Mahasiswa',
+                'cpl' => 'CPL01',
+                'sks' => 20,
+            ]);
+        }
+        });
     }
 }

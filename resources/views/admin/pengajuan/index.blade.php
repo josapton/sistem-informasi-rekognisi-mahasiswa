@@ -16,31 +16,17 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>Nomor</th>
                         <th>Nama Mahasiswa</th>
                         <th>Nama Kegiatan</th>
-                        <th>Jenis Kegiatan</th>
-                        <th>Waktu</th>
-                        <th>Bukti</th>
-                        <th>Capaian Pembelajaran</th>
-                        <th>Aksi</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <td>F2306103501017</td>
                         <td>Joko Saptono</td>
                         <td>Microsoft Hackathon</td>
-                        <td>
-                            <span class="badge badge-primary">Lomba</span>
-                        </td>
-                        <td>
-                            1 Minggu
-                        </td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-warning">Bukti</a>
-                        </td>
-                        <td>
-                            <span class="badge badge-success">3 SKS</span>
-                        </td>
                         <td>
                             <a href="#" class="btn btn-sm btn-primary">Terima</a>
                             <a href="#" class="btn btn-sm btn-danger">Tolak</a>

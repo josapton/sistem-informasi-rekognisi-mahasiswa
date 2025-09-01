@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -19,7 +20,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username',
-        'nama',
         'email',
         'role',
         'password',
@@ -46,5 +46,28 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    /**
+     * Get the student profile associated with the user.
+     */
+    public function mahasiswa(): HasOne
+    {
+        return $this->hasOne(Mahasiswa::class, 'username', 'username');
+    }
+
+    /**
+     * Get the lecturer profile associated with the user.
+     */
+    public function kaprodi(): HasOne
+    {
+        return $this->hasOne(Kaprodi::class, 'username', 'username');
+    }
+
+    /**
+     * Get the admin profile associated with the user.
+     */
+    public function admin(): HasOne
+    {
+        return $this->hasOne(Admin::class, 'username', 'username');
     }
 }

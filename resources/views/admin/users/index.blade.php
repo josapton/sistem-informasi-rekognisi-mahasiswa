@@ -45,9 +45,19 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->username }}</td>
-                        <td>{{ $item->nama }}</td>
+                        <td>
+                            @if($item->role === 'Admin' && $item->admin)
+                                {{ $item->admin->nama }}
+                            @elseif($item->role === 'Kaprodi' && $item->kaprodi)
+                                {{ $item->kaprodi->nama }}
+                            @elseif($item->role === 'Mahasiswa' && $item->mahasiswa)
+                                {{ $item->mahasiswa->nama }}
+                            @else
+                                -
+                            @endif
+                        </td>
                         <td><a href="mailto:{{ $item->email }}">{{ $item->email }}</a></td>
-                        <td><span class="badge badge-{{ $item->role === 'Admin' ? 'primary' : ($item->role === 'Dosen' ? 'info' : 'secondary') }}">{{ $item->role }}</span></td>
+                        <td><span class="badge badge-{{ $item->role === 'Admin' ? 'primary' : ($item->role === 'Kaprodi' ? 'info' : 'secondary') }}">{{ $item->role }}</span></td>
                         <td>
                             <a href="{{ route('usersUpdate', $item->id) }}" class="btn btn-sm btn-warning">
                                 <i class="fas fa-edit mr-1"></i>
