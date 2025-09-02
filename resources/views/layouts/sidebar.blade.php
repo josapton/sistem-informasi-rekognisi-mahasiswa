@@ -24,14 +24,31 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Menu
+        Data User
     </div>
 
     <!-- Nav Item - Users -->
-    <li class="nav-item {{ $menuAdminUsers ?? '' }}">
+    {{-- <li class="nav-item {{ $menuAdminUsers ?? '' }}">
         <a class="nav-link" href="{{ route('users') }}">
             <i class="fas fa-fw fa-users"></i>
-            <span>Data User</span></a>
+            <span>User</span></a>
+    </li> --}}
+
+    <li class="nav-item {{ $menuAdminUsers ?? '' }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+            aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Data User</span>
+        </a>
+        <div id="collapseUtilities" class="collapse {{ $menuAdminUsersCollapse ?? '' }}" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item {{ $menuAdminUsersAll ?? '' }}" href="{{ route('users') }}">User</a>
+                <a class="collapse-item {{ $menuAdminUsersAdmin ?? '' }}" href="{{ route('usersAdmin') }}">Admin</a>
+                <a class="collapse-item {{ $menuAdminUsersKaprodi ?? '' }}" href="{{ route('usersKaprodi') }}">Kaprodi</a>
+                <a class="collapse-item {{ $menuAdminUsersMahasiswa ?? '' }}" href="{{ route('usersMahasiswa') }}">Mahasiswa</a>
+            </div>
+        </div>
     </li>
 
     <!-- Nav Item - Users -->

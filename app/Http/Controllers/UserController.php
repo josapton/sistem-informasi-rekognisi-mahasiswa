@@ -18,9 +18,44 @@ class UserController extends Controller
         $data = array(
             'title' => 'Data User',
             'menuAdminUsers' => 'active',
+            'menuAdminUsersAll' => 'active',
+            'menuAdminUsersCollapse' => request('menuAdminUsersAll', 'active') ? 'show' : 'hide',
             'user' => User::orderBy('role', 'asc')->get(),
         );
         return view('admin.users.index', $data);
+    }
+    public function admin()
+    {
+        $data = array(
+            'title' => 'Data Admin',
+            'menuAdminUsers' => 'active',
+            'menuAdminUsersAdmin' => 'active',
+            'menuAdminUsersCollapse' => request('menuAdminUsersAdmin', 'active') ? 'show' : 'hide',
+            'user' => User::orderBy('role', 'asc')->get(),
+        );
+        return view('admin.users.admin', $data);
+    }
+    public function kaprodi()
+    {
+        $data = array(
+            'title' => 'Data Kaprodi',
+            'menuAdminUsers' => 'active',
+            'menuAdminUsersKaprodi' => 'active',
+            'menuAdminUsersCollapse' => request('menuAdminUsersKaprodi', 'active') ? 'show' : 'hide',
+            'user' => User::orderBy('role', 'asc')->get(),
+        );
+        return view('admin.users.kaprodi', $data);
+    }
+    public function mahasiswa()
+    {
+        $data = array(
+            'title' => 'Data Mahasiswa',
+            'menuAdminUsers' => 'active',
+            'menuAdminUsersMahasiswa' => 'active',
+            'menuAdminUsersCollapse' => request('menuAdminUsersMahasiswa', 'active') ? 'show' : 'hide',
+            'user' => User::orderBy('role', 'asc')->get(),
+        );
+        return view('admin.users.mahasiswa', $data);
     }
     public function create()
     {

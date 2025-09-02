@@ -22,6 +22,9 @@ Route::middleware('checkLogin')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('users', [UserController::class, 'index'])->name('users');
+    Route::get('users/admin', [UserController::class, 'admin'])->name('usersAdmin');
+    Route::get('users/kaprodi', [UserController::class, 'kaprodi'])->name('usersKaprodi');
+    Route::get('users/mahasiswa', [UserController::class, 'mahasiswa'])->name('usersMahasiswa');
     Route::get('users/create', [UserController::class, 'create'])->name('usersCreate');
     Route::post('users/store', [UserController::class, 'store'])->name('usersStore');
     Route::get('users/update/{id}', [UserController::class, 'update'])->name('usersUpdate');
