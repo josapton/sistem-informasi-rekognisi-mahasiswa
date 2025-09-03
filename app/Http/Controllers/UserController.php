@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
+
 use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -68,7 +69,8 @@ class UserController extends Controller
     public function store(Request $request){
         $request->validate([
             'username' => 'required|string|max:255|unique:users,username',
-            'email' => 'string|email|max:255|',
+            'nama' => 'string|max:255|nullable',
+            'email' => 'string|email|max:255|nullable',
             'role' => 'required|string|in:Admin,Dosen,Mahasiswa',
             'password' => 'required|string|min:8|confirmed',
         ],[
@@ -87,6 +89,32 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->password = Hash::make($request->password);
         $user->save();
+
+        if ($request->filled('nama')) {
+            switch ($request->role) {
+            case 'Admin':
+                \DB::table('admins')->insert([
+                'username' => $user->username,
+                'nama' => $request->nama,
+                ]);
+                break;
+            case 'Kaprodi':
+                \DB::table('kaprodis')->insert([
+                'username' => $user->username,
+                'nama' => $request->nama,
+                'program_studi' => 'Teknik Informatika',
+                ]);
+                break;
+            case 'Mahasiswa':
+                \DB::table('mahasiswas')->insert([
+                'username' => $user->username,
+                'nama' => $request->nama,
+                'cpl' => 'CPL01',
+                'sks' => '0',
+                ]);
+                break;
+            }
+        }
 
         return redirect()->route('users')->with('success', 'Data berhasil ditambahkan.');
     }

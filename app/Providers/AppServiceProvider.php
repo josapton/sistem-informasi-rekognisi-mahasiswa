@@ -21,4 +21,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+    protected $observers = [
+        User::class => [UserObserver::class],
+    ];
 }
