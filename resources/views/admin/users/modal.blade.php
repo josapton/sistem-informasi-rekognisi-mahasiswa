@@ -17,6 +17,12 @@
                 : {{ $item->username }}
             </div>
             <div class="col-6">
+                <strong>Nama</strong>
+            </div>
+            <div class="col-6">
+                : {{ $item->admin->nama ?? $item->kaprodi->nama ?? $item->mahasiswa->nama ?? '-' }}
+            </div>
+            <div class="col-6">
                 <strong>Email</strong>
             </div>
             <div class="col-6">

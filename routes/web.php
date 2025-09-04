@@ -29,6 +29,12 @@ Route::middleware('checkLogin')->group(function () {
     Route::post('users/store', [UserController::class, 'store'])->name('usersStore');
     Route::get('users/update/{id}', [UserController::class, 'update'])->name('usersUpdate');
     Route::post('users/update/{id}', [UserController::class, 'update2'])->name('usersUpdate2');
+    Route::get('users/updateAdmin/{username}', [UserController::class, 'updateAdmin'])->name('usersUpdateAdmin');
+    Route::post('users/updateAdmin/{username}', [UserController::class, 'updateAdmin2'])->name('usersUpdateAdmin2');
+    Route::get('users/updateKaprodi/{username}', [UserController::class, 'updateKaprodi'])->name('usersUpdateKaprodi');
+    Route::post('users/updateKaprodi/{username}', [UserController::class, 'updateKaprodi2'])->name('usersUpdateKaprodi2');
+    Route::get('users/updateMahasiswa/{username}', [UserController::class, 'updateMahasiswa'])->name('usersUpdateMahasiswa');
+    Route::post('users/updateMahasiswa/{username}', [UserController::class, 'updateMahasiswa2'])->name('usersUpdateMahasiswa2');
     Route::delete('users/destroy/{id}', [UserController::class, 'destroy'])->name('usersDestroy');
     Route::get('users/excel', [UserController::class, 'excel'])->name('usersExcel');
     Route::get('users/pdf', [UserController::class, 'pdf'])->name('usersPdf');

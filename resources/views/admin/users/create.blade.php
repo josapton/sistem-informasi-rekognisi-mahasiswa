@@ -84,12 +84,14 @@
                 Simpan
             </button>
             </div>
-            <div class="col-md-6 small">
-            <span class="text-danger">*</span>
-            Wajib diisi
-            </div>
         </div>
         </form>
+    </div>
+    <div class="card-footer py-1.5">
+        <div class="col-md-6 small">
+            <span class="text-danger">*</span>
+            Wajib diisi
+        </div>
     </div>
 </div>
 @endsection

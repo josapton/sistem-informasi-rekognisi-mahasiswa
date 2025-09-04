@@ -21,7 +21,7 @@
         <form action="{{ route('usersUpdate2', $user->id) }}" method="POST">
             @csrf
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="form-group">
                     <span class="text-danger">*</span>
                     <label for="username">Username</label>
@@ -69,10 +69,6 @@
                     <input type="password" class="form-control @error('password') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="Masukkan password konfirmasi">
                 </div>
             </div>
-            <div class="col-md-6 small">
-                <span class="text-danger">*</span>
-                Wajib diisi
-            </div>
             <div class="col-md-12">
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save mr-1"></i>
@@ -81,6 +77,12 @@
             </div>
         </div>
         </form>
+    </div>
+    <div class="card-footer py-1.5">
+        <div class="col-md-6 small">
+            <span class="text-danger">*</span>
+            Wajib diisi
+        </div>
     </div>
 </div>
 @endsection

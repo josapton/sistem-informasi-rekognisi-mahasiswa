@@ -36,6 +36,7 @@
                         <th>Username</th>
                         <th>Nama</th>
                         <th>Program Studi</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +46,17 @@
                         <td>{{ $item->username }}</td>
                         <td>{{ $item->kaprodi ? $item->kaprodi->nama : '-' }}</td>
                         <td>{{ $item->kaprodi ? $item->kaprodi->program_studi : '-' }}</td>
+                        <td>
+                            <a href="{{ route('usersUpdateKaprodi', $item->username) }}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit mr-1"></i>
+                                Edit
+                            </a>
+                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal{{ $item->id }}">
+                                <i class="fas fa-trash mr-1"></i>
+                                Hapus
+                            </button>
+                            @include('admin.users.modal')
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

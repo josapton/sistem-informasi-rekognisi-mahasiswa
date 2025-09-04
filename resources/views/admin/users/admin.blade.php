@@ -35,6 +35,7 @@
                         <th>No</th>
                         <th>Username</th>
                         <th>Nama</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -43,6 +44,17 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->username }}</td>
                         <td>{{ $item->admin ? $item->admin->nama : '-' }}</td>
+                        <td>
+                            <a href="{{ route('usersUpdateAdmin', $item->username) }}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit mr-1"></i>
+                                Edit
+                            </a>
+                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal{{ $item->id }}">
+                                <i class="fas fa-trash mr-1"></i>
+                                Hapus
+                            </button>
+                            @include('admin.users.modal')
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

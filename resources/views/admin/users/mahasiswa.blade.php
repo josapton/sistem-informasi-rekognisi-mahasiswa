@@ -37,6 +37,7 @@
                         <th>Nama</th>
                         <th>CPL</th>
                         <th>SKS</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,6 +48,17 @@
                         <td>{{ $item->mahasiswa ? $item->mahasiswa->nama : '-' }}</td>
                         <td>{{ $item->mahasiswa ? $item->mahasiswa->cpl : '-' }}</td>
                         <td>{{ $item->mahasiswa ? $item->mahasiswa->sks : '0' }}</td>
+                        <td>
+                            <a href="{{ route('usersUpdateMahasiswa', $item->username) }}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit mr-1"></i>
+                                Edit
+                            </a>
+                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal{{ $item->id }}">
+                                <i class="fas fa-trash mr-1"></i>
+                                Hapus
+                            </button>
+                            @include('admin.users.modal')
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
