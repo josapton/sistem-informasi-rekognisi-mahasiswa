@@ -46,7 +46,54 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->username }}</td>
                         <td>{{ $item->mahasiswa ? $item->mahasiswa->nama : '-' }}</td>
-                        <td>{{ $item->mahasiswa ? $item->mahasiswa->cpl : '-' }}</td>
+                        <td>
+                            @if($item->mahasiswa)
+                                @foreach($item->mahasiswa->cpls as $cpl)
+                                    @php
+                                        $kategoriCpl = substr($cpl->kode_cpl, 0, 5);
+
+                                        switch ($kategoriCpl) {
+                                            case 'CPL01': 
+                                                $colorClass = '#90ee90';
+                                                break;
+                                            case 'CPL02': 
+                                                $colorClass = '#90ee90';
+                                                break;
+                                            case 'CPL03':
+                                                $colorClass = '#add8e6';
+                                                break;
+                                            case 'CPL04':
+                                                $colorClass = '#add8e6';
+                                                break;
+                                            case 'CPL05':
+                                                $colorClass = '#ffff4c';
+                                                break;
+                                            case 'CPL06': 
+                                                $colorClass = '#ffff4c';
+                                                break;
+                                            case 'CPL07': 
+                                                $colorClass = '#ff9999';
+                                                break;
+                                            case 'CPL08':
+                                                $colorClass = '#ff9999';
+                                                break;
+                                            case 'CPL09':
+                                                $colorClass = '#ff9999';
+                                                break;
+                                            case 'CPL10':
+                                                $colorClass = '#ff9999';
+                                                break;
+                                            default:
+                                                $colorClass = 'bg-secondary';
+                                        }
+                                    @endphp
+
+                                    <span style="background-color: {{ $colorClass }}">{{ $cpl->kode_cpl }}</span>
+                                @endforeach
+                            @else
+                                -
+                            @endif
+                        </td>
                         <td>{{ $item->mahasiswa ? $item->mahasiswa->sks : '0' }}</td>
                         <td>
                             <a href="{{ route('usersUpdateMahasiswa', $item->username) }}" class="btn btn-sm btn-warning">

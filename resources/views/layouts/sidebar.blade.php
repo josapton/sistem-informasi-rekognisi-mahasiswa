@@ -4,7 +4,7 @@
     <a class="sidebar-brand d-flex align-items-center justify-content-center">
         <div class="sidebar-brand-icon">
             {{-- <i class="fas fa-graduation-cap"></i> --}}
-            <img src="logo-ti-2.png" alt="Logo SIREMA" width="60">
+            <img src="{{ asset('logo-uby.png') }}" alt="Logo SIREMA" width="50">
         </div>
         <div class="sidebar-brand-text mx-3">Rekognisi Mahasiswa</div>
     </a>

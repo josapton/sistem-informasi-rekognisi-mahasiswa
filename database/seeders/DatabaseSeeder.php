@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Cpl;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Kaprodi;
@@ -18,6 +19,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
+
+        Cpl::create([
+            'kode_cpl' => 'CPL01',
+            'deskripsi' => 'Bertakwa kepada Tuhan Yang Maha Esa, taat hukum, dan disiplin dalam kehidupan bermasyarakat dan bernegara. (S)',
+        ]);
 
         User::create([
             'username' => 'admin',

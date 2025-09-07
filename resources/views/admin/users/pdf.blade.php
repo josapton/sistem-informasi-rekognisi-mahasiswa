@@ -32,6 +32,17 @@
                 {{ $user->username }}
             </td>
             <td style="font-family: 'Times New Roman', Times, serif; font-size: 12;">
+                @if($user->role === 'Admin' && $user->admin)
+                    {{ $user->admin->nama }}
+                @elseif($user->role === 'Kaprodi' && $user->kaprodi)
+                    {{ $user->kaprodi->nama }}
+                @elseif($user->role === 'Mahasiswa' && $user->mahasiswa)
+                    {{ $user->mahasiswa->nama }}
+                @else
+                    -
+                @endif
+            </td>
+            <td style="font-family: 'Times New Roman', Times, serif; font-size: 12;">
                 <a href="mailto:{{ $user->email }}">
                     {{ $user->email }}
                 </a>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Kaprodi;
 use App\Models\Mahasiswa;
+use App\Models\Cpl;
 use Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -60,6 +61,7 @@ class UserController extends Controller
             'menuAdminUsersMahasiswa' => 'active',
             'menuAdminUsersCollapse' => request('menuAdminUsersMahasiswa', 'active') ? 'show' : 'hide',
             'mahasiswa' => Mahasiswa::orderBy('username', 'asc')->get(),
+            'mahasiswaWithCpl' => Mahasiswa::with('cpls')->get(),
             'user' => User::where('role', 'Mahasiswa')->orderBy('username', 'asc')->get(),
         );
         return view('admin.users.mahasiswa', $data);
@@ -69,6 +71,8 @@ class UserController extends Controller
         $data = array(
             'title' => 'Tambah Data User',
             'menuAdminUsers' => 'active',
+            'menuAdminUsersAll' => 'active',
+            'menuAdminUsersCollapse' => request('menuAdminUsersAll', 'active') ? 'show' : 'hide',
         );
         return view('admin.users.create', $data);
     }
@@ -116,7 +120,7 @@ class UserController extends Controller
                 'username' => $user->username,
                 'nama' => $request->nama,
                 'cpl' => 'CPL01',
-                'sks' => '0',
+                'sks' => 0,
                 ]);
                 break;
             }
@@ -165,6 +169,7 @@ class UserController extends Controller
             'menuAdminUsersMahasiswa' => 'active',
             'menuAdminUsersCollapse' => request('menuAdminUsersMahasiswa', 'active') ? 'show' : 'hide',
             'mahasiswa' => Mahasiswa::findOrFail($username),
+            'data_cpl' => Cpl::orderBy('kode_cpl')->get(),
         );
         return view('admin.users.updateMahasiswa', $data);
     }
@@ -230,18 +235,20 @@ class UserController extends Controller
     public function updateMahasiswa2(Request $request, $username){
         $request->validate([
             'nama' => 'string|max:255|nullable',
-            'cpl'=> 'required|string|in:CPL01,CPL02,CPL03,CPL04,CPL05,CPL06,CPL07,CPL08,CPL09,CPL10',
-            'sks'=> 'nullable|float',
+            'cpl' => 'array',
+            'cpl.*' => 'exists:cpls,kode_cpl',
+            'sks' => 'required|decimal:0,2',
         ],[
             'nama.string' => 'Nama harus berupa string',
             'nama.max' => 'Nama maksimal 255 karakter',
-            'cpl' => 'CPL tidak boleh kosong',
-            'sks.float' => 'SKS harus berupa angka',
+            'cpl.*.exists' => 'CPL tidak valid',
+            'sks' => 'SKS harus berupa angka. Untuk desimal gunakan titik (.)',
+            'sks.required' => 'SKS tidak boleh kosong', 
         ]);
 
         $mahasiswa = Mahasiswa::findOrFail($username);
         $mahasiswa->nama = $request->nama;
-        $mahasiswa->cpl = $request->cpl;
+        $mahasiswa->cpls()->sync($request->cpl);
         $mahasiswa->sks = $request->sks;
         $mahasiswa->save();
 

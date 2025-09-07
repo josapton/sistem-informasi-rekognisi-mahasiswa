@@ -31,22 +31,26 @@
                     @enderror
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="form-group">
-                    <span class="text-danger">*</span>
                     <label for="cpl">CPL</label>
                     <div>
-                        @foreach($cplOptions as $cpl)
+                        @foreach($data_cpl as $cpl)
                             <div class="form-check">
                                 <input 
                                     class="form-check-input @error('cpl') is-invalid @enderror" 
                                     type="checkbox" 
                                     name="cpl[]" 
-                                    id="cpl_{{ $cpl->id }}" 
-                                    value="{{ $cpl->id }}"
-                                    {{ in_array($cpl->id, old('cpl', $mahasiswa->cpl_ids ?? [])) ? 'checked' : '' }}>
-                                <label class="form-check-label" for="cpl_{{ $cpl->id }}">
-                                    {{ $cpl->nama }}
+                                    id="cpl_{{ $cpl->kode_cpl }}" 
+                                    value="{{ $cpl->kode_cpl }}"
+                                    @if(is_array(old('cpl')) && in_array($cpl->kode_cpl, old('cpl')))
+                                        checked
+                                    @elseif(old('cpl') === null && $mahasiswa->cpls->contains($cpl->kode_cpl))
+                                        checked
+                                    @endif
+                                    >
+                                <label class="form-check-label" for="cpl_{{ $cpl->kode_cpl }}">
+                                    {{ $cpl->kode_cpl }}
                                 </label>
                             </div>
                         @endforeach
@@ -60,7 +64,7 @@
                 <div class="form-group">
                     <span class="text-danger">*</span>
                     <label for="sks">SKS</label>
-                    <input type="number" class="form-control @error('sks') is-invalid @enderror" id="sks" name="sks" value="{{ old('sks', $mahasiswa->sks) }}" placeholder="Masukkan SKS">
+                    <input type="decimal" class="form-control @error('sks') is-invalid @enderror" id="sks" name="sks" value="{{ old('sks', $mahasiswa->sks) }}" placeholder="Masukkan SKS">
                     @error('sks')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
