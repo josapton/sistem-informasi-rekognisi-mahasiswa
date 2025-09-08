@@ -16,7 +16,7 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Nomor</th>
+                        <th>No</th>
                         <th>Nama Kegiatan</th>
                         <th>Tipe Konversi</th>
                         <th>Bobot</th>
@@ -25,17 +25,19 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>F2306103501017</td>
+                        <td>1</td>
                         <td>MBKM Wirausaha</td>
                         <td>
-                            <span class="badge badge-primary">Admin</span>
+                            <select class="form-control">
+                                <option value="1">SKS</option>
+                                <option value="2">Mikrokredensial</option>
+                            </select>
                         </td>
                         <td>
-                            <span class="badge badge-secondary">Aktif</span>
+                            <input type="decimal" class="form-control" placeholder="Masukkan bobot">
                         </td>
                         <td>
-                            <a href="#" class="btn btn-sm btn-primary">Validasi</a>
-                            <a href="#" class="btn btn-sm btn-danger">Tolak</a>
+                            <a href="#" class="btn btn-sm btn-info">Detail</a>
                         </td>
                     </tr>
                 </tbody>

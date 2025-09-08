@@ -16,6 +16,7 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>NIM</th>
                         <th>Nama</th>
                         <th>Kegiatan Diterima</th>
@@ -27,6 +28,7 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>1</td>
                         <td>F2306103501017</td>
                         <td>Joko Saptono</td>
                         <td>MBKM Wirausaha</td>

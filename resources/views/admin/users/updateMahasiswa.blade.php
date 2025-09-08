@@ -21,7 +21,7 @@
         <form action="{{ route('usersUpdateMahasiswa2', $mahasiswa->username) }}" method="POST">
             @csrf
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
                     <span class="text-danger">*</span>
                     <label for="nama">Nama</label>
@@ -31,10 +31,44 @@
                     @enderror
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label for="cpl">CPL</label>
-                    <div>
+                    <div class="dropdown mb-4">
+                        <button class="btn btn-info dropdown-toggle" type="button"
+                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            Pilih CPL
+                        </button>
+                        <div class="dropdown-menu animated--fade-in"
+                            aria-labelledby="dropdownMenuButton">
+                            <div class="ml-3">
+                                @foreach($data_cpl as $cpl)
+                                    <div class="form-check">
+                                        <input 
+                                            class="form-check-input @error('cpl') is-invalid @enderror" 
+                                            type="checkbox" 
+                                            name="cpl[]" 
+                                            id="cpl_{{ $cpl->kode_cpl }}" 
+                                            value="{{ $cpl->kode_cpl }}"
+                                            @if(is_array(old('cpl')) && in_array($cpl->kode_cpl, old('cpl')))
+                                                checked
+                                            @elseif(old('cpl') === null && $mahasiswa->cpls->contains($cpl->kode_cpl))
+                                                checked
+                                            @endif
+                                            >
+                                        <label class="form-check-label" for="cpl_{{ $cpl->kode_cpl }}">
+                                            {{ $cpl->kode_cpl }}
+                                        </label>
+                                    </div>
+                                @endforeach
+                                @error('cpl')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <div>
                         @foreach($data_cpl as $cpl)
                             <div class="form-check">
                                 <input 
@@ -57,7 +91,7 @@
                         @error('cpl')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="col-md-6">

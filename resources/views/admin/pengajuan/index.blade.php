@@ -16,7 +16,7 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Nomor</th>
+                        <th>No</th>
                         <th>Nama Mahasiswa</th>
                         <th>Nama Kegiatan</th>
                         <th>Status</th>
@@ -24,7 +24,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>F2306103501017</td>
+                        <td>1</td>
                         <td>Joko Saptono</td>
                         <td>Microsoft Hackathon</td>
                         <td>
