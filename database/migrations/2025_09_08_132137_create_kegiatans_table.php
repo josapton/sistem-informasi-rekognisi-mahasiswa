@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('kegiatans', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kegiatan');
-            $table->enum('jenis_kegiatan', ['SKS', 'Mikrokredensial']);
-            $table->decimal('bobot');
+            $table->enum('tipe_konversi', ['SKS', 'Mikrokredensial']);
+            $table->float('bobot');
             $table->timestamps();
         });
     }

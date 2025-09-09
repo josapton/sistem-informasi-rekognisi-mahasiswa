@@ -48,7 +48,7 @@
     <!-- Nav Item - Users -->
     <li class="nav-item {{ $menuAdminKegiatan ?? '' }}">
         <a class="nav-link" href="{{ route('kegiatan') }}">
-            <i class="fas fa-fw fa-list"></i>
+            <i class="fas fa-fw fa-calendar-alt"></i>
             <span>Data Kegiatan</span></a>
     </li>
 

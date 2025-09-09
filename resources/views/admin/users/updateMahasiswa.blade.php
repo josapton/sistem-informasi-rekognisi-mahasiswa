@@ -98,7 +98,7 @@
                 <div class="form-group">
                     <span class="text-danger">*</span>
                     <label for="sks">SKS</label>
-                    <input type="decimal" class="form-control @error('sks') is-invalid @enderror" id="sks" name="sks" value="{{ old('sks', $mahasiswa->sks) }}" placeholder="Masukkan SKS">
+                    <input type="number" step="0.1" class="form-control @error('sks') is-invalid @enderror" id="sks" name="sks" value="{{ old('sks', $mahasiswa->sks) }}" placeholder="Masukkan SKS">
                     @error('sks')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror

@@ -11,9 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cpls', function (Blueprint $table) {
-            $table->string('kode_cpl')->primary();
+        Schema::create('deskripsi_kegiatans', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('kegiatan_id')
+                  ->constrained('kegiatans')
+                  ->onDelete('cascade');
+            $table->string('penempatan', 1000);
+            $table->string('kriteria', 1000);
             $table->string('deskripsi', 1000);
+            $table->string('cpl', 1000);
             $table->timestamps();
         });
     }
@@ -23,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cpls');
+        Schema::dropIfExists('deskripsi_kegiatans');
     }
 };

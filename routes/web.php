@@ -21,6 +21,7 @@ Route::get('logout',[AuthController::class,'logout'])->name('logout');
 Route::middleware('checkLogin')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // User Management
     Route::get('users', [UserController::class, 'index'])->name('users');
     Route::get('users/admin', [UserController::class, 'admin'])->name('usersAdmin');
     Route::get('users/kaprodi', [UserController::class, 'kaprodi'])->name('usersKaprodi');
@@ -39,7 +40,14 @@ Route::middleware('checkLogin')->group(function () {
     Route::get('users/excel', [UserController::class, 'excel'])->name('usersExcel');
     Route::get('users/pdf', [UserController::class, 'pdf'])->name('usersPdf');
 
+    // Kegiatan Management
     Route::get('kegiatan', [KegiatanController::class, 'index'])->name('kegiatan');
+    Route::get('kegiatan/create', [KegiatanController::class, 'create'])->name('kegiatanCreate');
+    Route::post('kegiatan/store', [KegiatanController::class, 'store'])->name('kegiatanStore');
+    Route::get('kegiatan/detail/{id}', [KegiatanController::class, 'detail'])->name('kegiatanDetail');
+    Route::get('kegiatan/edit/{id}', [KegiatanController::class, 'edit'])->name('kegiatanEdit');
+    Route::post('kegiatan/update/{id}', [KegiatanController::class, 'update'])->name('kegiatanUpdate');
+    Route::delete('kegiatan/destroy/{id}', [KegiatanController::class, 'destroy'])->name('kegiatanDestroy');
 
     Route::get('pengajuan', [PengajuanController::class, 'index'])->name('pengajuan');
     

@@ -3,13 +3,19 @@
 @section('content')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">{{ $title }}</h1>
+    <h1 class="h3 mb-0 text-gray-800">
+        <i class="fas fa-calendar-alt mr-1"></i>
+        {{ $title }}
+    </h1>
 </div>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <a href="#" class="btn btn-sm btn-primary">Edit Data</a>
+        <a href="{{ route('kegiatanCreate') }}" class="btn btn-sm btn-primary">
+            <i class="fas fa-plus mr-1"></i>
+            Tambah Data
+        </a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -21,25 +27,36 @@
                         <th>Tipe Konversi</th>
                         <th>Bobot</th>
                         <th>Deskripsi</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($kegiatan as $item)
                     <tr>
-                        <td>1</td>
-                        <td>MBKM Wirausaha</td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->nama_kegiatan }}</td>
                         <td>
-                            <select class="form-control">
-                                <option value="1">SKS</option>
-                                <option value="2">Mikrokredensial</option>
-                            </select>
+                            <span class="badge badge-{{ $item->tipe_konversi === 'SKS' ? 'success' : 'secondary' }}">{{ $item->tipe_konversi }}</span>
+                        </td>
+                        <td>{{ $item->bobot }}</td>
+                        <td>
+                            <a href="{{ route('kegiatanDetail', $item->id) }}" class="btn btn-sm btn-info">
+                                Detail
+                            </a>
                         </td>
                         <td>
-                            <input type="decimal" class="form-control" placeholder="Masukkan bobot">
-                        </td>
-                        <td>
-                            <a href="#" class="btn btn-sm btn-info">Detail</a>
+                            <a href="{{ route('kegiatanEdit', $item->id) }}" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit mr-1"></i>
+                                Edit
+                            </a>
+                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#exampleModal{{ $item->id }}">
+                                <i class="fas fa-trash mr-1"></i>
+                                Hapus
+                            </button>
+                            @include('admin.kegiatan.modal')
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
