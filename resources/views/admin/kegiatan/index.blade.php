@@ -41,6 +41,7 @@
                         <td>{{ $item->bobot }}</td>
                         <td>
                             <a href="{{ route('kegiatanDetail', $item->id) }}" class="btn btn-sm btn-info">
+                                <i class="fas fa-info-circle mr-1"></i>
                                 Detail
                             </a>
                         </td>

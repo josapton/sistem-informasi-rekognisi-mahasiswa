@@ -4,7 +4,7 @@
     <a class="sidebar-brand d-flex align-items-center justify-content-center">
         <div class="sidebar-brand-icon">
             {{-- <i class="fas fa-graduation-cap"></i> --}}
-            <img src="{{ asset('logo-uby.png') }}" alt="Logo SIREMA" width="50">
+            <img src="{{ asset('logo-uby.png') }}" alt="Logo Universitas Boyolali" width="50">
         </div>
         <div class="sidebar-brand-text mx-3">Rekognisi Mahasiswa</div>
     </a>
@@ -31,12 +31,12 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
             aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-users"></i>
-            <span>Data User</span>
+            <span>User</span>
         </a>
         <div id="collapseUtilities" class="collapse {{ $menuAdminUsersCollapse ?? '' }}" aria-labelledby="headingUtilities"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item {{ $menuAdminUsersAll ?? '' }}" href="{{ route('users') }}">User</a>
+                <a class="collapse-item {{ $menuAdminUsersAll ?? '' }}" href="{{ route('users') }}">Data User</a>
                 <h6 class="collapse-header">Lihat Data:</h6>
                 <a class="collapse-item {{ $menuAdminUsersAdmin ?? '' }}" href="{{ route('usersAdmin') }}">Admin</a>
                 <a class="collapse-item {{ $menuAdminUsersKaprodi ?? '' }}" href="{{ route('usersKaprodi') }}">Kaprodi</a>
@@ -45,18 +45,19 @@
         </div>
     </li>
 
-    <!-- Nav Item - Users -->
     <li class="nav-item {{ $menuAdminKegiatan ?? '' }}">
-        <a class="nav-link" href="{{ route('kegiatan') }}">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+            aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-calendar-alt"></i>
-            <span>Data Kegiatan</span></a>
-    </li>
-
-    <!-- Nav Item - Users -->
-    <li class="nav-item {{ $menuAdminPengajuan ?? '' }}">
-        <a class="nav-link" href="{{ route('pengajuan') }}">
-            <i class="fas fa-fw fa-list"></i>
-            <span>Data Pengajuan</span></a>
+            <span>Kegiatan</span>
+        </a>
+        <div id="collapseUtilities" class="collapse {{ $menuAdminKegiatanCollapse ?? '' }}" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item {{ $menuAdminKegiatanAll ?? '' }}" href="{{ route('kegiatan') }}">Data Kegiatan</a>
+                <a class="collapse-item {{ $menuAdminPengajuanKegiatan ?? '' }}" href="{{ route('pengajuanKegiatan') }}">Data Pengajuan Kegiatan</a>
+            </div>
+        </div>
     </li>
 
     <!-- Nav Item - Users -->

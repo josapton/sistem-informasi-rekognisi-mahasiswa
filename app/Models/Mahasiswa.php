@@ -33,4 +33,10 @@ class Mahasiswa extends Model
     {
         return $this->belongsToMany(Cpl::class, 'cpl_mahasiswa', 'username', 'kode_cpl');
     }
+    public function kegiatans(): BelongsToMany
+    {
+        return $this->belongsToMany(Kegiatan::class, 'kegiatan_mahasiswa', 'username', 'kegiatan_id')
+                    ->withPivot('status')
+                    ->withTimestamps();
+    }
 }

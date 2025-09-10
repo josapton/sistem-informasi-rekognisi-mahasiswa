@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kegiatan;
+use App\Models\User;
+use App\Models\Mahasiswa;
 use App\Models\deskripsiKegiatan;
+use Illuminate\Support\Facades\Auth;
 
 class KegiatanController extends Controller
 {
@@ -13,9 +16,36 @@ class KegiatanController extends Controller
         $data = array(
             'title' => 'Data Kegiatan',
             'menuAdminKegiatan' => 'active',
+            'menuAdminKegiatanAll' => 'active',
+            'menuAdminKegiatanCollapse' => request('menuAdminKegiatanAll', 'active') ? 'show' : 'hide',
             'kegiatan' => Kegiatan::get()
         );
         return view('admin.kegiatan.index', $data);
+    }
+    public function pengajuan()
+    {
+        $data = array(
+            'title' => 'Data Pengajuan Kegiatan',
+            'menuAdminKegiatan' => 'active',
+            'menuAdminPengajuanKegiatan' => 'active',
+            'menuAdminKegiatanCollapse' => request('menuAdminPengajuanKegiatan', 'active') ? 'show' : 'hide',
+            'pengajuan' => Kegiatan::whereHas('mahasiswas')->with('mahasiswas')->get(),
+        );
+        return view('admin.kegiatan.pengajuan', $data);
+    }
+    public function updateStatus(Request $request, Mahasiswa $mahasiswa, Kegiatan $kegiatan)
+    {
+        // Validasi input dari admin
+        $request->validate([
+            'status' => 'required|in:diterima,ditolak',
+        ]);
+
+        // Update status di pivot table
+        $mahasiswa->kegiatans()->updateExistingPivot($kegiatan->id, [
+            'status' => $request->status,
+        ]);
+
+        return back()->with('success', 'Status pendaftaran berhasil diperbarui.');
     }
     public function create()
     {

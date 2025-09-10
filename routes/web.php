@@ -48,8 +48,8 @@ Route::middleware('checkLogin')->group(function () {
     Route::get('kegiatan/edit/{id}', [KegiatanController::class, 'edit'])->name('kegiatanEdit');
     Route::post('kegiatan/update/{id}', [KegiatanController::class, 'update'])->name('kegiatanUpdate');
     Route::delete('kegiatan/destroy/{id}', [KegiatanController::class, 'destroy'])->name('kegiatanDestroy');
+    Route::get('kegiatan/pengajuan', [KegiatanController::class, 'pengajuan'])->name('pengajuanKegiatan');
+    Route::patch('kegiatan/pengajuan/{mahasiswa}/{kegiatan}', [KegiatanController::class, 'updateStatus'])->name('pengajuanKegiatanUpdate');
 
-    Route::get('pengajuan', [PengajuanController::class, 'index'])->name('pengajuan');
-    
     Route::get('konversi', [KonversiController::class, 'index'])->name('konversi');
 });
