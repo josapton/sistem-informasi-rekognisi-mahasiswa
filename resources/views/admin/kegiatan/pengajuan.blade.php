@@ -21,40 +21,67 @@
                         <th>Nama Mahasiswa</th>
                         <th>Nama Kegiatan Diajukan</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($pengajuan as $item)
                         @foreach ($item->mahasiswas as $mahasiswa)
                             <tr>
-                                <td>{{ $loop->parent->iteration }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $mahasiswa->username }}</td>
                                 <td>{{ $mahasiswa->nama }}</td>
                                 <td>{{ $item->nama_kegiatan ?? $item->kegiatan_id }}</td>
                                 <td>
                                     @if ($mahasiswa->pivot->status == 'menunggu')
+                                        <span class="text-secondary font-weight-bold">Menunggu</span>
+                                    @elseif ($mahasiswa->pivot->status == 'diterima')
+                                        <span class="text-success font-weight-bold">Diterima</span>
+                                    @elseif ($mahasiswa->pivot->status == 'ditolak')
+                                        <span class="text-danger font-weight-bold">Ditolak</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($mahasiswa->pivot->status == 'menunggu')
                                         <form action="{{ route('pengajuanKegiatanUpdate', [$mahasiswa, $item]) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('PATCH')
-                                            <input type="hidden" name="status" value="diterima">
-                                            <button type="submit" class="btn btn-sm btn-success">
-                                                <i class="fas fa-check mr-1"></i>
-                                                Terima
-                                            </button>
-                                        </form>
-                                        <form action="{{ route('pengajuanKegiatanUpdate', [$mahasiswa, $item]) }}" method="POST" style="display:inline;">
-                                            @csrf
-                                            @method('PATCH')
-                                            <input type="hidden" name="status" value="ditolak">
-                                            <button type="submit" class="btn btn-sm btn-danger">
-                                                <i class="fas fa-times mr-1"></i>
-                                                Tolak
-                                            </button>
+                                            <select name="status" class="form-control form-control-sm d-inline w-auto" style="vertical-align:middle;" onchange="this.form.submit()">
+                                                <option value="menunggu" {{ $mahasiswa->pivot->status == 'menunggu' ? 'selected' : '' }} disabled>Menunggu</option>
+                                                <option value="diterima" {{ $mahasiswa->pivot->status == 'diterima' ? 'selected' : '' }} style="color:green;">
+                                                    Terima
+                                                </option>
+                                                <option value="ditolak" {{ $mahasiswa->pivot->status == 'ditolak' ? 'selected' : '' }} style="color:red;">
+                                                    Tolak
+                                                </option>
+                                            </select>
                                         </form>
                                     @elseif ($mahasiswa->pivot->status == 'diterima')
-                                        <span class="text-success">Diterima</span>
+                                        <form action="{{ route('pengajuanKegiatanUpdate', [$mahasiswa, $item]) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('PATCH')
+                                            <select name="status" class="form-control form-control-sm d-inline w-auto" style="vertical-align:middle;" onchange="this.form.submit()">
+                                                <option value="diterima" {{ $mahasiswa->pivot->status == 'diterima' ? 'selected' : '' }} style="color: green;">
+                                                    Terima
+                                                </option>
+                                                <option value="ditolak" {{ $mahasiswa->pivot->status == 'ditolak' ? 'selected' : '' }} style="color: red;">
+                                                    Tolak
+                                                </option>
+                                            </select>
+                                        </form>
                                     @else
-                                        <span class="text-danger">Ditolak</span>
+                                        <form action="{{ route('pengajuanKegiatanUpdate', [$mahasiswa, $item]) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('PATCH')
+                                            <select name="status" class="form-control form-control-sm d-inline w-auto" style="vertical-align:middle;" onchange="this.form.submit()">
+                                                <option value="diterima" {{ $mahasiswa->pivot->status == 'diterima' ? 'selected' : '' }} style="color: green;">
+                                                    Terima
+                                                </option>
+                                                <option value="ditolak" {{ $mahasiswa->pivot->status == 'ditolak' ? 'selected' : '' }} style="color: red;">
+                                                    Tolak
+                                                </option>
+                                            </select>
+                                        </form>
                                     @endif
                                 </td>
                             </tr>

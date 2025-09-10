@@ -28,12 +28,12 @@
     </div>
 
     <li class="nav-item {{ $menuAdminUsers ?? '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesAdminUsers"
             aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-users"></i>
             <span>User</span>
         </a>
-        <div id="collapseUtilities" class="collapse {{ $menuAdminUsersCollapse ?? '' }}" aria-labelledby="headingUtilities"
+        <div id="collapseUtilitiesAdminUsers" class="collapse {{ $menuAdminUsersCollapse ?? '' }}" aria-labelledby="headingUtilities"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item {{ $menuAdminUsersAll ?? '' }}" href="{{ route('users') }}">Data User</a>
@@ -46,12 +46,12 @@
     </li>
 
     <li class="nav-item {{ $menuAdminKegiatan ?? '' }}">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesAdminKegiatan"
             aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-calendar-alt"></i>
             <span>Kegiatan</span>
         </a>
-        <div id="collapseUtilities" class="collapse {{ $menuAdminKegiatanCollapse ?? '' }}" aria-labelledby="headingUtilities"
+        <div id="collapseUtilitiesAdminKegiatan" class="collapse {{ $menuAdminKegiatanCollapse ?? '' }}" aria-labelledby="headingUtilities"
             data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item {{ $menuAdminKegiatanAll ?? '' }}" href="{{ route('kegiatan') }}">Data Kegiatan</a>
@@ -60,11 +60,19 @@
         </div>
     </li>
 
-    <!-- Nav Item - Users -->
     <li class="nav-item {{ $menuAdminKonversi ?? '' }}">
-        <a class="nav-link" href="{{ route('konversi') }}">
-            <i class="fas fa-fw fa-list"></i>
-            <span>Data Konversi</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesAdminKonversi"
+            aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-exchange-alt"></i>
+            <span>Konversi</span>
+        </a>
+        <div id="collapseUtilitiesAdminKonversi" class="collapse {{ $menuAdminKonversiCollapse ?? '' }}" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item {{ $menuAdminKonversiAll ?? '' }}" href="{{ route('konversi') }}">Data Konversi</a>
+                {{-- <a class="collapse-item {{ $menuAdminPengajuanKonversi ?? '' }}" href="{{ route('pengajuanKonversi') }}">Data Pengajuan Konversi</a> --}}
+            </div>
+        </div>
     </li>
 
     <!-- Divider -->

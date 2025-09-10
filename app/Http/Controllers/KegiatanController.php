@@ -98,6 +98,8 @@ class KegiatanController extends Controller
         $data = array(
             'title' => 'Detail Kegiatan',
             'menuAdminKegiatan' => 'active',
+            'menuAdminKegiatanAll' => 'active',
+            'menuAdminKegiatanCollapse' => request('menuAdminKegiatanAll', 'active') ? 'show' : 'hide',
             'kegiatan' => Kegiatan::findOrFail($id)
         );
         return view('admin.kegiatan.detail', $data);
@@ -107,6 +109,8 @@ class KegiatanController extends Controller
         $data = array(
             'title' => 'Edit Data Kegiatan',
             'menuAdminKegiatan' => 'active',
+            'menuAdminKegiatanAll' => 'active',
+            'menuAdminKegiatanCollapse' => request('menuAdminKegiatanAll', 'active') ? 'show' : 'hide',
             'kegiatan' => Kegiatan::findOrFail($id)
         );
 
