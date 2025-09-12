@@ -34,4 +34,8 @@ class Kegiatan extends Model
                     ->withPivot('status')
                     ->withTimestamps();
     }
+    public function konversis()
+    {
+        return $this->hasMany(Konversi::class);
+    }
 }

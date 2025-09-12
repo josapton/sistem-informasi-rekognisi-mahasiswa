@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 
 use App\Exports\UsersExport;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -55,16 +56,28 @@ class UserController extends Controller
     }
     public function mahasiswa()
     {
-        $data = array(
-            'title' => 'Data Mahasiswa',
-            'menuAdminUsers' => 'active',
-            'menuAdminUsersMahasiswa' => 'active',
-            'menuAdminUsersCollapse' => request('menuAdminUsersMahasiswa', 'active') ? 'show' : 'hide',
-            'mahasiswa' => Mahasiswa::orderBy('username', 'asc')->get(),
-            'mahasiswaWithCpl' => Mahasiswa::with('cpls')->get(),
-            'user' => User::where('role', 'Mahasiswa')->orderBy('username', 'asc')->get(),
-        );
-        return view('admin.users.mahasiswa', $data);
+        $user = Auth::user();
+        if ($user->role=='Admin') {
+                $data = array(
+                'title' => 'Data Mahasiswa',
+                'menuAdminUsers' => 'active',
+                'menuAdminUsersMahasiswa' => 'active',
+                'menuAdminUsersCollapse' => request('menuAdminUsersMahasiswa', 'active') ? 'show' : 'hide',
+                'mahasiswa' => Mahasiswa::orderBy('username', 'asc')->get(),
+                'mahasiswaWithCpl' => Mahasiswa::with('cpls')->get(),
+                'user' => User::where('role', 'Mahasiswa')->orderBy('username', 'asc')->get(),
+            );
+            return view('admin.users.mahasiswa', $data);
+        } else {
+            $data = array(
+                'title' => 'Data Mahasiswa',
+                'menuKaprodiUsersMahasiswa' => 'active',
+                'mahasiswa' => Mahasiswa::orderBy('username', 'asc')->get(),
+                'mahasiswaWithCpl' => Mahasiswa::with('cpls')->get(),
+                'user' => User::where('role', 'Mahasiswa')->orderBy('username', 'asc')->get(),
+            );
+            return view('kaprodi.users.mahasiswa', $data);
+        }
     }
     public function create()
     {

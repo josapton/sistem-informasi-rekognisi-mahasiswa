@@ -33,6 +33,24 @@ class KegiatanController extends Controller
         );
         return view('admin.kegiatan.pengajuan', $data);
     }
+    public function apply(Kegiatan $kegiatan)
+    {
+        // Pastikan yang login adalah instance dari Mahasiswa
+        // Anda mungkin perlu menyesuaikan ini dengan model User Anda
+        $mahasiswa = Auth::user(); 
+
+        // Cek apakah mahasiswa sudah terdaftar di kegiatan ini
+        $isRegistered = $mahasiswa->kegiatans()->where('kegiatan_id', $kegiatan->id)->exists();
+
+        if ($isRegistered) {
+            return back()->with('error', 'Anda sudah terdaftar di kegiatan ini.');
+        }
+
+        // Gunakan attach untuk mendaftarkan mahasiswa dengan status default 'menunggu'
+        $mahasiswa->kegiatans()->attach($kegiatan->id, ['status' => 'menunggu']);
+
+        return back()->with('success', 'Berhasil mengajukan pendaftaran. Mohon tunggu konfirmasi admin.');
+    }
     public function updateStatus(Request $request, Mahasiswa $mahasiswa, Kegiatan $kegiatan)
     {
         // Validasi input dari admin
