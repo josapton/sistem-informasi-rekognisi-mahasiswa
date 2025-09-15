@@ -13,7 +13,9 @@ class KegiatanController extends Controller
 {
     public function index()
     {
-        $data = array(
+        $user = Auth::user();
+        if ($user->role == 'Admin') {
+            $data = array(
             'title' => 'Data Kegiatan',
             'menuAdminKegiatan' => 'active',
             'menuAdminKegiatanAll' => 'active',
@@ -21,10 +23,24 @@ class KegiatanController extends Controller
             'kegiatan' => Kegiatan::get()
         );
         return view('admin.kegiatan.index', $data);
+        } elseif ($user->role == 'Kaprodi') {
+            $data = array(
+            'title' => 'Data Kegiatan',
+            'menuKaprodiKegiatan' => 'active',
+            'menuKaprodiKegiatanAll' => 'active',
+            'menuKaprodiKegiatanCollapse' => request('menuKaprodiKegiatanAll', 'active') ? 'show' : 'hide',
+            'kegiatan' => Kegiatan::get()
+        );
+        return view('kaprodi.kegiatan.index', $data);
+        } else {
+            //...
+        }
     }
     public function pengajuan()
     {
-        $data = array(
+        $user = Auth::user();
+        if ($user->role == 'Admin') {
+            $data = array(
             'title' => 'Data Pengajuan Kegiatan',
             'menuAdminKegiatan' => 'active',
             'menuAdminPengajuanKegiatan' => 'active',
@@ -32,6 +48,19 @@ class KegiatanController extends Controller
             'pengajuan' => Kegiatan::whereHas('mahasiswas')->with('mahasiswas')->get(),
         );
         return view('admin.kegiatan.pengajuan', $data);
+        } elseif ($user->role == 'Kaprodi') {
+            $data = array(
+            'title' => 'Data Pengajuan Kegiatan',
+            'menuKaprodiKegiatan' => 'active',
+            'menuKaprodiPengajuanKegiatan' => 'active',
+            'menuKaprodiKegiatanCollapse' => request('menuKaprodiPengajuanKegiatan', 'active') ? 'show' : 'hide',
+            'pengajuan' => Kegiatan::whereHas('mahasiswas')->with('mahasiswas')->get(),
+        );
+        return view('kaprodi.kegiatan.pengajuan', $data);
+        } else {
+            //...
+        }
+        
     }
     public function apply(Kegiatan $kegiatan)
     {
@@ -67,11 +96,24 @@ class KegiatanController extends Controller
     }
     public function create()
     {
-        $data = array(
+        $user = Auth::user();
+        if ($user->role == 'Admin') {
+            $data = array(
             'title' => 'Tambah Data Kegiatan',
             'menuAdminKegiatan' => 'active',
+            'menuAdminKegiatanAll' => 'active',
+            'menuAdminKegiatanCollapse' => request('menuAdminKegiatanAll', 'active') ? 'show' : 'hide',
         );
         return view('admin.kegiatan.create', $data);
+        } else {
+            $data = array(
+            'title' => 'Tambah Data Kegiatan',
+            'menuKaprodiKegiatan' => 'active',
+            'menuKaprodiKegiatanAll' => 'active',
+            'menuKaprodiKegiatanCollapse' => request('menuKaprodiKegiatanAll', 'active') ? 'show' : 'hide',
+        );
+        return view('kaprodi.kegiatan.create', $data);
+        }
     }
     public function store(Request $request){
         $validatedData = $request->validate([
@@ -113,7 +155,9 @@ class KegiatanController extends Controller
     }
     public function detail($id)
     {
-        $data = array(
+        $user = Auth::user();
+        if ($user->role == 'Admin') {
+            $data = array(
             'title' => 'Detail Kegiatan',
             'menuAdminKegiatan' => 'active',
             'menuAdminKegiatanAll' => 'active',
@@ -121,10 +165,25 @@ class KegiatanController extends Controller
             'kegiatan' => Kegiatan::findOrFail($id)
         );
         return view('admin.kegiatan.detail', $data);
+        } elseif ($user->role == 'Kaprodi') {
+            $data = array(
+            'title' => 'Detail Kegiatan',
+            'menuKaprodiKegiatan' => 'active',
+            'menuKaprodiKegiatanAll' => 'active',
+            'menuKaprodiKegiatanCollapse' => request('menuKaprodiKegiatanAll', 'active') ? 'show' : 'hide',
+            'kegiatan' => Kegiatan::findOrFail($id)
+        );
+        return view('kaprodi.kegiatan.detail', $data);
+        } else {
+            # code...
+        }
+        
     }
     public function edit($id)
     {
-        $data = array(
+        $user = Auth::user();
+        if ($user->role == 'Admin') {
+            $data = array(
             'title' => 'Edit Data Kegiatan',
             'menuAdminKegiatan' => 'active',
             'menuAdminKegiatanAll' => 'active',
@@ -133,6 +192,18 @@ class KegiatanController extends Controller
         );
 
         return view('admin.kegiatan.update', $data);
+        } else {
+            $data = array(
+            'title' => 'Edit Data Kegiatan',
+            'menuKaprodiKegiatan' => 'active',
+            'menuKaprodiKegiatanAll' => 'active',
+            'menuKaprodiKegiatanCollapse' => request('menuKaprodiKegiatanAll', 'active') ? 'show' : 'hide',
+            'kegiatan' => Kegiatan::findOrFail($id)
+        );
+
+        return view('kaprodi.kegiatan.update', $data);
+        }
+        
     }
     public function update(Request $request, $id){
         $validatedData = $request->validate([

@@ -14,7 +14,9 @@ class KonversiController extends Controller
 {
     public function index()
     {
-        $data = array(
+        $user = Auth::user();
+        if ($user->role == 'Admin') {
+            $data = array(
             'title' => 'Konversi Kegiatan',
             'menuAdminKonversi' => 'active',
             'menuAdminKonversiKegiatan' => 'active',
@@ -25,6 +27,22 @@ class KonversiController extends Controller
             'cpls' => Cpl::all(),
         );
         return view('admin.konversi.kegiatan.index', $data);
+        } elseif ($user->role == 'Kaprodi') {
+            $data = array(
+            'title' => 'Konversi Kegiatan',
+            'menuKaprodiKonversi' => 'active',
+            'menuKaprodiKonversiKegiatan' => 'active',
+            'menuKaprodiKonversiCollapse' => request('menuKaprodiKonversiKegiatan', 'active') ? 'show' : 'hide',
+            'pengajuan' => Konversi::with('mahasiswa', 'kegiatan')->where('status', 'diajukan')->get(),
+            'mahasiswa' => Mahasiswa::with('cpls')->get(),
+            'kegiatan' => Kegiatan::whereHas('mahasiswas')->with('mahasiswas')->get(),
+            'cpls' => Cpl::all(),
+        );
+        return view('kaprodi.konversi.kegiatan.index', $data);
+        } else {
+            # code...
+        }
+        
     }
     public function validasiPengajuan(Request $request, Konversi $konversi)
     {
@@ -57,7 +75,9 @@ class KonversiController extends Controller
     }
     public function historyAdmin()
     {
-        $data = array(
+        $user = Auth::user();
+        if ($user->role == 'Admin') {
+            $data = array(
             'title' => 'Riwayat Konversi Kegiatan',
             'menuAdminKonversi' => 'active',
             'menuAdminKonversiKegiatan2' => 'active',
@@ -72,5 +92,25 @@ class KonversiController extends Controller
                                ->get(),
         );
         return view('admin.konversi.kegiatan.history', $data);
+        } elseif ($user->role == 'Kaprodi') {
+            $data = array(
+            'title' => 'Riwayat Konversi Kegiatan',
+            'menuKaprodiKonversi' => 'active',
+            'menuKaprodiKonversiKegiatan2' => 'active',
+            'menuKaprodiKonversiCollapse' => request('menuKaprodiKonversiKegiatan2', 'active') ? 'show' : 'hide',
+            'pengajuan' => Konversi::with('mahasiswa', 'kegiatan')->where('status', 'diajukan')->get(),
+            'mahasiswa' => Mahasiswa::with('cpls')->get(),
+            'kegiatan' => Kegiatan::whereHas('mahasiswas')->with('mahasiswas')->get(),
+            'cpls' => Cpl::all(),
+            'riwayat' => Konversi::with(['mahasiswa', 'kegiatan'])
+                               ->whereIn('status', ['divalidasi', 'ditolak']) 
+                               ->latest() // Urutkan dari yang terbaru
+                               ->get(),
+        );
+        return view('kaprodi.konversi.kegiatan.history', $data);
+        } else {
+            # code...
+        }
+        
     }
 }

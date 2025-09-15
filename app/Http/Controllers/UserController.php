@@ -176,7 +176,9 @@ class UserController extends Controller
     }
     public function updateMahasiswa($username)
     {
-        $data = array(
+        $user = Auth::user();
+        if ($user->role == 'Admin') {
+            $data = array(
             'title' => 'Edit Data Mahasiswa',
             'menuAdminUsers' => 'active',
             'menuAdminUsersMahasiswa' => 'active',
@@ -185,6 +187,19 @@ class UserController extends Controller
             'data_cpl' => Cpl::orderBy('kode_cpl')->get(),
         );
         return view('admin.users.updateMahasiswa', $data);
+        } elseif ($user->role == 'Kaprodi') {
+            $data = array(
+            'title' => 'Edit Data Mahasiswa',
+            'menuKaprodiUsersMahasiswa' => 'active',
+            'menuKaprodiUsersCollapse' => request('menuKaprodiUsersMahasiswa', 'active') ? 'show' : 'hide',
+            'mahasiswa' => Mahasiswa::findOrFail($username),
+            'data_cpl' => Cpl::orderBy('kode_cpl')->get(),
+        );
+        return view('kaprodi.users.updateMahasiswa', $data);
+        } else {
+            //...
+        }
+        
     }
     public function update2(Request $request, $id){
         $request->validate([
