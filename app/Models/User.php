@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -69,5 +70,11 @@ class User extends Authenticatable
     public function admin(): HasOne
     {
         return $this->hasOne(Admin::class, 'username', 'username');
+    }
+    public function kegiatans(): BelongsToMany
+    {
+        return $this->belongsToMany(Kegiatan::class, 'kegiatan_mahasiswa', 'username', 'kegiatan_id')
+                    ->withPivot('status')
+                    ->withTimestamps();
     }
 }

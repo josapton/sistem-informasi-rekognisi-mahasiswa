@@ -39,8 +39,15 @@ class KonversiController extends Controller
             'cpls' => Cpl::all(),
         );
         return view('kaprodi.konversi.kegiatan.index', $data);
-        } else {
-            # code...
+        } elseif ($user->role == 'Mahasiswa') {
+            $data = array(
+            'title' => 'Konversi Kegiatan',
+            'menuMahasiswaKonversi' => 'active',
+            'menuMahasiswaKonversiKegiatan' => 'active',
+            'menuMahasiswaKonversiCollapse' => request('menuMahasiswaKonversiKegiatan', 'active') ? 'show' : 'hide',
+            'pengajajuan' => Kegiatan::whereHas('mahasiswas')->with('mahasiswas')->where('status', 'diterima')->get(),
+        );
+        return view('mahasiswa.konversi.kegiatan.index', $data);
         }
         
     }

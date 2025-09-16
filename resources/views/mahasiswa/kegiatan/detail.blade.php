@@ -77,4 +77,18 @@
         <p>{{ $kegiatan->deskripsiKegiatan->cpl }}</p>
     </div>
 </div>
+<form action="{{ route('pendaftaranKegiatan', $kegiatan) }}" method="POST">
+    @csrf
+    <button type="submit" class="btn btn btn-primary mb-4" onclick="return confirm('Apakah Anda yakin ingin mendaftar kegiatan ini?')">
+        <i class="fas fa-paper-plane mr-1"></i>
+        Daftar Kegiatan
+    </button>
+</form>
+
+@if(session('success'))
+    <div style="color: green;">{{ session('success') }}</div>
+@endif
+@if(session('error'))
+    <div style="color: red;">{{ session('error') }}</div>
+@endif
 @endsection

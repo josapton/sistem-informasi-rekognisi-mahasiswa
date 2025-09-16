@@ -118,33 +118,33 @@
             </div>
         </li>
     @else
-        <li class="nav-item {{ $menuAdminKegiatan ?? '' }}">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesAdminKegiatan"
+        <li class="nav-item {{ $menuMahasiswaKegiatan ?? '' }}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesMahasiswaKegiatan"
                 aria-expanded="true" aria-controls="collapseUtilities">
                 <i class="fas fa-fw fa-calendar-alt"></i>
                 <span>Kegiatan</span>
             </a>
-            <div id="collapseUtilitiesAdminKegiatan" class="collapse {{ $menuAdminKegiatanCollapse ?? '' }}" aria-labelledby="headingUtilities"
+            <div id="collapseUtilitiesMahasiswaKegiatan" class="collapse {{ $menuMahasiswaKegiatanCollapse ?? '' }}" aria-labelledby="headingUtilities"
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item {{ $menuAdminKegiatanAll ?? '' }}" href="{{ route('kegiatan') }}">Data Kegiatan</a>
-                    <a class="collapse-item {{ $menuAdminPengajuanKegiatan ?? '' }}" href="{{ route('pengajuanKegiatan') }}">Data Pengajuan Kegiatan</a>
+                    <a class="collapse-item {{ $menuMahasiswaKegiatanAll ?? '' }}" href="{{ route('kegiatan') }}">Kegiatan</a>
+                    <a class="collapse-item {{ $menuMahasiswaPengajuanKegiatan ?? '' }}" href="{{ route('pengajuanKegiatan') }}">Pengajuan Kegiatan</a>
                 </div>
             </div>
         </li>
 
-        <li class="nav-item {{ $menuAdminKonversi ?? '' }}">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesAdminKonversi"
+        <li class="nav-item {{ $menuMahasiswaKonversi ?? '' }}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesMahasiswaKonversi"
                 aria-expanded="true" aria-controls="collapseUtilities">
                 <i class="fas fa-fw fa-exchange-alt"></i>
                 <span>Konversi</span>
             </a>
-            <div id="collapseUtilitiesAdminKonversi" class="collapse {{ $menuAdminKonversiCollapse ?? '' }}" aria-labelledby="headingUtilities"
+            <div id="collapseUtilitiesMahasiswaKonversi" class="collapse {{ $menuMahasiswaKonversiCollapse ?? '' }}" aria-labelledby="headingUtilities"
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Kegiatan:</h6>
-                    <a class="collapse-item {{ $menuAdminKonversiKegiatan ?? '' }}" href="{{ route('konversiKegiatan') }}">Konversi Kegiatan</a>
-                    <a class="collapse-item {{ $menuAdminKonversiKegiatan2 ?? '' }}" href="{{ route('riwayatKonversiKegiatan') }}">Riwayat Konversi Kegiatan</a>
+                    <a class="collapse-item {{ $menuMahasiswaKonversiKegiatan ?? '' }}" href="{{ route('konversiKegiatan') }}">Konversi Kegiatan</a>
+                    <a class="collapse-item {{ $menuMahasiswaKonversiKegiatan2 ?? '' }}" href="{{ route('riwayatKonversiKegiatan') }}">Riwayat Konversi Kegiatan</a>
                     <h6 class="collapse-header">SKS:</h6>
                     {{-- <a class="collapse-item {{ $menuAdminPengajuanKonversi ?? '' }}" href="{{ route('pengajuanKonversi') }}">Data Pengajuan Konversi</a> --}}
                 </div>

@@ -26,10 +26,10 @@ Route::middleware('checkLogin')->group(function () {
     Route::get('kegiatan', [KegiatanController::class, 'index'])->name('kegiatan');
     Route::get('kegiatan/detail/{id}', [KegiatanController::class, 'detail'])->name('kegiatanDetail');
     Route::get('kegiatan/pengajuan', [KegiatanController::class, 'pengajuan'])->name('pengajuanKegiatan');
-    Route::patch('kegiatan/pengajuan/{mahasiswa}/{kegiatan}', [KegiatanController::class, 'updateStatus'])->name('pengajuanKegiatanUpdate');
+    Route::post('kegiatan/{kegiatan}/apply', [KegiatanController::class, 'apply'])->name('pendaftaranKegiatan');
     // Konversi Management
     Route::get('konversi/kegiatan', [KonversiController::class, 'index'])->name('konversiKegiatan');
-    Route::patch('konversi/kegiatan/{konversi}', [KonversiController::class, 'validasiPengajuan'])->name('validasiPengajuanKonversi');
+    Route::get('konversi/kegiatan/riwayat', [KonversiController::class, 'historyAdmin'])->name('riwayatKonversiKegiatan');
 
     Route::middleware(['checkRole:Admin,Kaprodi'])->group(function () {
         // User Management
@@ -42,8 +42,9 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('kegiatan/edit/{id}', [KegiatanController::class, 'edit'])->name('kegiatanEdit');
         Route::post('kegiatan/update/{id}', [KegiatanController::class, 'update'])->name('kegiatanUpdate');
         Route::delete('kegiatan/destroy/{id}', [KegiatanController::class, 'destroy'])->name('kegiatanDestroy');
+        Route::patch('kegiatan/pengajuan/{mahasiswa}/{kegiatan}', [KegiatanController::class, 'updateStatus'])->name('pengajuanKegiatanUpdate');
         // Konversi Management
-        Route::get('konversi/kegiatan/riwayat', [KonversiController::class, 'historyAdmin'])->name('riwayatKonversiKegiatan');
+        Route::patch('konversi/kegiatan/{konversi}', [KonversiController::class, 'validasiPengajuan'])->name('validasiPengajuanKonversi');
 
         Route::middleware('checkRole:Admin')->group(function () {
             // User Management

@@ -33,7 +33,14 @@ class KegiatanController extends Controller
         );
         return view('kaprodi.kegiatan.index', $data);
         } else {
-            //...
+            $data = array(
+            'title' => 'Kegiatan',
+            'menuMahasiswaKegiatan' => 'active',
+            'menuMahasiswaKegiatanAll' => 'active',
+            'menuMahasiswaKegiatanCollapse' => request('menuMahasiswaKegiatanAll', 'active') ? 'show' : 'hide',
+            'kegiatan' => Kegiatan::get()
+        );
+        return view('mahasiswa.kegiatan.index', $data);
         }
     }
     public function pengajuan()
@@ -58,25 +65,37 @@ class KegiatanController extends Controller
         );
         return view('kaprodi.kegiatan.pengajuan', $data);
         } else {
-            //...
+            $data = array(
+            'title' => 'Pengajuan Kegiatan',
+            'menuMahasiswaKegiatan' => 'active',
+            'menuMahasiswaPengajuanKegiatan' => 'active',
+            'menuMahasiswaKegiatanCollapse' => request('menuMahasiswaPengajuanKegiatan', 'active') ? 'show' : 'hide',
+            'pengajuan' => Kegiatan::whereHas('mahasiswas')->with('mahasiswas')->get(),
+        );
+        return view('mahasiswa.kegiatan.pengajuan', $data);
         }
         
     }
     public function apply(Kegiatan $kegiatan)
     {
         // Pastikan yang login adalah instance dari Mahasiswa
-        // Anda mungkin perlu menyesuaikan ini dengan model User Anda
-        $mahasiswa = Auth::user(); 
+        $user = Auth::user();
+        $mahasiswa = Mahasiswa::where('username', $user->username)->first();
+
+        if (!$mahasiswa) {
+            return back()->with('error', 'Akun Anda tidak terdaftar sebagai mahasiswa.');
+        }
 
         // Cek apakah mahasiswa sudah terdaftar di kegiatan ini
-        $isRegistered = $mahasiswa->kegiatans()->where('kegiatan_id', $kegiatan->id)->exists();
-
-        if ($isRegistered) {
+        if ($mahasiswa->kegiatans()->where('kegiatan_id', $kegiatan->id)->exists()) {
             return back()->with('error', 'Anda sudah terdaftar di kegiatan ini.');
         }
 
         // Gunakan attach untuk mendaftarkan mahasiswa dengan status default 'menunggu'
-        $mahasiswa->kegiatans()->attach($kegiatan->id, ['status' => 'menunggu']);
+        $mahasiswa->kegiatans()->attach($kegiatan->id, [
+            'username' => $mahasiswa->username,
+            'status' => 'menunggu'
+        ]);
 
         return back()->with('success', 'Berhasil mengajukan pendaftaran. Mohon tunggu konfirmasi admin.');
     }
@@ -175,7 +194,14 @@ class KegiatanController extends Controller
         );
         return view('kaprodi.kegiatan.detail', $data);
         } else {
-            # code...
+            $data = array(
+            'title' => 'Detail Kegiatan',
+            'menuMahasiswaKegiatan' => 'active',
+            'menuMahasiswaKegiatanAll' => 'active',
+            'menuMahasiswaKegiatanCollapse' => request('menuMahasiswaKegiatanAll', 'active') ? 'show' : 'hide',
+            'kegiatan' => Kegiatan::findOrFail($id)
+        );
+        return view('mahasiswa.kegiatan.detail', $data);
         }
         
     }

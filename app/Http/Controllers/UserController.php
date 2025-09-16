@@ -197,9 +197,13 @@ class UserController extends Controller
         );
         return view('kaprodi.users.updateMahasiswa', $data);
         } else {
-            //...
+            $data = array(
+            'title' => 'Edit Data Mahasiswa',
+            'mahasiswa' => Mahasiswa::findOrFail($username),
+            'data_cpl' => Cpl::orderBy('kode_cpl')->get(),
+        );
+        return view('mahasiswa.users.updateMahasiswa', $data);
         }
-        
     }
     public function update2(Request $request, $id){
         $request->validate([
