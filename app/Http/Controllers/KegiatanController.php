@@ -65,16 +65,22 @@ class KegiatanController extends Controller
         );
         return view('kaprodi.kegiatan.pengajuan', $data);
         } else {
+            $mahasiswa = Mahasiswa::where('username', $user->username)->first();
             $data = array(
-            'title' => 'Pengajuan Kegiatan',
-            'menuMahasiswaKegiatan' => 'active',
-            'menuMahasiswaPengajuanKegiatan' => 'active',
-            'menuMahasiswaKegiatanCollapse' => request('menuMahasiswaPengajuanKegiatan', 'active') ? 'show' : 'hide',
-            'pengajuan' => Kegiatan::whereHas('mahasiswas')->with('mahasiswas')->get(),
-        );
-        return view('mahasiswa.kegiatan.pengajuan', $data);
+                'title' => 'Pengajuan Kegiatan',
+                'menuMahasiswaKegiatan' => 'active',
+                'menuMahasiswaPengajuanKegiatan' => 'active',
+                'menuMahasiswaKegiatanCollapse' => request('menuMahasiswaPengajuanKegiatan', 'active') ? 'show' : 'hide',
+                'pengajuan' => $mahasiswa
+                    ? Kegiatan::whereHas('mahasiswas', function($q) use ($mahasiswa) {
+                        $q->where('mahasiswas.username', $mahasiswa->username);
+                    })->with(['mahasiswas' => function($q) use ($mahasiswa) {
+                        $q->where('mahasiswas.username', $mahasiswa->username);
+                    }])->get()
+                    : collect(),
+            );
+            return view('mahasiswa.kegiatan.pengajuan', $data);
         }
-        
     }
     public function apply(Kegiatan $kegiatan)
     {

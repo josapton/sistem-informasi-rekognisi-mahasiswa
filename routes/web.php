@@ -29,7 +29,8 @@ Route::middleware('checkLogin')->group(function () {
     Route::post('kegiatan/{kegiatan}/apply', [KegiatanController::class, 'apply'])->name('pendaftaranKegiatan');
     // Konversi Management
     Route::get('konversi/kegiatan', [KonversiController::class, 'index'])->name('konversiKegiatan');
-    Route::get('konversi/kegiatan/riwayat', [KonversiController::class, 'historyAdmin'])->name('riwayatKonversiKegiatan');
+    Route::post('konversi/{kegiatan}', [KonversiController::class, 'store'])->name('konversiStore');
+    Route::get('konversi/kegiatan/riwayat', [KonversiController::class, 'history'])->name('riwayatKonversiKegiatan');
 
     Route::middleware(['checkRole:Admin,Kaprodi'])->group(function () {
         // User Management

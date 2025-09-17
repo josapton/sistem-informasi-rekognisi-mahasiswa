@@ -26,14 +26,25 @@
                 <tbody>
                     @forelse ($pengajuan as $item)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->nama_kegiatan }}</td>
                             <td>{{ $item->tipe_konversi }}</td>
-                            <td>{{ $item->sks }}</td>
+                            <td>{{ $item->bobot }}</td>
                             <td>
-                                <form action="#" method="POST">
+                                <form action="{{ route('konversiStore', $item) }}" method="POST">
                                     @csrf
-                                    <button type="submit">Ajukan Konversi</button>
+                                    <button type="submit" class="btn btn-sm btn-primary" onclick="return confirm('Apakah Anda yakin ingin mengajukan konversi kegiatan ini?')">
+                                        <i class="fas fa-exchange-alt mr-1"></i>
+                                        Ajukan Konversi
+                                    </button>
                                 </form>
+
+                                @if(session('success'))
+                                    <div style="color: green;">{{ session('success') }}</div>
+                                @endif
+                                @if(session('error'))
+                                    <div style="color: red;">{{ session('error') }}</div>
+                                @endif
                             </td>
                         </tr>
                     @empty

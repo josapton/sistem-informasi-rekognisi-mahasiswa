@@ -39,17 +39,44 @@ class KonversiController extends Controller
             'cpls' => Cpl::all(),
         );
         return view('kaprodi.konversi.kegiatan.index', $data);
-        } elseif ($user->role == 'Mahasiswa') {
+        } else {
+            $mahasiswa = Mahasiswa::where('username', $user->username)->first();
             $data = array(
-            'title' => 'Konversi Kegiatan',
-            'menuMahasiswaKonversi' => 'active',
-            'menuMahasiswaKonversiKegiatan' => 'active',
-            'menuMahasiswaKonversiCollapse' => request('menuMahasiswaKonversiKegiatan', 'active') ? 'show' : 'hide',
-            'pengajajuan' => Kegiatan::whereHas('mahasiswas')->with('mahasiswas')->where('status', 'diterima')->get(),
-        );
-        return view('mahasiswa.konversi.kegiatan.index', $data);
+                'title' => 'Konversi Kegiatan',
+                'menuMahasiswaKonversi' => 'active',
+                'menuMahasiswaKonversiKegiatan' => 'active',
+                'menuMahasiswaKonversiCollapse' => request('menuMahasiswaKonversiKegiatan', 'active') ? 'show' : 'hide',
+                'pengajuan' => $mahasiswa
+                    ? Kegiatan::whereHas('mahasiswas', function($q) use ($mahasiswa) {
+                        $q->where('mahasiswas.username', $mahasiswa->username);
+                    })->with(['mahasiswas' => function($q) use ($mahasiswa) {
+                        $q->where('mahasiswas.username', $mahasiswa->username);
+                    }])->get()
+                    : collect(),
+            );
+            return view('mahasiswa.konversi.kegiatan.index', $data);
         }
-        
+    }
+    public function store(Kegiatan $kegiatan)
+    {
+        $mahasiswa = Auth::user();
+
+        // Cek sekali lagi untuk mencegah data ganda
+        $exists = Konversi::where('username', $mahasiswa->username)
+                          ->where('kegiatan_id', $kegiatan->id)
+                          ->exists();
+
+        if ($exists) {
+            return back()->with('error', 'Konversi untuk kegiatan ini sudah pernah diajukan.');
+        }
+
+        Konversi::create([
+            'username' => $mahasiswa->username,
+            'kegiatan_id' => $kegiatan->id,
+            'status' => 'diajukan',
+        ]);
+
+        return back()->with('success', 'Konversi Kegiatan berhasil diajukan.');
     }
     public function validasiPengajuan(Request $request, Konversi $konversi)
     {
@@ -80,7 +107,7 @@ class KonversiController extends Controller
 
         return back()->with('success', 'Status konversi berhasil diperbarui.');
     }
-    public function historyAdmin()
+    public function history()
     {
         $user = Auth::user();
         if ($user->role == 'Admin') {
@@ -116,8 +143,25 @@ class KonversiController extends Controller
         );
         return view('kaprodi.konversi.kegiatan.history', $data);
         } else {
-            # code...
+            $mahasiswa = Mahasiswa::where('username', $user->username)->first();
+            $data = array(
+            'title' => 'Riwayat Konversi Kegiatan',
+            'menuMahasiswaKonversi' => 'active',
+            'menuMahasiswaKonversiKegiatan2' => 'active',
+            'menuMahasiswaKonversiCollapse' => request('menuMahasiswaKonversiKegiatan2', 'active') ? 'show' : 'hide',
+            'riwayat' => $mahasiswa
+                ? Konversi::whereHas('mahasiswa', function($q) use ($mahasiswa) {
+                    $q->where('username', $mahasiswa->username);
+                })->with(['mahasiswa' => function($q) use ($mahasiswa) {
+                    $q->where('username', $mahasiswa->username);
+                }])->whereIn('status', ['divalidasi', 'ditolak'])->latest()->get()
+                : collect(),
+            );
+            return view('mahasiswa.konversi.kegiatan.history', $data);
         }
-        
     }
 }
+
+// $mahasiswa
+//     ? $mahasiswa->konversis()->with('kegiatan')->whereIn('status', ['divalidasi', 'ditolak'])->latest()->get()
+//     : collect(),
