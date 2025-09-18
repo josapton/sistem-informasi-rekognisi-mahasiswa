@@ -94,9 +94,9 @@
                             <td>{{ $konversi->kegiatan->bobot }}</td>
                             <td>
                                 @if ($konversi->status === 'divalidasi')
-                                    <span class="badge badge-success">Divalidasi</span>
+                                    <span class="text-success font-weight-bold">Divalidasi</span>
                                 @elseif ($konversi->status === 'ditolak')
-                                    <span class="badge badge-danger">Ditolak</span>
+                                    <span class="text-danger font-weight-bold">Ditolak</span>
                                 @endif
                             </td>
                             <td>{{ $konversi->catatan_validator }}</td>

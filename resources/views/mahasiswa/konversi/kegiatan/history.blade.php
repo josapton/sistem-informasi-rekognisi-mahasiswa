@@ -37,11 +37,11 @@
                             <td>{{ $item->kegiatan->bobot }}</td>
                             <td>
                                 @if ($item->status === 'diajukan')
-                                    <span class="badge badge-secondary">Diajukan</span>
+                                    <span class="text-secondary font-weight-bold">Diajukan</span>
                                 @elseif ($item->status === 'divalidasi')
-                                    <span class="badge badge-success">Divalidasi</span>
+                                    <span class="text-success font-weight-bold">Divalidasi</span>
                                 @elseif ($item->status === 'ditolak')
-                                    <span class="badge badge-danger">Ditolak</span>
+                                    <span class="text-danger font-weight-bold">Ditolak</span>
                                 @endif
                             </td>
                             <td>{{ $item->catatan_validator }}</td>
