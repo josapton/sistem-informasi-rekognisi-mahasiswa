@@ -17,9 +17,9 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>NIM</th>
-                        <th>Nama Mahasiswa</th>
-                        <th>Nama Kegiatan Diajukan</th>
+                        <th>Nama Kegiatan</th>
+                        <th>Tipe Konversi</th>
+                        <th>Bobot</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -28,9 +28,11 @@
                         @foreach ($item->mahasiswas as $mahasiswa)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $mahasiswa->username }}</td>
-                                <td>{{ $mahasiswa->nama }}</td>
                                 <td>{{ $item->nama_kegiatan ?? $item->kegiatan_id }}</td>
+                                <td>
+                                    <span class="badge badge-{{ $item->tipe_konversi === 'SKS' ? 'success' : 'secondary' }}">{{ $item->tipe_konversi }}</span>
+                                </td>
+                                <td><strong>{{ $item->bobot ?? $item->kegiatan->bobot }}</strong> SKS</td>
                                 <td>
                                     @if ($mahasiswa->pivot->status == 'menunggu')
                                         <span class="text-secondary font-weight-bold">Menunggu</span>

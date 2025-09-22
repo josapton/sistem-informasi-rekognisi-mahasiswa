@@ -38,7 +38,7 @@
                         <td>
                             <span class="badge badge-{{ $item->tipe_konversi === 'SKS' ? 'success' : 'secondary' }}">{{ $item->tipe_konversi }}</span>
                         </td>
-                        <td>{{ $item->bobot }}</td>
+                        <td><strong>{{ $item->bobot ?? $item->kegiatan->bobot }}</strong> SKS</td>
                         <td>
                             <a href="{{ route('kegiatanDetail', $item->id) }}" class="btn btn-sm btn-info">
                                 <i class="fas fa-info-circle mr-1"></i>
