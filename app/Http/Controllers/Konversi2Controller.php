@@ -35,47 +35,22 @@ class Konversi2Controller extends Controller
             );
             return view('kaprodi.konversi.sks.index', $data);
         } else {
-            // Logika untuk "Tambah Baris" tanpa JavaScript
-            $items = [];
-            if ($request->old('nama_item')) {
-                for ($i = 0; $i < count($request->old('nama_item')); $i++) {
-                    $items[] = [
-                        'nama_item' => $request->old('nama_item')[$i],
-                        'jenis' => $request->old('jenis')[$i],
-                        'sks' => $request->old('sks')[$i],
-                    ];
-                }
-            }
-
-            // Jika tombol "Tambah Baris" ditekan, tambahkan satu baris kosong
-            if ($request->query('action') === 'add_item') {
-                $items[] = ['nama_item' => '', 'jenis' => 'matakuliah', 'sks' => ''];
-            }
-
-            // Jika form pertama kali dibuka, buat satu baris default
-            if (empty($items)) {
-                $items[] = ['nama_item' => '', 'jenis' => 'matakuliah', 'sks' => ''];
-            }
             $data = array(
                 'title' => 'Konversi Mata Kuliah & Mikrokredensial',
                 'menuMahasiswaKonversi' => 'active',
                 'menuMahasiswaKonversiMatkul' => 'active',
                 'menuMahasiswaKonversiCollapse' => request('menuMahasiswaKonversiMatkul', 'active') ? 'show' : 'hide',
-                'pengajuan' => Konversi2::where('username', Auth::id())->with('details')->latest()->get(),
-                'items' => $items,
+                'pengajuan' => Konversi2::where('username', Auth::user()->username)->with('details')->latest()->get(),
+                'items' => [
+                    ['nama_item' => '', 'jenis' => 'matakuliah', 'sks' => '']
+                ],
             );
             return view('mahasiswa.konversi.sks.index', $data);
         }
         
     }
-    public function store(Request $request)
+    public function store(Request $request, Konversi2 $konversi2, Konversi2Detail $konversi2Detail)
     {
-        // Handle jika user menekan tombol "Tambah Baris"
-        if ($request->has('add_item_action')) {
-            // Redirect kembali ke halaman create dengan input lama dan query string
-            return Redirect::route('konversiMatkul', ['action' => 'add_item'])->withInput();
-        }
-
         $request->validate([
             'nama_item.*' => 'required|string|max:255',
             'jenis.*' => 'required|in:matakuliah,mikrokredensial',
