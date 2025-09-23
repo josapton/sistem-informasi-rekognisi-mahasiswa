@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label>Bobot SKS</label>
-                                    <input type="number" name="sks[]" class="form-control" value="{{ $item['sks'] }}" required>
+                                    <input type="number" step="0.1" name="sks[]" class="form-control" value="{{ $item['sks'] }}" required>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label>Bobot SKS</label>
-                                    <input type="number" name="sks[]" class="form-control" required>
+                                    <input type="number" step="0.1" name="sks[]" class="form-control" required>
                                 </div>
                             </div>
                         </div>

@@ -54,10 +54,10 @@ class Konversi2Controller extends Controller
         $request->validate([
             'nama_item.*' => 'required|string|max:255',
             'jenis.*' => 'required|in:matakuliah,mikrokredensial',
-            'sks.*' => 'required|integer|min:1',
+            'sks.*' => 'required|decimal:0,2',
         ]);
 
-        $mahasiswa = Auth::user();
+        $mahasiswa = Auth::user()->mahasiswa;
         $totalSksDiajukan = array_sum($request->sks);
 
         if ($mahasiswa->sks < $totalSksDiajukan) {
