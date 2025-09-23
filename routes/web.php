@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\KonversiController;
+use App\Http\Controllers\Konversi2Controller;
 
 Route::get('/', function () {
     return view('welcome');
@@ -32,6 +33,9 @@ Route::middleware('checkLogin')->group(function () {
     Route::post('konversi/{kegiatan}', [KonversiController::class, 'store'])->name('konversiStore');
     Route::get('konversi/kegiatan/riwayat', [KonversiController::class, 'history'])->name('riwayatKonversiKegiatan');
 
+    Route::get('konversi/sks', [Konversi2Controller::class, 'index'])->name('konversiMatkul');
+    Route::post('konversi/sks', [Konversi2Controller::class, 'store'])->name('konversi2Store');
+
     Route::middleware(['checkRole:Admin,Kaprodi'])->group(function () {
         // User Management
         Route::get('users/mahasiswa', [UserController::class, 'mahasiswa'])->name('usersMahasiswa');
@@ -46,6 +50,9 @@ Route::middleware('checkLogin')->group(function () {
         Route::patch('kegiatan/pengajuan/{mahasiswa}/{kegiatan}', [KegiatanController::class, 'updateStatus'])->name('pengajuanKegiatanUpdate');
         // Konversi Management
         Route::patch('konversi/kegiatan/{konversi}', [KonversiController::class, 'validasiPengajuan'])->name('validasiPengajuanKonversi');
+
+        Route::get('konversi/sks/{konversi2}/edit', [Konversi2Controller::class, 'edit'])->name('konversi2Edit');
+        Route::put('konversi/sks/{konversi2}', [Konversi2Controller::class, 'update'])->name('konversi2Update');
 
         Route::middleware('checkRole:Admin')->group(function () {
             // User Management

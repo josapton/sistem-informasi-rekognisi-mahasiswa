@@ -161,7 +161,3 @@ class KonversiController extends Controller
         }
     }
 }
-
-// $mahasiswa
-//     ? $mahasiswa->konversis()->with('kegiatan')->whereIn('status', ['divalidasi', 'ditolak'])->latest()->get()
-//     : collect(),

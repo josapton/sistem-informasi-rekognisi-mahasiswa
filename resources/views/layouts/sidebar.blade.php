@@ -3,7 +3,6 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center">
         <div class="sidebar-brand-icon">
-            {{-- <i class="fas fa-graduation-cap"></i> --}}
             <img src="{{ asset('logo-uby.png') }}" alt="Logo Universitas Boyolali" width="50">
         </div>
         <div class="sidebar-brand-text mx-3">Rekognisi Mahasiswa</div>
@@ -74,7 +73,7 @@
                     <a class="collapse-item {{ $menuAdminKonversiKegiatan ?? '' }}" href="{{ route('konversiKegiatan') }}">Konversi Kegiatan</a>
                     <a class="collapse-item {{ $menuAdminKonversiKegiatan2 ?? '' }}" href="{{ route('riwayatKonversiKegiatan') }}">Riwayat Konversi Kegiatan</a>
                     <h6 class="collapse-header">SKS:</h6>
-                    <a class="collapse-item {{ $menuAdminKonversiMatkul ?? '' }}" href="#">Konversi Matkul/Mikro</a>
+                    <a class="collapse-item {{ $menuAdminKonversiMatkul ?? '' }}" href="{{ route('konversiMatkul') }}">Konversi Matkul/Mikro</a>
                 </div>
             </div>
         </li>
@@ -113,7 +112,7 @@
                     <a class="collapse-item {{ $menuKaprodiKonversiKegiatan ?? '' }}" href="{{ route('konversiKegiatan') }}">Konversi Kegiatan</a>
                     <a class="collapse-item {{ $menuKaprodiKonversiKegiatan2 ?? '' }}" href="{{ route('riwayatKonversiKegiatan') }}">Riwayat Konversi Kegiatan</a>
                     <h6 class="collapse-header">SKS:</h6>
-                    <a class="collapse-item {{ $menuKaprodiKonversiMatkul ?? '' }}" href="#">Konversi Matkul/Mikro</a>
+                    <a class="collapse-item {{ $menuKaprodiKonversiMatkul ?? '' }}" href="{{ route('konversiMatkul') }}">Konversi Matkul/Mikro</a>
                 </div>
             </div>
         </li>
@@ -146,13 +145,11 @@
                     <a class="collapse-item {{ $menuMahasiswaKonversiKegiatan ?? '' }}" href="{{ route('konversiKegiatan') }}">Konversi Kegiatan</a>
                     <a class="collapse-item {{ $menuMahasiswaKonversiKegiatan2 ?? '' }}" href="{{ route('riwayatKonversiKegiatan') }}">Riwayat Konversi Kegiatan</a>
                     <h6 class="collapse-header">SKS:</h6>
-                    <a class="collapse-item {{ $menuMahasiswaKonversiMatkul ?? '' }}" href="#">Konversi Matkul/Mikro</a>
+                    <a class="collapse-item {{ $menuMahasiswaKonversiMatkul ?? '' }}" href="{{ route('konversiMatkul') }}">Konversi Matkul/Mikro</a>
                 </div>
             </div>
         </li>
     @endif
-
-    
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
