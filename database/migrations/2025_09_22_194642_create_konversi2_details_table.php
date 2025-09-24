@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('konversi2_id')->constrained('konversi2s')->onDelete('cascade');
             $table->string('nama_item');
             $table->enum('jenis', ['matakuliah', 'mikrokredensial']);
-            $table->integer('sks');
+            $table->float('sks');
             $table->timestamps();
         });
     }

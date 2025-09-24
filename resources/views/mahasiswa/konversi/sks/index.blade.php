@@ -12,7 +12,10 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        Tabungan SKS Anda Saat Ini: <strong>{{ Auth::user()->mahasiswa->sks }} SKS</strong>
+        <span class="mr-2"><strong>Tabungan SKS Anda Saat Ini:</strong></span>
+        <span class="badge badge-info" style="font-size: 1rem; padding: 0.5em 1em;">
+            <strong>{{ Auth::user()->mahasiswa->sks }}</strong> SKS
+        </span>
     </div>
 
     <div class="card-body">

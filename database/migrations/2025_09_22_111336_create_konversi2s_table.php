@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('username');
             $table->foreign('username')->references('username')->on('mahasiswas')->onDelete('cascade');
-            $table->integer('total_sks');
+            $table->float('total_sks');
             $table->enum('status', ['diajukan', 'divalidasi', 'ditolak', 'dikembalikan'])->default('diajukan');
             $table->text('catatan_kaprodi')->nullable();
             $table->timestamps();

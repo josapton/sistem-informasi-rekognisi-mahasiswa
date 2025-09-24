@@ -34,6 +34,7 @@ Route::middleware('checkLogin')->group(function () {
     Route::get('konversi/kegiatan/riwayat', [KonversiController::class, 'history'])->name('riwayatKonversiKegiatan');
 
     Route::get('konversi/sks', [Konversi2Controller::class, 'index'])->name('konversiMatkul');
+    Route::get('konversi/sks/show', [Konversi2Controller::class, 'show'])->name('konversi2Show');
     Route::post('konversi/sks/store', [Konversi2Controller::class, 'store'])->name('konversi2Store');
 
     Route::middleware(['checkRole:Admin,Kaprodi'])->group(function () {
@@ -51,8 +52,8 @@ Route::middleware('checkLogin')->group(function () {
         // Konversi Management
         Route::patch('konversi/kegiatan/{konversi}', [KonversiController::class, 'validasiPengajuan'])->name('validasiPengajuanKonversi');
 
-        Route::get('konversi/sks/{konversi2}/edit', [Konversi2Controller::class, 'edit'])->name('konversi2Edit');
-        Route::put('konversi/sks/{konversi2}', [Konversi2Controller::class, 'update'])->name('konversi2Update');
+        Route::get('konversi/sks/{konversi}/edit', [Konversi2Controller::class, 'edit'])->name('konversi2Edit');
+        Route::put('konversi/sks/{konversi}', [Konversi2Controller::class, 'update'])->name('konversi2Update');
 
         Route::middleware('checkRole:Admin')->group(function () {
             // User Management
