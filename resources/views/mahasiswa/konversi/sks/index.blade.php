@@ -12,13 +12,22 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <span class="mr-2"><strong>Tabungan SKS Anda Saat Ini:</strong></span>
-        <span class="badge badge-info" style="font-size: 1rem; padding: 0.5em 1em;">
-            <strong>{{ Auth::user()->mahasiswa->sks }}</strong> SKS
+        <span class="mr-1">Tabungan SKS Anda Saat Ini:</span>
+        <span>
+            <strong style="color: #17a2b8;">{{ Auth::user()->mahasiswa->sks }}</strong> SKS
         </span>
     </div>
 
+    @if (session('error'))
+        <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+
     <div class="card-body">
+        @if(Auth::user()->mahasiswa->sks<=0)
+            <div class="alert alert-info text-center mb-0">
+                Anda tidak memiliki SKS untuk dikonversi.
+            </div>
+        @else
         <form action="{{ route('konversi2Store') }}" method="POST">
             @csrf
             <div id="items-container">
@@ -59,6 +68,7 @@
                 Ajukan Konversi
             </button>
         </form>
+        @endif
         <script>
             // Pastikan DOM sudah termuat sepenuhnya
             document.addEventListener('DOMContentLoaded', function () {

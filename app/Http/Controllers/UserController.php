@@ -132,7 +132,6 @@ class UserController extends Controller
                 \DB::table('mahasiswas')->insert([
                 'username' => $user->username,
                 'nama' => $request->nama,
-                'cpl' => 'CPL01',
                 'sks' => 0,
                 ]);
                 break;

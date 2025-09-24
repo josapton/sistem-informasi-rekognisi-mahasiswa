@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Cpl;
+use App\Models\Kegiatan;
+use App\Models\deskripsiKegiatan;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Kaprodi;
@@ -70,6 +72,33 @@ class DatabaseSeeder extends Seeder
             'deskripsi' => 'Memiliki keahlian dibidang pengembangan perangkat lunak, sekaligus mampu menganalisa cara kerja dan sistem keamanan dari perangkat lunak tersebut. (KK)',
         ]);
 
+        Kegiatan::create([
+            'nama_kegiatan' => 'Microsoft Hackathon',
+            'tipe_konversi' => 'sks',
+            'bobot' => 20,
+        ])->each(function ($kegiatan) {
+            deskripsiKegiatan::create([
+                'kegiatan_id' => $kegiatan->id,
+                'penempatan' => 'Silicon Valley, USA',
+                'kriteria' => 'Peserta mengikuti seluruh rangkaian acara hackathon dan berhasil menyelesaikan proyek yang diikutinya.',
+                'deskripsi' => 'Mengikuti kompetisi pengembangan perangkat lunak tingkat internasional yang diselenggarakan oleh Microsoft di Silicon Valley, USA.',
+                'cpl' => 'Mampu bekerja dalam tim multidisiplin dan menginternalisasi semangat kewirausahaan (CPL02).',
+            ]);
+        });
+        Kegiatan::create([
+            'nama_kegiatan' => 'Mahasiswa Berprestasi Tingkat Nasional',
+            'tipe_konversi' => 'mikrokredensial',
+            'bobot' => 0.5,
+        ])->each(function ($kegiatan) {
+            deskripsiKegiatan::create([
+                'kegiatan_id' => $kegiatan->id,
+                'penempatan' => 'Universitas Indonesia',
+                'kriteria' => 'Peserta mengikuti seluruh rangkaian acara hackathon dan berhasil menyelesaikan proyek yang diikutinya.',
+                'deskripsi' => 'Meraih juara dalam kompetisi Mahasiswa Berprestasi tingkat nasional yang diselenggarakan oleh Kementerian Pendidikan, Kebudayaan, Riset, dan Teknologi.',
+                'cpl' => 'Menunjukkan sikap profesional dalam bentuk kepatuhan pada etika profesi, kemampuan bekerjasama dalam tim multidisiplin, pemahaman tentang pembelajaran sepanjang hayat, Menginternalisasi semangat kewirausahaan, dan respon terhadap isu sosial dan perkembangan teknologi (CPL02).',
+            ]);
+        });
+
         User::create([
             'username' => 'admin',
             'email' => 'admin@test.com',
@@ -107,9 +136,13 @@ class DatabaseSeeder extends Seeder
             Mahasiswa::create([
                 'username' => $user->username,
                 'nama' => 'Mahasiswa',
-                'cpl' => 'CPL01',
                 'sks' => 20,
             ]);
+            $mahasiswa = Mahasiswa::where('username', $user->username)->first();
+            if ($mahasiswa) {
+                $cplIds = Cpl::whereIn('kode_cpl', ['CPL01', 'CPL02'])->pluck('kode_cpl')->toArray();
+                $mahasiswa->cpls()->attach($cplIds);
+            }
         }
         });
     }

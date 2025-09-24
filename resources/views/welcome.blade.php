@@ -63,7 +63,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="text-center">
-                                                <label class="small">Masukkan NIM/NPM dan Password SIAKAD</label>
+                                                <label class="small">Masukkan NIM/NPM dan Password</label>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">

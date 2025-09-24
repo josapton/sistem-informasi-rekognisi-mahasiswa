@@ -47,11 +47,7 @@ class KonversiController extends Controller
                 'menuMahasiswaKonversiKegiatan' => 'active',
                 'menuMahasiswaKonversiCollapse' => request('menuMahasiswaKonversiKegiatan', 'active') ? 'show' : 'hide',
                 'pengajuan' => $mahasiswa
-                    ? Kegiatan::whereHas('mahasiswas', function($q) use ($mahasiswa) {
-                        $q->where('mahasiswas.username', $mahasiswa->username);
-                    })->with(['mahasiswas' => function($q) use ($mahasiswa) {
-                        $q->where('mahasiswas.username', $mahasiswa->username);
-                    }])->get()
+                    ? $mahasiswa->kegiatans()->wherePivot('status', 'diterima')->get()
                     : collect(),
             );
             return view('mahasiswa.konversi.kegiatan.index', $data);
@@ -67,7 +63,7 @@ class KonversiController extends Controller
                           ->exists();
 
         if ($exists) {
-            return back()->with('error', 'Konversi untuk kegiatan ini sudah pernah diajukan.');
+            return back()->with(['error' => 'Konversi untuk kegiatan ini sudah pernah diajukan.', 'kegiatan_id' => $kegiatan->id]);
         }
 
         Konversi::create([
@@ -76,7 +72,7 @@ class KonversiController extends Controller
             'status' => 'diajukan',
         ]);
 
-        return back()->with('success', 'Konversi Kegiatan berhasil diajukan.');
+        return back()->with(['success' => 'Konversi Kegiatan berhasil diajukan.', 'kegiatan_id' => $kegiatan->id]);
     }
     public function validasiPengajuan(Request $request, Konversi $konversi)
     {

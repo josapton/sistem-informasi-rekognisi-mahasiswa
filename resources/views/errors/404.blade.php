@@ -41,7 +41,7 @@
                         <div class="error mx-auto" data-text="404">404</div>
                         <p class="lead text-gray-800 mb-5">Halaman Tidak Ditemukan</p>
                         <p class="text-gray-500 mb-0">Sepertinya Anda menemukan kesalahan dalam sistem...</p>
-                        <a href="{{ url()->previous() }}">&larr; Kembali ke Halaman Sebelumnya</a>
+                        <a href="{{ url()->previous() }}">&larr; Kembali</a>
                     </div>
 
                 </div>

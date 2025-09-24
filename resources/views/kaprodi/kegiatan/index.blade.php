@@ -18,6 +18,11 @@
         </a>
     </div>
     <div class="card-body">
+        @if($kegiatan->isEmpty())
+            <div class="alert alert-info text-center mb-0">
+                Belum ada kegiatan yang ditambahkan.
+            </div>
+        @else
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
@@ -61,6 +66,7 @@
                 </tbody>
             </table>
         </div>
+        @endif
     </div>
 </div>
 @endsection

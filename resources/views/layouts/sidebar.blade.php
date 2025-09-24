@@ -73,8 +73,8 @@
                     <a class="collapse-item {{ $menuAdminKonversiKegiatan ?? '' }}" href="{{ route('konversiKegiatan') }}">Konversi Kegiatan</a>
                     <a class="collapse-item {{ $menuAdminKonversiKegiatan2 ?? '' }}" href="{{ route('riwayatKonversiKegiatan') }}">Riwayat Konversi Kegiatan</a>
                     <h6 class="collapse-header">SKS:</h6>
-                    <a class="collapse-item {{ $menuAdminKonversiMatkul ?? '' }}" href="{{ route('konversiMatkul') }}">Konversi Matkul/Mikro</a>
-                    <a class="collapse-item {{ $menuAdminKonversiDetail ?? '' }}" href="{{ route('konversi2Show') }}">Detail Konversi</a>
+                    <a class="collapse-item {{ $menuAdminKonversiSKS ?? '' }}" href="{{ route('konversiSKS') }}">Konversi SKS</a>
+                    <a class="collapse-item {{ $menuAdminKonversiSKS2 ?? '' }}" href="{{ route('riwayatKonversiSKS') }}">Riwayat Konversi SKS</a>
                 </div>
             </div>
         </li>
@@ -113,8 +113,8 @@
                     <a class="collapse-item {{ $menuKaprodiKonversiKegiatan ?? '' }}" href="{{ route('konversiKegiatan') }}">Konversi Kegiatan</a>
                     <a class="collapse-item {{ $menuKaprodiKonversiKegiatan2 ?? '' }}" href="{{ route('riwayatKonversiKegiatan') }}">Riwayat Konversi Kegiatan</a>
                     <h6 class="collapse-header">SKS:</h6>
-                    <a class="collapse-item {{ $menuKaprodiKonversiMatkul ?? '' }}" href="{{ route('konversiMatkul') }}">Konversi Matkul/Mikro</a>
-                    <a class="collapse-item {{ $menuKaprodiKonversiDetail ?? '' }}" href="{{ route('konversi2Show') }}">Detail Konversi</a>
+                    <a class="collapse-item {{ $menuKaprodiKonversiSKS ?? '' }}" href="{{ route('konversiSKS') }}">Konversi SKS</a>
+                    <a class="collapse-item {{ $menuKaprodiKonversiSKS2 ?? '' }}" href="{{ route('riwayatKonversiSKS') }}">Riwayat Konversi SKS</a>
                 </div>
             </div>
         </li>
@@ -147,8 +147,8 @@
                     <a class="collapse-item {{ $menuMahasiswaKonversiKegiatan ?? '' }}" href="{{ route('konversiKegiatan') }}">Konversi Kegiatan</a>
                     <a class="collapse-item {{ $menuMahasiswaKonversiKegiatan2 ?? '' }}" href="{{ route('riwayatKonversiKegiatan') }}">Riwayat Konversi Kegiatan</a>
                     <h6 class="collapse-header">SKS:</h6>
-                    <a class="collapse-item {{ $menuMahasiswaKonversiMatkul ?? '' }}" href="{{ route('konversiMatkul') }}">Konversi Matkul/Mikro</a>
-                    <a class="collapse-item {{ $menuMahasiswaKonversiDetail ?? '' }}" href="{{ route('konversi2Show') }}">Detail Konversi</a>
+                    <a class="collapse-item {{ $menuMahasiswaKonversiSKS ?? '' }}" href="{{ route('konversiSKS') }}">Konversi SKS</a>
+                    <a class="collapse-item {{ $menuMahasiswaKonversiSKS2 ?? '' }}" href="{{ route('riwayatKonversiSKS') }}">Riwayat Konversi SKS</a>
                 </div>
             </div>
         </li>

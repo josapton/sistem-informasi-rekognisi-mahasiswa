@@ -135,6 +135,8 @@
         </script>
     @endsession
 
+    @stack('scripts')
+
 </body>
 
 </html>

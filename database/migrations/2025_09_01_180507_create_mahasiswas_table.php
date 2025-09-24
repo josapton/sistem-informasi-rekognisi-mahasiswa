@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->string('username')->primary();
             $table->string('nama');
-            $table->string('cpl');
             $table->float('sks');
             $table->timestamps();
 

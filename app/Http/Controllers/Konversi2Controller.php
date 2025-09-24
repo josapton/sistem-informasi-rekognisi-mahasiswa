@@ -18,28 +18,28 @@ class Konversi2Controller extends Controller
         $user = Auth::user();
         if ($user->role == 'Admin') {
             $data = array(
-                'title' => 'Konversi Mata Kuliah & Mikrokredensial',
+                'title' => 'Konversi SKS',
                 'menuAdminKonversi' => 'active',
-                'menuAdminKonversiMatkul' => 'active',
-                'menuAdminKonversiCollapse' => request('menuAdminKonversiMatkul', 'active') ? 'show' : 'hide',
+                'menuAdminKonversiSKS' => 'active',
+                'menuAdminKonversiCollapse' => request('menuAdminKonversiSKS', 'active') ? 'show' : 'hide',
                 'pengajuan' => Konversi2::with('mahasiswa', 'details')->whereIn('status', ['diajukan', 'dikembalikan'])->latest()->get(),
             );
         return view('admin.konversi.sks.index', $data);
         } elseif ($user->role == 'Kaprodi') {
             $data = array(
-                'title' => 'Konversi Mata Kuliah & Mikrokredensial',
+                'title' => 'Konversi SKS',
                 'menuKaprodiKonversi' => 'active',
-                'menuKaprodiKonversiMatkul' => 'active',
-                'menuKaprodiKonversiCollapse' => request('menuKaprodiKonversiMatkul', 'active') ? 'show' : 'hide',
+                'menuKaprodiKonversiSKS' => 'active',
+                'menuKaprodiKonversiCollapse' => request('menuKaprodiKonversiSKS', 'active') ? 'show' : 'hide',
                 'pengajuan' => Konversi2::with('mahasiswa', 'details')->whereIn('status', ['diajukan', 'dikembalikan'])->latest()->get(),
             );
             return view('kaprodi.konversi.sks.index', $data);
         } else {
             $data = array(
-                'title' => 'Konversi Mata Kuliah & Mikrokredensial',
+                'title' => 'Konversi SKS',
                 'menuMahasiswaKonversi' => 'active',
-                'menuMahasiswaKonversiMatkul' => 'active',
-                'menuMahasiswaKonversiCollapse' => request('menuMahasiswaKonversiMatkul', 'active') ? 'show' : 'hide',
+                'menuMahasiswaKonversiSKS' => 'active',
+                'menuMahasiswaKonversiCollapse' => request('menuMahasiswaKonversiSKS', 'active') ? 'show' : 'hide',
                 'pengajuan' => Konversi2::where('username', Auth::user()->username)->with('details')->latest()->get(),
                 'items' => [
                     ['nama_item' => '', 'jenis' => 'matakuliah', 'sks' => '']
@@ -83,38 +83,38 @@ class Konversi2Controller extends Controller
             }
         });
 
-        return redirect()->route('konversiMatkul')->with('success', 'Pengajuan konversi berhasil dikirim.');
+        return redirect()->route('konversiSKS')->with('success', 'Pengajuan konversi berhasil dikirim.');
     }
-    public function show(Konversi2 $konversi)
+    public function history(Konversi2 $konversi)
     {
         $user = Auth::user();
         if ($user->role == 'Admin') {
             $data = array(
-            'title' => 'Detail Konversi Mata Kuliah & Mikrokredensial',
+            'title' => 'Riwayat Konversi SKS',
             'menuAdminKonversi' => 'active',
-            'menuAdminKonversiDetail' => 'active',
-            'menuAdminKonversiCollapse' => request('menuAdminKonversiDetail', 'active') ? 'show' : 'hide',
-            'detail' => Konversi2::whereIn('status', ['divalidasi', 'ditolak'])->with('mahasiswa')->latest('updated_at')->get(),
+            'menuAdminKonversiSKS2' => 'active',
+            'menuAdminKonversiCollapse' => request('menuAdminKonversiSKS2', 'active') ? 'show' : 'hide',
+            'history' => Konversi2::whereIn('status', ['divalidasi', 'ditolak'])->with('mahasiswa')->latest('updated_at')->get(),
         );
-        return view('admin.konversi.sks.show', $data);
+        return view('admin.konversi.sks.history', $data);
         } elseif ($user->role == 'Kaprodi') {
             $data = array(
-            'title' => 'Detail Konversi Mata Kuliah & Mikrokredensial',
+            'title' => 'Riwayat Konversi SKS',
             'menuKaprodiKonversi' => 'active',
-            'menuKaprodiKonversiDetail' => 'active',
+            'menuKaprodiKonversiSKS2' => 'active',
             'menuKaprodiKonversiCollapse' => request('menuKaprodiKonversiDetail', 'active') ? 'show' : 'hide',
-            'detail' => Konversi2::whereIn('status', ['divalidasi', 'ditolak'])->with('mahasiswa')->latest('updated_at')->get(),
+            'history' => Konversi2::whereIn('status', ['divalidasi', 'ditolak'])->with('mahasiswa')->latest('updated_at')->get(),
         );
-        return view('kaprodi.konversi.sks.show', $data);
+        return view('kaprodi.konversi.sks.history', $data);
         } else {
             $data = array(
-            'title' => 'Detail Konversi Mata Kuliah & Mikrokredensial',
+            'title' => 'Riwayat Konversi SKS',
             'menuMahasiswaKonversi' => 'active',
-            'menuMahasiswaKonversiDetail' => 'active',
-            'menuMahasiswaKonversiCollapse' => request('menuMahasiswaKonversiDetail', 'active') ? 'show' : 'hide',
-            'detail' => Konversi2::where('username', Auth::user()->username)->with('details')->latest()->get(),
+            'menuMahasiswaKonversiSKS2' => 'active',
+            'menuMahasiswaKonversiCollapse' => request('menuMahasiswaKonversiSKS2', 'active') ? 'show' : 'hide',
+            'history' => Konversi2::where('username', Auth::user()->username)->with('details')->latest()->get(),
         );
-        return view('mahasiswa.konversi.sks.show', $data);
+        return view('mahasiswa.konversi.sks.history', $data);
     }
     }
     public function edit(Konversi2 $konversi)
@@ -122,70 +122,142 @@ class Konversi2Controller extends Controller
         $user = Auth::user();
         if ($user->role == 'Admin') {
             $data = array(
-            'title' => 'Edit Pengajuan Konversi Mata Kuliah & Mikrokredensial',
+            'title' => 'Periksa Pengajuan Konversi SKS',
             'menuAdminKonversi' => 'active',
-            'menuAdminKonversiMatkul' => 'active',
-            'menuAdminKonversiCollapse' => request('menuAdminKonversiMatkul', 'active') ? 'show' : 'hide',
+            'menuAdminKonversiSKS' => 'active',
+            'menuAdminKonversiCollapse' => request('menuAdminKonversiSKS', 'active') ? 'show' : 'hide',
             'konversi' => $konversi->load('mahasiswa', 'details'),
         );
         return view('admin.konversi.sks.edit', $data);
-        } else {
+        } elseif ($user->role == 'Kaprodi') {
             $data = array(
-            'title' => 'Edit Pengajuan Konversi Mata Kuliah & Mikrokredensial',
+            'title' => 'Periksa Pengajuan Konversi SKS',
             'menuKaprodiKonversi' => 'active',
-            'menuKaprodiKonversiMatkul' => 'active',
-            'menuKaprodiKonversiCollapse' => request('menuKaprodiKonversiMatkul', 'active') ? 'show' : 'hide',
+            'menuKaprodiKonversiSKS' => 'active',
+            'menuKaprodiKonversiCollapse' => request('menuKaprodiKonversiSKS', 'active') ? 'show' : 'hide',
             'konversi' => $konversi->load('mahasiswa', 'details'),
         );
         return view('kaprodi.konversi.sks.edit', $data);
+        } else {
+            // --- Pengecekan Keamanan ---
+            // 1. Pastikan pengajuan ini milik user yang sedang login
+            if ($konversi->username !== Auth::user()->username) {
+                abort(403, 'AKSES DITOLAK'); // Mencegah user mengedit pengajuan orang lain
+            }
+
+            // 2. Pastikan statusnya adalah 'dikembalikan'
+            if ($konversi->status !== 'dikembalikan') {
+                return redirect()->route('riwayatKonversiSKS')
+                                 ->with('error', 'Pengajuan ini tidak dapat diedit.');
+            }
+
+            // Load detail item untuk ditampilkan di form
+            $konversi->load('details');
+            $data = array(
+            'title' => 'Periksa Pengajuan Konversi SKS',
+            'menuMahasiswaKonversi' => 'active',
+            'menuMahasiswaKonversiSKS2' => 'active',
+            'menuMahasiswaKonversiCollapse' => request('menuMahasiswaKonversiSKS2', 'active') ? 'show' : 'hide',
+            'konversi' => $konversi,
+        );
+        return view('mahasiswa.konversi.sks.edit', $data);
         }
     }
     public function update(Request $request, Konversi2 $konversi)
     {
-        $request->validate([
-            'status' => 'required|in:divalidasi,ditolak,dikembalikan',
-            'catatan_kaprodi' => 'nullable|string',
-            // Validasi untuk item jika kaprodi bisa mengubahnya
-            'nama_item.*' => 'required|string|max:255',
-            'jenis.*' => 'required|in:matakuliah,mikrokredensial',
-            'sks.*' => 'required|integer|min:1',
-        ]);
-
-        DB::transaction(function () use ($request, $konversi) {
-            // Hapus detail lama dan buat yang baru (jika kaprodi memodifikasi)
-            $konversi->details()->delete();
-
-            $totalSksBaru = 0;
-            for ($i = 0; $i < count($request->nama_item); $i++) {
-                Konversi2Detail::create([
-                    'konversi2_id' => $konversi->id,
-                    'nama_item' => $request->nama_item[$i],
-                    'jenis' => $request->jenis[$i],
-                    'sks' => $request->sks[$i],
-                ]);
-                $totalSksBaru += $request->sks[$i];
+        $user = Auth::user();
+        if ($user->role == 'Mahasiswa') {
+            // --- Pengecekan Keamanan (lagi, sebagai lapisan kedua) ---
+            if ($konversi->username !== Auth::user()->username || $konversi->status !== 'dikembalikan') {
+                abort(403, 'AKSES DITOLAK');
             }
 
-            // Jika statusnya divalidasi, kurangi tabungan SKS mahasiswa
-            if ($request->status == 'divalidasi') {
-                $mahasiswa = $konversi->mahasiswa;
-                if ($mahasiswa->sks < $totalSksBaru) {
-                    // Batalkan transaksi dan kirim error
-                    // Ini adalah fallback, idealnya ada validasi di frontend juga
-                    throw new \Exception('Tabungan SKS mahasiswa tidak mencukupi untuk validasi.');
-                }
-                // Kurangi SKS
-                $mahasiswa->decrement('sks', $totalSksBaru);
-            }
-
-            // Update pengajuan utama
-            $konversi->update([
-                'status' => $request->status,
-                'total_sks' => $totalSksBaru,
-                'catatan_kaprodi' => $request->catatan_kaprodi,
+            // Validasi input sama seperti saat membuat baru
+            $request->validate([
+                'nama_item.*' => 'required|string|max:255',
+                'jenis.*' => 'required|in:matakuliah,mikrokredensial',
+                'sks.*' => 'required|decimal:0,2',
             ]);
-        });
 
-        return redirect()->route('konversiMatkul')->with('success', 'Status pengajuan berhasil diperbarui.');
+            $mahasiswa = Auth::user()->mahasiswa;
+            $totalSksBaru = array_sum($request->sks);
+
+            // Cek kecukupan SKS
+            if ($mahasiswa->sks < $totalSksBaru) {
+                return back()->with('error', 'Tabungan SKS Anda tidak mencukupi.')->withInput();
+            }
+
+            // Gunakan transaction untuk memastikan semua query berhasil
+            DB::transaction(function () use ($request, $konversi, $totalSksBaru) {
+                // 1. Hapus detail item yang lama
+                $konversi->details()->delete();
+
+                // 2. Buat ulang detail item dengan data yang baru
+                for ($i = 0; $i < count($request->nama_item); $i++) {
+                    Konversi2Detail::create([
+                        'konversi2_id' => $konversi->id,
+                        'nama_item' => $request->nama_item[$i],
+                        'jenis' => $request->jenis[$i],
+                        'sks' => $request->sks[$i],
+                    ]);
+                }
+
+                // 3. Update pengajuan utama
+                $konversi->update([
+                    'total_sks' => $totalSksBaru,
+                    'status' => 'diajukan', // Status kembali menjadi 'diajukan'
+                    'catatan_kaprodi' => null, // Hapus catatan lama (opsional)
+                ]);
+            });
+
+            return redirect()->route('riwayatKonversiSKS')
+                             ->with('success', 'Pengajuan berhasil diperbarui dan dikirim kembali.');
+        } else {
+            $request->validate([
+                'status' => 'required|in:divalidasi,ditolak,dikembalikan',
+                'catatan_kaprodi' => 'nullable|string',
+                // Validasi untuk item jika kaprodi bisa mengubahnya
+                'nama_item.*' => 'required|string|max:255',
+                'jenis.*' => 'required|in:matakuliah,mikrokredensial',
+                'sks.*' => 'required|decimal:0,2',
+            ]);
+
+            DB::transaction(function () use ($request, $konversi) {
+                // Hapus detail lama dan buat yang baru (jika kaprodi memodifikasi)
+                $konversi->details()->delete();
+
+                $totalSksBaru = 0;
+                for ($i = 0; $i < count($request->nama_item); $i++) {
+                    Konversi2Detail::create([
+                        'konversi2_id' => $konversi->id,
+                        'nama_item' => $request->nama_item[$i],
+                        'jenis' => $request->jenis[$i],
+                        'sks' => $request->sks[$i],
+                    ]);
+                    $totalSksBaru += $request->sks[$i];
+                }
+
+                // Jika statusnya divalidasi, kurangi tabungan SKS mahasiswa
+                if ($request->status == 'divalidasi') {
+                    $mahasiswa = $konversi->mahasiswa;
+                    if ($mahasiswa->sks < $totalSksBaru) {
+                        // Batalkan transaksi dan kirim error
+                        // Ini adalah fallback, idealnya ada validasi di frontend juga
+                        throw new \Exception('Tabungan SKS mahasiswa tidak mencukupi untuk validasi.');
+                    }
+                    // Kurangi SKS
+                    $mahasiswa->decrement('sks', $totalSksBaru);
+                }
+
+                // Update pengajuan utama
+                $konversi->update([
+                    'status' => $request->status,
+                    'total_sks' => $totalSksBaru,
+                    'catatan_kaprodi' => $request->catatan_kaprodi,
+                ]);
+            });
+
+            return redirect()->route('konversiSKS')->with('success', 'Status pengajuan berhasil diperbarui.');
+        }
     }
 }

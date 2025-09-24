@@ -94,7 +94,7 @@ class KegiatanController extends Controller
 
         // Cek apakah mahasiswa sudah terdaftar di kegiatan ini
         if ($mahasiswa->kegiatans()->where('kegiatan_id', $kegiatan->id)->exists()) {
-            return back()->with('error', 'Anda sudah terdaftar di kegiatan ini.');
+            return back()->with(['error' => 'Anda sudah terdaftar di kegiatan ini.', 'kegiatan_id' => $kegiatan->id]);
         }
 
         // Gunakan attach untuk mendaftarkan mahasiswa dengan status default 'menunggu'
@@ -103,7 +103,7 @@ class KegiatanController extends Controller
             'status' => 'menunggu'
         ]);
 
-        return back()->with('success', 'Berhasil mengajukan pendaftaran. Mohon tunggu konfirmasi admin.');
+        return back()->with(['success' => 'Berhasil mengajukan pendaftaran. Mohon tunggu konfirmasi admin.', 'kegiatan_id' => $kegiatan->id]);
     }
     public function updateStatus(Request $request, Mahasiswa $mahasiswa, Kegiatan $kegiatan)
     {

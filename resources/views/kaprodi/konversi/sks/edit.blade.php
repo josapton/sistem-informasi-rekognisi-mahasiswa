@@ -9,7 +9,7 @@
 </div>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <a href="{{ route('konversiMatkul') }}" class="btn btn-sm btn-primary">
+        <a href="{{ route('konversiSKS') }}" class="btn btn-sm btn-primary">
             <i class="fas fa-arrow-left mr-1"></i>
             Kembali
         </a>
