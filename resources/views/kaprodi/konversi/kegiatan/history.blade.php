@@ -39,7 +39,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>
                                 @if($konversi->created_at)
-                                    {{ $konversi->created_at->format('d M Y') }}
+                                    {{ $konversi->created_at->format('d M Y') ?? 'N/A' }}
                                 @else
                                     - (Tanggal tidak tersedia)
                                 @endif
@@ -96,7 +96,7 @@
                             <td>
                                 <span class="badge badge-{{ $konversi->kegiatan->tipe_konversi === 'SKS' ? 'success' : 'secondary' }}">{{ $konversi->kegiatan->tipe_konversi }}</span>
                             </td>
-                            <td>{{ $konversi->kegiatan->bobot }}</td>
+                            <td><strong>{{ $konversi->kegiatan->bobot }}</strong> SKS</td>
                             <td>
                                 @if ($konversi->status === 'divalidasi')
                                     <span class="text-success font-weight-bold">Divalidasi</span>

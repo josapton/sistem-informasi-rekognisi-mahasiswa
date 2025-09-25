@@ -29,10 +29,11 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php $nomor = 1; @endphp
                     @foreach ($pengajuan as $item)
                         @foreach ($item->mahasiswas as $mahasiswa)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $nomor }}</td>
                                 <td>{{ $item->nama_kegiatan ?? $item->kegiatan_id }}</td>
                                 <td>
                                     <span class="badge badge-{{ $item->tipe_konversi === 'SKS' ? 'success' : 'secondary' }}">{{ $item->tipe_konversi }}</span>
@@ -48,6 +49,7 @@
                                     @endif
                                 </td>
                             </tr>
+                            @php $nomor++; @endphp
                         @endforeach
                     @endforeach
                 </tbody>

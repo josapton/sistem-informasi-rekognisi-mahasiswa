@@ -18,7 +18,53 @@
     <p>
         <strong>Mahasiswa:</strong> {{ $konversi->mahasiswa->nama }} <br>
         <strong>NIM:</strong> {{ $konversi->mahasiswa->username }} <br>
-        <strong>Sisa Tabungan SKS:</strong> {{ $konversi->mahasiswa->sks }} SKS
+        <strong>Sisa Tabungan SKS:</strong> <span style="color: #17a2b8; font-weight: bold;">{{ $konversi->mahasiswa->sks }}</span> SKS <br>
+        <strong>CPL:</strong> @if($konversi->mahasiswa)
+                                @foreach($konversi->mahasiswa->cpls as $cpl)
+                                    @php
+                                        $kategoriCpl = substr($cpl->kode_cpl, 0, 5);
+
+                                        switch ($kategoriCpl) {
+                                            case 'CPL01': 
+                                                $colorClass = '#90ee90';
+                                                break;
+                                            case 'CPL02': 
+                                                $colorClass = '#90ee90';
+                                                break;
+                                            case 'CPL03':
+                                                $colorClass = '#add8e6';
+                                                break;
+                                            case 'CPL04':
+                                                $colorClass = '#add8e6';
+                                                break;
+                                            case 'CPL05':
+                                                $colorClass = '#ffff4c';
+                                                break;
+                                            case 'CPL06': 
+                                                $colorClass = '#ffff4c';
+                                                break;
+                                            case 'CPL07': 
+                                                $colorClass = '#ff9999';
+                                                break;
+                                            case 'CPL08':
+                                                $colorClass = '#ff9999';
+                                                break;
+                                            case 'CPL09':
+                                                $colorClass = '#ff9999';
+                                                break;
+                                            case 'CPL10':
+                                                $colorClass = '#ff9999';
+                                                break;
+                                            default:
+                                                $colorClass = 'bg-secondary';
+                                        }
+                                    @endphp
+
+                                    <span style="background-color: {{ $colorClass }}">{{ $cpl->kode_cpl }}</span>
+                                @endforeach
+                            @else
+                                -
+                            @endif
     </p>
 
         <form action="{{ route('konversi2Update', $konversi->id) }}" method="POST">

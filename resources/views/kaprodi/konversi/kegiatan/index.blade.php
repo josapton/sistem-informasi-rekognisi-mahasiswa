@@ -87,7 +87,7 @@
                             <td>
                                 <span class="badge badge-{{ $konversi->kegiatan->tipe_konversi === 'SKS' ? 'success' : 'secondary' }}">{{ $konversi->kegiatan->tipe_konversi }}</span>
                             </td>
-                            <td>{{ $konversi->kegiatan->bobot }}</td>
+                            <td><strong>{{ $konversi->kegiatan->bobot }}</strong> SKS</td>
                             <td>
                                 <form action="{{ route('validasiPengajuanKonversi', $konversi) }}" method="POST">
                                     @csrf

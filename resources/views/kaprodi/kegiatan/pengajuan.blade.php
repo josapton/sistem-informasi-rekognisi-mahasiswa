@@ -30,10 +30,11 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php $nomor = 1; @endphp
                     @foreach ($pengajuan as $item)
                         @foreach ($item->mahasiswas as $mahasiswa)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $nomor }}</td>
                                 <td>{{ $mahasiswa->username }}</td>
                                 <td>{{ $mahasiswa->nama }}</td>
                                 <td>{{ $item->nama_kegiatan ?? $item->kegiatan_id }}</td>
@@ -90,6 +91,7 @@
                                     @endif
                                 </td>
                             </tr>
+                            @php $nomor++; @endphp
                         @endforeach
                     @endforeach
                 </tbody>

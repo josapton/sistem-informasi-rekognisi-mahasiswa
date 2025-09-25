@@ -51,16 +51,25 @@
                                             <input type="username" class="form-control form-control-user @error('username') is-invalid @enderror"
                                                 placeholder="Masukkan Username/NIM/NPM..." name="username" value="{{ old('username') }}">
                                                 @error('username')
-                                                    <small class="text-danger">{{ $message }}</small>
+                                                    <small class="text-danger d-flex justify-content-center">{{ $message }}</small>
                                                 @enderror
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user @error('password') is-invalid @enderror"
-                                                placeholder="Password" name="password">
+                                                id="password" placeholder="Password" name="password">
                                                 @error('password')
-                                                    <small class="text-danger">{{ $message }}</small>
+                                                    <small class="text-danger d-flex justify-content-center">{{ $message }}</small>
                                                 @enderror
+                                                <div class="d-flex justify-content-center">
+                                                    <div class="form-check d-flex align-items-center">
+                                                        <input class="form-check-input mb-1" type="checkbox" id="showPasswordCheck">
+                                                        <label class="form-check-label small mt-1" for="showPasswordCheck">
+                                                            Tampilkan Password
+                                                        </label>
+                                                    </div>
+                                                </div>
                                         </div>
+                                        
                                         <div class="form-group">
                                             <div class="text-center">
                                                 <label class="small">Masukkan NIM/NPM dan Password</label>
@@ -118,6 +127,20 @@
             });
         </script>
     @endsession
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const passwordInput = document.querySelector('#password');
+            const showPasswordCheck = document.querySelector('#showPasswordCheck');
+
+            // Dengarkan event 'change', bukan 'click'
+            showPasswordCheck.addEventListener('change', function () {
+                // Gunakan properti 'checked' dari checkbox untuk menentukan tipe input
+                // Jika dicentang (true), tipe = 'text'. Jika tidak (false), tipe = 'password'.
+                passwordInput.type = this.checked ? 'text' : 'password';
+            });
+        });
+    </script>
 
 </body>
 

@@ -21,8 +21,7 @@ Route::get('logout',[AuthController::class,'logout'])->name('logout');
 Route::middleware('checkLogin')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     // User Management
-    Route::get('users/updateMahasiswa/{username}', [UserController::class, 'updateMahasiswa'])->name('usersUpdateMahasiswa');
-    Route::post('users/updateMahasiswa/{username}', [UserController::class, 'updateMahasiswa2'])->name('usersUpdateMahasiswa2');
+    
     // Kegiatan Management
     Route::get('kegiatan', [KegiatanController::class, 'index'])->name('kegiatan');
     Route::get('kegiatan/detail/{id}', [KegiatanController::class, 'detail'])->name('kegiatanDetail');
@@ -42,8 +41,8 @@ Route::middleware('checkLogin')->group(function () {
     Route::middleware(['checkRole:Admin,Kaprodi'])->group(function () {
         // User Management
         Route::get('users/mahasiswa', [UserController::class, 'mahasiswa'])->name('usersMahasiswa');
-        Route::get('users/updateKaprodi/{username}', [UserController::class, 'updateKaprodi'])->name('usersUpdateKaprodi');
-        Route::post('users/updateKaprodi/{username}', [UserController::class, 'updateKaprodi2'])->name('usersUpdateKaprodi2');
+        Route::get('users/updateMahasiswa/{username}', [UserController::class, 'updateMahasiswa'])->name('usersUpdateMahasiswa');
+        Route::post('users/updateMahasiswa/{username}', [UserController::class, 'updateMahasiswa2'])->name('usersUpdateMahasiswa2');
         // Kegiatan Management
         Route::get('kegiatan/create', [KegiatanController::class, 'create'])->name('kegiatanCreate');
         Route::post('kegiatan/store', [KegiatanController::class, 'store'])->name('kegiatanStore');
@@ -65,6 +64,8 @@ Route::middleware('checkLogin')->group(function () {
             Route::post('users/update/{id}', [UserController::class, 'update2'])->name('usersUpdate2');
             Route::get('users/updateAdmin/{username}', [UserController::class, 'updateAdmin'])->name('usersUpdateAdmin');
             Route::post('users/updateAdmin/{username}', [UserController::class, 'updateAdmin2'])->name('usersUpdateAdmin2');
+            Route::get('users/updateKaprodi/{username}', [UserController::class, 'updateKaprodi'])->name('usersUpdateKaprodi');
+            Route::post('users/updateKaprodi/{username}', [UserController::class, 'updateKaprodi2'])->name('usersUpdateKaprodi2');
             
             Route::delete('users/destroy/{id}', [UserController::class, 'destroy'])->name('usersDestroy');
             Route::get('users/excel', [UserController::class, 'excel'])->name('usersExcel');

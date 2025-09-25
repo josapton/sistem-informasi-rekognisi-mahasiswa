@@ -34,7 +34,7 @@
                     @foreach ($riwayat as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->created_at->format('d/m/Y') }}</td>
+                            <td>{{ $item->created_at->format('d/m/Y') ?? 'N/A' }}</td>
                             <td>{{ $item->kegiatan->nama_kegiatan }}</td>
                             <td>
                                 <span class="badge badge-{{ $item->kegiatan->tipe_konversi === 'SKS' ? 'success' : 'secondary' }}">{{ $item->kegiatan->tipe_konversi }}</span>

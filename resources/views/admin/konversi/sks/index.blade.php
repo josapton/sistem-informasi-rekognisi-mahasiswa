@@ -24,6 +24,7 @@
                         <th>#</th>
                         <th>NIM Mahasiswa</th>
                         <th>Nama Mahasiswa</th>
+                        <th>CPL</th>
                         <th>Tanggal Pengajuan</th>
                         <th>Total SKS</th>
                         <th>Status</th>
@@ -36,8 +37,56 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->mahasiswa->username ?? 'N/A' }}</td>
                             <td>{{ $item->mahasiswa->nama ?? 'N/A' }}</td>
-                            <td>{{ $item->created_at->format('d M Y') }}</td>
-                            <td>{{ $item->total_sks }} SKS</td>
+                            <td>
+                                @if($item->mahasiswa)
+                                @foreach($item->mahasiswa->cpls as $cpl)
+                                    @php
+                                        $kategoriCpl = substr($cpl->kode_cpl, 0, 5);
+
+                                        switch ($kategoriCpl) {
+                                            case 'CPL01': 
+                                                $colorClass = '#90ee90';
+                                                break;
+                                            case 'CPL02': 
+                                                $colorClass = '#90ee90';
+                                                break;
+                                            case 'CPL03':
+                                                $colorClass = '#add8e6';
+                                                break;
+                                            case 'CPL04':
+                                                $colorClass = '#add8e6';
+                                                break;
+                                            case 'CPL05':
+                                                $colorClass = '#ffff4c';
+                                                break;
+                                            case 'CPL06': 
+                                                $colorClass = '#ffff4c';
+                                                break;
+                                            case 'CPL07': 
+                                                $colorClass = '#ff9999';
+                                                break;
+                                            case 'CPL08':
+                                                $colorClass = '#ff9999';
+                                                break;
+                                            case 'CPL09':
+                                                $colorClass = '#ff9999';
+                                                break;
+                                            case 'CPL10':
+                                                $colorClass = '#ff9999';
+                                                break;
+                                            default:
+                                                $colorClass = 'bg-secondary';
+                                        }
+                                    @endphp
+
+                                    <span style="background-color: {{ $colorClass }}">{{ $cpl->kode_cpl }}</span>
+                                @endforeach
+                            @else
+                                -
+                            @endif
+                            </td>
+                            <td>{{ $item->created_at->format('d M Y') ?? 'N/A' }}</td>
+                            <td><strong>{{ $item->total_sks }}</strong> SKS</td>
                             <td>
                                 @php
                                     $statusClass = [

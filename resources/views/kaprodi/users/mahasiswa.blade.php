@@ -90,7 +90,7 @@
                                 -
                             @endif
                         </td>
-                        <td>{{ $item->mahasiswa ? $item->mahasiswa->sks : '0' }}</td>
+                        <td><strong>{{ $item->mahasiswa ? $item->mahasiswa->sks : '0' }}</strong></td>
                         <td>
                             <a href="{{ route('usersUpdateMahasiswa', $item->username) }}" class="btn btn-sm btn-warning">
                                 <i class="fas fa-edit mr-1"></i>
