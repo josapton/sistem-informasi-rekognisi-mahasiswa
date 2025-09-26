@@ -68,6 +68,10 @@
                     <label for="password_confirmation">Konfirmasi Password</label>
                     <input type="password" class="form-control @error('password') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="Masukkan password konfirmasi">
                 </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="showPasswordCheck">
+                    <label class="form-check-label" for="showPasswordCheck">Tampilkan Password</sabel>
+                </div>
             </div>
             <div class="col-md-12">
                 <button type="submit" class="btn btn-primary">
@@ -84,5 +88,25 @@
             Wajib diisi
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. Ubah ini dari querySelector menjadi querySelectorAll
+            //    Selector ini sekarang memilih #password DAN #password_confirmation
+            const passwordFields = document.querySelectorAll('#password, #password_confirmation');
+            
+            const showPasswordCheck = document.querySelector('#showPasswordCheck');
+        
+            showPasswordCheck.addEventListener('change', function () {
+                // Tentukan tipe berdasarkan status checkbox (checked/unchecked)
+                const newType = this.checked ? 'text' : 'password';
+            
+                // 2. Loop melalui setiap input field yang sudah dipilih
+                passwordFields.forEach(function(field) {
+                    // Terapkan tipe baru ke setiap field
+                    field.type = newType;
+                });
+            });
+        });
+    </script>
 </div>
 @endsection

@@ -6,12 +6,14 @@ use App\Models\Admin;
 use App\Models\Kaprodi;
 use App\Models\Mahasiswa;
 use App\Models\Cpl;
-use Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
-
-use App\Exports\UsersExport;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use App\Exports\UsersExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -195,14 +197,7 @@ class UserController extends Controller
             'data_cpl' => Cpl::orderBy('kode_cpl')->get(),
         );
         return view('kaprodi.users.updateMahasiswa', $data);
-        } else {
-            $data = array(
-            'title' => 'Edit Data Mahasiswa',
-            'mahasiswa' => Mahasiswa::findOrFail($username),
-            'data_cpl' => Cpl::orderBy('kode_cpl')->get(),
-        );
-        return view('mahasiswa.users.updateMahasiswa', $data);
-        }
+        } 
     }
     public function update2(Request $request, $id){
         $request->validate([
@@ -284,6 +279,51 @@ class UserController extends Controller
         $mahasiswa->save();
 
         return redirect()->route('usersMahasiswa')->with('success', 'Data berhasil diubah.');
+    }
+    /**
+     * Menampilkan view/halaman untuk form ganti password.
+     */
+    public function editPassword()
+    {
+        $user = Auth::user();
+        if ($user->role == 'Admin') {
+            return view('admin.pengaturan', [
+            'title' => 'Pengaturan'
+        ]);
+        } elseif ($user->role == 'Kaprodi') {
+            return view('kaprodi.pengaturan', [
+            'title' => 'Pengaturan'
+        ]);
+        } else {
+            return view('mahasiswa.pengaturan', [
+            'title' => 'Pengaturan'
+        ]);
+        }
+    }
+
+    /**
+     * Memvalidasi dan menyimpan password baru.
+     */
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        // Validasi input
+        $request->validate([
+            'current_password' => ['required', function ($attribute, $value, $fail) use ($user) {
+                if (!Hash::check($value, $user->password)) {
+                    $fail('Password Saat Ini tidak cocok.');
+                }
+            }],
+            'new_password' => ['required', 'min:8', 'confirmed'],
+        ]);
+
+        // Update password user
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        // Redirect kembali dengan pesan sukses
+        return back()->with('success', 'Password Anda berhasil diperbarui!');
     }
     public function destroy($id){
         $user = User::findOrFail($id);
