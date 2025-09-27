@@ -112,7 +112,7 @@ class Konversi2Controller extends Controller
             'menuMahasiswaKonversi' => 'active',
             'menuMahasiswaKonversiSKS2' => 'active',
             'menuMahasiswaKonversiCollapse' => request('menuMahasiswaKonversiSKS2', 'active') ? 'show' : 'hide',
-            'history' => Konversi2::where('username', Auth::user()->username)->with('details')->latest()->get(),
+            'history' => Konversi2::where('username', Auth::user()->username)->with('details')->latest()->paginate(10),
         );
         return view('mahasiswa.konversi.sks.history', $data);
     }

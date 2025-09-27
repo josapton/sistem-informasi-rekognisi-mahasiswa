@@ -20,7 +20,6 @@
 </div>
 @else
 
-<div class="table-responsive">
 @foreach ($history as $pengajuan)
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
@@ -37,27 +36,28 @@
         </div>
         <div class="card-body">
             <h5 class="card-title">Detail Item (Total: {{ $pengajuan->total_sks }} SKS)</h5>
-            <table class="table table-bordered dataTable" width="100%" cellspacing="0">
-                <thead class="table-light">
-                    <tr>
-                        <th style="width: 5%;">#</th>
-                        <th>Nama Item</th>
-                        <th>Jenis</th>
-                        <th style="width: 15%;">Bobot SKS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pengajuan->details as $detail)
+            <div class="table-responsive">
+                <table class="table table-bordered dataTable" width="100%" cellspacing="0">
+                    <thead class="table-light">
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $detail->nama_item }}</td>
-                            <td>{{ ucfirst($detail->jenis) }}</td>
-                            <td class="text-center">{{ $detail->sks }}</td>
+                            <th style="width: 5%;">#</th>
+                            <th>Nama Item</th>
+                            <th>Jenis</th>
+                            <th style="width: 15%;">Bobot SKS</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        
+                    </thead>
+                    <tbody>
+                        @foreach ($pengajuan->details as $detail)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $detail->nama_item }}</td>
+                                <td>{{ ucfirst($detail->jenis) }}</td>
+                                <td class="text-center">{{ $detail->sks }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
             @if(!empty($pengajuan->catatan_kaprodi))
                 <div class="mt-3">
                     <strong>Catatan dari Kaprodi:</strong>
@@ -77,6 +77,8 @@
         @endif
     </div>
 @endforeach
+<div class="d-flex justify-content-center">
+    {{ $history->links() }}
 </div>
 @endif
 @endsection

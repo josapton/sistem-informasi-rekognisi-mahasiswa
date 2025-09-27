@@ -23,7 +23,6 @@ Route::middleware('checkLogin')->group(function () {
     // User Management
     Route::get('profile/pengaturan', [UserController::class, 'editPassword'])->name('editPassword');
     Route::patch('profile/pengaturan', [UserController::class, 'updatePassword'])->name('updatePassword');
-
     // Kegiatan Management
     Route::get('kegiatan', [KegiatanController::class, 'index'])->name('kegiatan');
     Route::get('kegiatan/detail/{id}', [KegiatanController::class, 'detail'])->name('kegiatanDetail');
@@ -33,7 +32,6 @@ Route::middleware('checkLogin')->group(function () {
     Route::get('konversi/kegiatan', [KonversiController::class, 'index'])->name('konversiKegiatan');
     Route::post('konversi/{kegiatan}', [KonversiController::class, 'store'])->name('konversiStore');
     Route::get('konversi/kegiatan/riwayat', [KonversiController::class, 'history'])->name('riwayatKonversiKegiatan');
-
     Route::get('konversi/sks', [Konversi2Controller::class, 'index'])->name('konversiSKS');
     Route::post('konversi/sks/store', [Konversi2Controller::class, 'store'])->name('konversi2Store');
     Route::get('konversi/sks/{konversi}/edit', [Konversi2Controller::class, 'edit'])->name('konversi2Edit');
@@ -68,7 +66,6 @@ Route::middleware('checkLogin')->group(function () {
             Route::post('users/update/admin/{username}', [UserController::class, 'updateAdmin2'])->name('usersUpdateAdmin2');
             Route::get('users/edit/kaprodi/{username}', [UserController::class, 'updateKaprodi'])->name('usersUpdateKaprodi');
             Route::post('users/update/kaprodi/{username}', [UserController::class, 'updateKaprodi2'])->name('usersUpdateKaprodi2');
-            
             Route::delete('users/destroy/{id}', [UserController::class, 'destroy'])->name('usersDestroy');
             Route::get('users/excel', [UserController::class, 'excel'])->name('usersExcel');
             Route::get('users/pdf', [UserController::class, 'pdf'])->name('usersPdf');

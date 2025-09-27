@@ -16,16 +16,6 @@
             <i class="fas fa-plus mr-1"></i>
             Tambah Data
         </a>
-        <div class="float-right">
-            <a href="{{ route('usersExcel') }}" class="btn btn-sm btn-success">
-                <i class="fas fa-file-excel mr-1"></i>
-                Excel
-            </a>
-            <a href="{{ route('usersPdf') }}" class="btn btn-sm btn-danger" target="_blank">
-                <i class="fas fa-file-pdf mr-1"></i>
-                PDF
-            </a>
-        </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">

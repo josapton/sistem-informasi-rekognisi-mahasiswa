@@ -63,6 +63,10 @@
                 <i class="fas fa-save mr-1"></i>
                 Update Password
             </button>
+            <a href="{{ url()->previous() }}" class="btn btn-secondary">
+                <i class="fas fa-times mr-1"></i>
+                Batal
+            </a>
         </form>
     </div>
 <script>
