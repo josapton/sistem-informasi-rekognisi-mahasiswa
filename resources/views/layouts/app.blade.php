@@ -105,13 +105,13 @@
     <script src="{{ asset('sbadmin2/js/sb-admin-2.min.js') }}"></script>
 
     <!-- Page level plugins -->
-    <script src="{{ asset('sbadmin2/vendor/chart.js/Chart.min.js') }}"></script>
+    {{-- <script src="{{ asset('sbadmin2/vendor/chart.js/Chart.min.js') }}"></script> --}}
     <script src="{{ asset('sbadmin2/vendor/datatables/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('sbadmin2/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{ asset('sbadmin2/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('sbadmin2/js/demo/chart-pie-demo.js') }}"></script>
+    {{-- <script src="{{ asset('sbadmin2/js/demo/chart-area-demo.js') }}"></script> --}}
+    {{-- <script src="{{ asset('sbadmin2/js/demo/chart-pie-demo.js') }}"></script> --}}
     <script src="{{ asset('sbadmin2/js/demo/datatables-demo.js') }}"></script>
 
     <script src="{{ asset('sweetalert2/dist/sweetalert2.all.min.js') }}"></script>
