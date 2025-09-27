@@ -83,7 +83,7 @@
                                     <hr>
                                     <div class="text-center">
                                         <label class="small">Mengalami kendala?</label>
-                                        <a class="small" style="cursor:pointer;" onclick="window.open('https://web.whatsapp.com/send?phone=6285174209474', '_blank')">Hubungi Staff/Admin</a>
+                                        <a class="small" href="{{ route('contact.whatsapp') }}" target="_blank">Hubungi Staff/Admin</a>
                                     </div>
                                 </div>
                             </div>
