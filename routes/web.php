@@ -19,7 +19,7 @@ Route::post('/',[AuthController::class,'loginProcess'])->name('loginProcess');
 
 Route::get('logout',[AuthController::class,'logout'])->name('logout');
 
-Route::get('contact/whatsapp', [RedirectController::class, 'toWhatsapp'])->name('contact.whatsapp');
+Route::get('contact', [RedirectController::class, 'toWhatsapp'])->name('contact.whatsapp');
 
 Route::middleware('checkLogin')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
