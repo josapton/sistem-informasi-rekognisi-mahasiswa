@@ -1,61 +1,133 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Informasi Rekognisi Mahasiswa
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white) ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
 
-## About Laravel
+Repositori ini berisi kode sumber untuk aplikasi web Sistem Informasi Rekognisi Mahasiswa. Aplikasi ini dirancang untuk memfasilitasi proses pengajuan, validasi, dan konversi kegiatan non-akademik mahasiswa menjadi Satuan Kredit Semester (SKS) atau bentuk pengakuan lainnya.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🎯 Tujuan Aplikasi
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Tujuan utama dari sistem ini adalah untuk:
+1.  **Mendigitalkan Proses**: Mengubah proses manual pengajuan dan validasi rekognisi menjadi sistem online yang terpusat dan efisien.
+2.  **Memberikan Apresiasi**: Memberikan pengakuan formal terhadap prestasi dan kegiatan mahasiswa di luar kelas.
+3.  **Transparansi**: Menyediakan alur kerja yang transparan bagi mahasiswa, dosen (Kaprodi), dan admin dalam melacak status pengajuan.
+4.  **Pelaporan Terpusat**: Memudahkan pihak akademik dalam melakukan rekapitulasi dan pelaporan kegiatan rekognisi mahasiswa.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## ✨ Fitur Utama
 
-## Laravel Sponsors
+Sistem ini memiliki tiga hak akses utama dengan fitur yang berbeda:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 👤 Admin
+- **Manajemen User**: Dapat menambah, mengubah, dan menghapus data semua user (Admin, Kaprodi, Mahasiswa).
+- **Manajemen Kegiatan**: Mengelola daftar kegiatan MBKM atau lainnya yang dapat diikuti oleh mahasiswa.
+- **Validasi Pengajuan**: Memiliki wewenang penuh untuk memvalidasi semua jenis pengajuan (pendaftaran kegiatan, konversi SKS).
+- **Dashboard Global**: Melihat statistik keseluruhan sistem, seperti jumlah user, total kegiatan, dan jumlah pengajuan yang tertunda.
 
-### Premium Partners
+### 🎓 Kaprodi (Kepala Program Studi)
+- **Validasi Alur**: Memvalidasi pendaftaran kegiatan mahasiswa dan menyetujui/menolak pengajuan konversi SKS.
+- **Modifikasi Pengajuan**: Dapat memodifikasi detail pengajuan konversi dari mahasiswa sebelum divalidasi.
+- **Pengembalian untuk Revisi**: Dapat mengembalikan pengajuan kepada mahasiswa untuk diperbaiki.
+- **Dashboard Jurusan**: Melihat statistik pengajuan yang relevan dengan program studinya.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 👨‍🎓 Mahasiswa
+- **Tabungan SKS**: Memiliki "Tabungan SKS" yang didapat dari kegiatan yang telah divalidasi.
+- **Pendaftaran Kegiatan**: Dapat mendaftar pada kegiatan yang tersedia dan mengunggah laporan.
+- **Pengajuan Konversi**:
+    - Mengajukan konversi kegiatan menjadi SKS.
+    - Mengajukan konversi "Tabungan SKS" menjadi mata kuliah atau mikrokredensial (proyek, praktik, dll.) melalui form dinamis.
+- **Dashboard Personal**: Melihat ringkasan status semua kegiatan dan pengajuan miliknya, serta sisa "Tabungan SKS".
+- **Riwayat**: Melihat seluruh riwayat pengajuan yang pernah dilakukan.
 
-## Contributing
+### 🔒 Keamanan
+- **Login dengan reCAPTCHA**: Halaman login diamankan dengan Google reCAPTCHA v2 untuk mencegah bot.
+- **Manajemen Role & Middleware**: Hak akses setiap halaman dibatasi secara ketat berdasarkan role pengguna.
+- **Redirect Aman**: Link eksternal (seperti WhatsApp) disembunyikan di balik route untuk menjaga privasi.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 🛠️ Panduan Instalasi
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Berikut adalah langkah-langkah untuk menjalankan proyek ini di lingkungan lokal.
 
-## Security Vulnerabilities
+**Prasyarat:**
+- PHP >= 8.1
+- Composer
+- Node.js & NPM
+- Database (MySQL/MariaDB)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Langkah-langkah:**
 
-## License
+1.  **Clone Repositori**
+    ```bash
+    git clone https://github.com/josapton/sistem-informasi-rekognisi-mahasiswa.git
+    cd sistem-informasi-rekognisi-mahasiswa
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+2.  **Install Dependensi**
+    Install semua package PHP yang dibutuhkan dengan Composer.
+    ```bash
+    composer install
+    ```
+
+3.  **Setup File `.env`**
+    Salin file `.env.example` menjadi `.env` dan konfigurasikan koneksi database Anda.
+    ```bash
+    cp .env.example .env
+    ```
+    Buka file `.env` dan sesuaikan baris berikut:
+    ```env
+    APP_LOCALE=id
+    APP_FALLBACK_LOCALE=id
+    APP_FAKER_LOCALE=id_ID
+
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=nama_database_anda
+    DB_USERNAME=root
+    DB_PASSWORD=password_anda
+
+    WHATSAPP_CONTACT_NUMBER=62123456789
+    ```
+
+4.  **Tambahkan Kunci reCAPTCHA**
+    Tambahkan Site Key dan Secret Key Google reCAPTCHA Anda ke file `.env`.
+    ```env
+    NOCAPTCHA_SITEKEY=ISI_DENGAN_SITE_KEY_ANDA
+    NOCAPTCHA_SECRET=ISI_DENGAN_SECRET_KEY_ANDA
+    ```
+
+5.  **Generate Kunci Aplikasi**
+    ```bash
+    php artisan key:generate
+    ```
+
+6.  **Jalankan Migrasi Database**
+    Perintah ini akan membuat semua tabel yang dibutuhkan di database Anda.
+    ```bash
+    php artisan migrate
+    ```
+    *Opsional: Jika Anda ingin mengisi data awal (dummy data), jalankan seeder.*
+    ```bash
+    php artisan db:seed
+    ```
+
+7.  **Jalankan Server Pengembangan**
+    ```bash
+    php artisan serve
+    ```
+    Aplikasi sekarang dapat diakses di `http://127.0.0.1:8000`.
+
+---
+
+## 🤝 Kontribusi
+Kontribusi ke branch `dev` dalam bentuk *pull request*, laporan *bug*, atau saran fitur sangat kami hargai.
+
+---
+
+© 2025 - Teknik Informatika Universitas Boyolali
