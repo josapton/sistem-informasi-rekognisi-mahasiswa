@@ -92,6 +92,20 @@
                 </div>
 
             </div>
+            
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto text-white">
+                    <span>
+                        &copy;
+                        {{-- <a href="https://github.com/josapton" target="_blank">Joko Saptono</a> --}}
+                        <a href="https://informatika.uby.ac.id/" target="_blank" class="text-white">Teknik Informatika</a>
+                        |
+                        <a href="https://uby.ac.id" target="_blank" class="text-white">Universitas Boyolali</a>
+                        -
+                        <?php echo date("Y"); ?>
+                    </span>
+                </div>
+            </div>
 
         </div>
 

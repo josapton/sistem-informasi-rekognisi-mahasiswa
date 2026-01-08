@@ -4,7 +4,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">
-        <i class="fas fa-fw fa-file"></i>
+        <i class="fas fa-fw fa-history"></i>
         {{ $title }}
     </h1>
 </div>
@@ -26,6 +26,7 @@
                         <th>Tipe Konversi</th>
                         <th>Bobot</th>
                         <th>Status</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,6 +47,23 @@
                                         <span class="text-success font-weight-bold">Diterima</span>
                                     @elseif ($mahasiswa->pivot->status == 'ditolak')
                                         <span class="text-danger font-weight-bold">Ditolak</span>
+                                    @elseif ($mahasiswa->pivot->status == 'diselesaikan')
+                                        <span class="text-primary font-weight-bold">Diselesaikan</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($mahasiswa->pivot->status == 'diterima')
+                                        <form action="{{ route('kegiatanComplete', $item) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-success" onclick="return confirm('Tandai kegiatan ini sebagai selesai?')">
+                                                <i class="fas fa-check mr-1"></i>
+                                                Selesaikan
+                                            </button>
+                                        </form>
+                                    @elseif ($mahasiswa->pivot->status == 'diselesaikan')
+                                        <span class="text-muted">--</span>
+                                    @else
+                                        <span class="text-muted">--</span>
                                     @endif
                                 </td>
                             </tr>

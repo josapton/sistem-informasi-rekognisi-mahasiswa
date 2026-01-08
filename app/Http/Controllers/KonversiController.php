@@ -47,7 +47,7 @@ class KonversiController extends Controller
                 'menuMahasiswaKonversiKegiatan' => 'active',
                 'menuMahasiswaKonversiCollapse' => request('menuMahasiswaKonversiKegiatan', 'active') ? 'show' : 'hide',
                 'pengajuan' => $mahasiswa
-                    ? $mahasiswa->kegiatans()->wherePivot('status', 'diterima')->get()
+                    ? $mahasiswa->kegiatans()->wherePivot('status', 'diselesaikan')->get()
                     : collect(),
             );
             return view('mahasiswa.konversi.kegiatan.index', $data);
@@ -55,10 +55,11 @@ class KonversiController extends Controller
     }
     public function store(Kegiatan $kegiatan)
     {
-        $mahasiswa = Auth::user();
+        $user = Auth::user();
+        $username = $user->username;
 
         // Cek sekali lagi untuk mencegah data ganda
-        $exists = Konversi::where('username', $mahasiswa->username)
+        $exists = Konversi::where('username', $username)
                           ->where('kegiatan_id', $kegiatan->id)
                           ->exists();
 
@@ -66,8 +67,19 @@ class KonversiController extends Controller
             return back()->with(['error' => 'Konversi untuk kegiatan ini sudah pernah diajukan.', 'kegiatan_id' => $kegiatan->id]);
         }
 
+        // Pastikan mahasiswa sudah menyelesaikan kegiatan sebelum mengajukan konversi
+        $completed = DB::table('kegiatan_mahasiswa')
+                       ->where('username', $username)
+                       ->where('kegiatan_id', $kegiatan->id)
+                       ->where('status', 'diselesaikan')
+                       ->exists();
+
+        if (! $completed) {
+            return back()->with(['error' => 'Anda harus menyelesaikan kegiatan sebelum mengajukan konversi.', 'kegiatan_id' => $kegiatan->id]);
+        }
+
         Konversi::create([
-            'username' => $mahasiswa->username,
+            'username' => $username,
             'kegiatan_id' => $kegiatan->id,
             'status' => 'diajukan',
         ]);

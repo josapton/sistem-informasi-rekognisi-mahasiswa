@@ -31,6 +31,7 @@ Route::middleware('checkLogin')->group(function () {
     Route::get('kegiatan/detail/{id}', [KegiatanController::class, 'detail'])->name('kegiatanDetail');
     Route::get('kegiatan/pengajuan', [KegiatanController::class, 'pengajuan'])->name('pengajuanKegiatan');
     Route::post('kegiatan/{kegiatan}/apply', [KegiatanController::class, 'apply'])->name('pendaftaranKegiatan');
+    Route::post('kegiatan/{kegiatan}/complete', [KegiatanController::class, 'complete'])->name('kegiatanComplete');
     // Konversi Management
     Route::get('konversi/kegiatan', [KonversiController::class, 'index'])->name('konversiKegiatan');
     Route::post('konversi/{kegiatan}', [KonversiController::class, 'store'])->name('konversiStore');
@@ -55,6 +56,18 @@ Route::middleware('checkLogin')->group(function () {
         Route::patch('kegiatan/pengajuan/{mahasiswa}/{kegiatan}', [KegiatanController::class, 'updateStatus'])->name('pengajuanKegiatanUpdate');
         // Konversi Management
         Route::patch('konversi/kegiatan/{konversi}', [KonversiController::class, 'validasiPengajuan'])->name('validasiPengajuanKonversi');
+
+        // CPL & Mata Kuliah Management
+        Route::get('cpl', [\App\Http\Controllers\CplController::class, 'index'])->name('cpl.index');
+        Route::get('cpl/{kode_cpl}/edit', [\App\Http\Controllers\CplController::class, 'edit'])->name('cpl.edit');
+        Route::post('cpl/{kode_cpl}', [\App\Http\Controllers\CplController::class, 'update'])->name('cpl.update');
+
+        Route::get('matakuliah', [\App\Http\Controllers\MatakuliahController::class, 'index'])->name('matakuliah.index');
+        Route::get('matakuliah/create', [\App\Http\Controllers\MatakuliahController::class, 'create'])->name('matakuliah.create');
+        Route::post('matakuliah/store', [\App\Http\Controllers\MatakuliahController::class, 'store'])->name('matakuliah.store');
+        Route::get('matakuliah/edit/{id}', [\App\Http\Controllers\MatakuliahController::class, 'edit'])->name('matakuliah.edit');
+        Route::post('matakuliah/update/{id}', [\App\Http\Controllers\MatakuliahController::class, 'update'])->name('matakuliah.update');
+        Route::delete('matakuliah/destroy/{id}', [\App\Http\Controllers\MatakuliahController::class, 'destroy'])->name('matakuliah.destroy');
 
         Route::middleware('checkRole:Admin')->group(function () {
             // User Management
