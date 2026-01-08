@@ -48,7 +48,7 @@ class KegiatanController extends Controller
         $user = Auth::user();
         if ($user->role == 'Admin') {
             $data = array(
-            'title' => 'Data Pengajuan Kegiatan',
+            'title' => 'Riwayat Kegiatan',
             'menuAdminKegiatan' => 'active',
             'menuAdminPengajuanKegiatan' => 'active',
             'menuAdminKegiatanCollapse' => request('menuAdminPengajuanKegiatan', 'active') ? 'show' : 'hide',
@@ -57,7 +57,7 @@ class KegiatanController extends Controller
         return view('admin.kegiatan.pengajuan', $data);
         } elseif ($user->role == 'Kaprodi') {
             $data = array(
-            'title' => 'Data Pengajuan Kegiatan',
+            'title' => 'Riwayat Kegiatan',
             'menuKaprodiKegiatan' => 'active',
             'menuKaprodiPengajuanKegiatan' => 'active',
             'menuKaprodiKegiatanCollapse' => request('menuKaprodiPengajuanKegiatan', 'active') ? 'show' : 'hide',
@@ -67,7 +67,7 @@ class KegiatanController extends Controller
         } else {
             $mahasiswa = Mahasiswa::where('username', $user->username)->first();
             $data = array(
-                'title' => 'Pengajuan Kegiatan',
+                'title' => 'Riwayat Kegiatan',
                 'menuMahasiswaKegiatan' => 'active',
                 'menuMahasiswaPengajuanKegiatan' => 'active',
                 'menuMahasiswaKegiatanCollapse' => request('menuMahasiswaPengajuanKegiatan', 'active') ? 'show' : 'hide',
@@ -105,11 +105,43 @@ class KegiatanController extends Controller
 
         return back()->with(['success' => 'Berhasil mengajukan pendaftaran. Mohon tunggu konfirmasi admin.', 'kegiatan_id' => $kegiatan->id]);
     }
+    /**
+     * Mahasiswa menandai kegiatan sebagai selesai.
+     */
+    public function complete(Kegiatan $kegiatan)
+    {
+        $user = Auth::user();
+        $mahasiswa = Mahasiswa::where('username', $user->username)->first();
+
+        if (!$mahasiswa) {
+            return back()->with('error', 'Akun Anda tidak terdaftar sebagai mahasiswa.');
+        }
+
+        // Pastikan mahasiswa sudah terdaftar di kegiatan ini
+        if (! $mahasiswa->kegiatans()->where('kegiatan_id', $kegiatan->id)->exists()) {
+            return back()->with(['error' => 'Anda belum mendaftar kegiatan ini.', 'kegiatan_id' => $kegiatan->id]);
+        }
+
+        // Ambil status pivot saat ini
+        $pivot = $mahasiswa->kegiatans()->where('kegiatan_id', $kegiatan->id)->first()->pivot;
+
+        // Hanya boleh menandai selesai bila status saat ini adalah 'diterima'
+        if ($pivot->status !== 'diterima') {
+            return back()->with(['error' => 'Kegiatan hanya bisa ditandai selesai jika sudah diterima oleh admin.', 'kegiatan_id' => $kegiatan->id]);
+        }
+
+        // Update pivot ke 'diselesaikan'
+        $mahasiswa->kegiatans()->updateExistingPivot($kegiatan->id, [
+            'status' => 'diselesaikan'
+        ]);
+
+        return back()->with(['success' => 'Kegiatan telah ditandai sebagai selesai.', 'kegiatan_id' => $kegiatan->id]);
+    }
     public function updateStatus(Request $request, Mahasiswa $mahasiswa, Kegiatan $kegiatan)
     {
         // Validasi input dari admin
         $request->validate([
-            'status' => 'required|in:diterima,ditolak',
+            'status' => 'required|in:diterima,ditolak,diselesaikan',
         ]);
 
         // Update status di pivot table

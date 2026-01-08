@@ -14,7 +14,7 @@
     <div class="card-body">
         @if($pengajuan->isEmpty())
             <div class="alert alert-info text-center mb-0">
-                Anda tidak memiliki kegiatan yang 'Diterima'.
+                Anda tidak memiliki kegiatan yang 'Diselesaikan'.
             </div>
         @else
         <div class="table-responsive">
@@ -22,7 +22,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Kegiatan Diterima</th>
+                        <th>Kegiatan Diselesaikan</th>
                         <th>Tipe Konversi</th>
                         <th>Jumlah Konversi</th>
                         <th>Aksi</th>

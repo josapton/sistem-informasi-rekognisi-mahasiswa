@@ -45,6 +45,23 @@
             </div>
         </li>
 
+        <li class="nav-item {{ $menuAdminCpl ?? '' }}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesAdminCpl"
+                aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-book"></i>
+                <span>CPL & Mata Kuliah</span>
+            </a>
+            <div id="collapseUtilitiesAdminCpl" class="collapse {{ $menuAdminCplCollapse ?? '' }}" aria-labelledby="headingUtilities"
+                data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">CPL:</h6>
+                    <a class="collapse-item {{ $menuAdminCplList ?? '' }}" href="{{ route('cpl.index') }}">Kelola CPL</a>
+                    <h6 class="collapse-header">Mata Kuliah:</h6>
+                    <a class="collapse-item {{ $menuAdminMatakuliah ?? '' }}" href="{{ route('matakuliah.index') }}">Data Mata Kuliah</a>
+                </div>
+            </div>
+        </li>
+
         <li class="nav-item {{ $menuAdminKegiatan ?? '' }}">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesAdminKegiatan"
                 aria-expanded="true" aria-controls="collapseUtilities">
@@ -55,7 +72,7 @@
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item {{ $menuAdminKegiatanAll ?? '' }}" href="{{ route('kegiatan') }}">Data Kegiatan</a>
-                    <a class="collapse-item {{ $menuAdminPengajuanKegiatan ?? '' }}" href="{{ route('pengajuanKegiatan') }}">Data Pengajuan Kegiatan</a>
+                    <a class="collapse-item {{ $menuAdminPengajuanKegiatan ?? '' }}" href="{{ route('pengajuanKegiatan') }}">Riwayat Kegiatan</a>
                 </div>
             </div>
         </li>
@@ -78,11 +95,29 @@
                 </div>
             </div>
         </li>
+        
     @elseif (Auth::user()->role == 'Kaprodi')
         <li class="nav-item {{ $menuKaprodiUsersMahasiswa ?? '' }}">
             <a class="nav-link" href="{{ route('usersMahasiswa') }}">
                 <i class="fas fa-fw fa-users"></i>
                 <span>Mahasiswa</span></a>
+        </li>
+
+        <li class="nav-item {{ $menuKaprodiCpl ?? '' }}">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilitiesAdminCpl"
+                aria-expanded="true" aria-controls="collapseUtilities">
+                <i class="fas fa-fw fa-book"></i>
+                <span>CPL & Mata Kuliah</span>
+            </a>
+            <div id="collapseUtilitiesAdminCpl" class="collapse {{ $menuKaprodiCplCollapse ?? '' }}" aria-labelledby="headingUtilities"
+                data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">CPL:</h6>
+                    <a class="collapse-item {{ $menuKaprodiCplList ?? '' }}" href="{{ route('cpl.index') }}">Kelola CPL</a>
+                    <h6 class="collapse-header">Mata Kuliah:</h6>
+                    <a class="collapse-item {{ $menuKaprodiMatakuliah ?? '' }}" href="{{ route('matakuliah.index') }}">Data Mata Kuliah</a>
+                </div>
+            </div>
         </li>
 
         <li class="nav-item {{ $menuKaprodiKegiatan ?? '' }}">
@@ -95,7 +130,7 @@
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item {{ $menuKaprodiKegiatanAll ?? '' }}" href="{{ route('kegiatan') }}">Data Kegiatan</a>
-                    <a class="collapse-item {{ $menuKaprodiPengajuanKegiatan ?? '' }}" href="{{ route('pengajuanKegiatan') }}">Data Pengajuan Kegiatan</a>
+                    <a class="collapse-item {{ $menuKaprodiPengajuanKegiatan ?? '' }}" href="{{ route('pengajuanKegiatan') }}">Riwayat Kegiatan</a>
                 </div>
             </div>
         </li>
@@ -129,7 +164,7 @@
                 data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item {{ $menuMahasiswaKegiatanAll ?? '' }}" href="{{ route('kegiatan') }}">Kegiatan</a>
-                    <a class="collapse-item {{ $menuMahasiswaPengajuanKegiatan ?? '' }}" href="{{ route('pengajuanKegiatan') }}">Pengajuan Kegiatan</a>
+                    <a class="collapse-item {{ $menuMahasiswaPengajuanKegiatan ?? '' }}" href="{{ route('pengajuanKegiatan') }}">Riwayat Kegiatan</a>
                 </div>
             </div>
         </li>

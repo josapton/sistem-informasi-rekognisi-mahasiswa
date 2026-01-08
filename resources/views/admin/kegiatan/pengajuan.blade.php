@@ -4,7 +4,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">
-        <i class="fas fa-fw fa-file"></i>
+        <i class="fas fa-fw fa-history"></i>
         {{ $title }}
     </h1>
 </div>
@@ -45,6 +45,8 @@
                                         <span class="text-success font-weight-bold">Diterima</span>
                                     @elseif ($mahasiswa->pivot->status == 'ditolak')
                                         <span class="text-danger font-weight-bold">Ditolak</span>
+                                    @elseif ($mahasiswa->pivot->status == 'diselesaikan')
+                                        <span class="text-primary font-weight-bold">Diselesaikan</span>
                                     @endif
                                 </td>
                                 <td>
@@ -60,6 +62,9 @@
                                                 <option value="ditolak" {{ $mahasiswa->pivot->status == 'ditolak' ? 'selected' : '' }} style="color:red;">
                                                     Tolak
                                                 </option>
+                                                <option value="diselesaikan" {{ $mahasiswa->pivot->status == 'diselesaikan' ? 'selected' : '' }} style="color:blue;">
+                                                    Diselesaikan
+                                                </option>
                                             </select>
                                         </form>
                                     @elseif ($mahasiswa->pivot->status == 'diterima')
@@ -73,6 +78,9 @@
                                                 <option value="ditolak" {{ $mahasiswa->pivot->status == 'ditolak' ? 'selected' : '' }} style="color: red;">
                                                     Tolak
                                                 </option>
+                                                <option value="diselesaikan" {{ $mahasiswa->pivot->status == 'diselesaikan' ? 'selected' : '' }} style="color:blue;">
+                                                    Diselesaikan
+                                                </option>
                                             </select>
                                         </form>
                                     @else
@@ -85,6 +93,9 @@
                                                 </option>
                                                 <option value="ditolak" {{ $mahasiswa->pivot->status == 'ditolak' ? 'selected' : '' }} style="color: red;">
                                                     Tolak
+                                                </option>
+                                                <option value="diselesaikan" {{ $mahasiswa->pivot->status == 'diselesaikan' ? 'selected' : '' }} style="color:blue;">
+                                                    Diselesaikan
                                                 </option>
                                             </select>
                                         </form>
