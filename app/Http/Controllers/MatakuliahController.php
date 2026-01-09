@@ -40,7 +40,7 @@ class MatakuliahController extends Controller
     public function create()
     {
         $user = Auth::user();
-        if ($user->role = 'Admin') {
+        if ($user->role == 'Admin') {
             $data = [
             'title' => 'Tambah Mata Kuliah',
             'menuAdminCpl' => 'active',
@@ -80,7 +80,7 @@ class MatakuliahController extends Controller
     {
         $m = Matakuliah::findOrFail($id);
         $user = Auth::user();
-        if ($user->role = 'Admin') {
+        if ($user->role == 'Admin') {
             $data = [
             'title' => 'Edit Mata Kuliah',
             'menuAdminCpl' => 'active',

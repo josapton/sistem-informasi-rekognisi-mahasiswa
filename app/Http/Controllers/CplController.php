@@ -15,7 +15,7 @@ class CplController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user->role = 'Admin') {
+        if ($user->role == 'Admin') {
             $data = [
             'title' => 'Kelola CPL',
             'menuAdminCpl' => 'active',
@@ -45,7 +45,7 @@ class CplController extends Controller
     {
         $cpl = Cpl::findOrFail($kode_cpl);
         $user = Auth::user();
-        if ($user->role = 'Admin') {
+        if ($user->role == 'Admin') {
             $data = [
             'title' => 'Edit CPL',
             'menuAdminCpl' => 'active',

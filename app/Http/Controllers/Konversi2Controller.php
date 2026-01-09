@@ -6,6 +6,8 @@ use App\Models\Konversi2;
 use App\Models\Konversi2Detail;
 use App\Models\User;
 use App\Models\Mahasiswa;
+use App\Models\Matakuliah;
+use App\Models\Mikrokredensial;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +17,8 @@ class Konversi2Controller extends Controller
 {
     public function index(Request $request)
     {
+        $matakuliahs = Matakuliah::select('id','nama_matakuliah','bobot')->get();
+        $mikrokredensials = Mikrokredensial::select('id','nama_mikrokredensial','bobot')->get();
         $user = Auth::user();
         if ($user->role == 'Admin') {
             $data = array(
@@ -23,6 +27,8 @@ class Konversi2Controller extends Controller
                 'menuAdminKonversiSKS' => 'active',
                 'menuAdminKonversiCollapse' => request('menuAdminKonversiSKS', 'active') ? 'show' : 'hide',
                 'pengajuan' => Konversi2::with('mahasiswa', 'details')->whereIn('status', ['diajukan', 'dikembalikan'])->latest()->get(),
+                'matakuliahs' => $matakuliahs,
+                'mikrokredensials' => $mikrokredensials,
             );
         return view('admin.konversi.sks.index', $data);
         } elseif ($user->role == 'Kaprodi') {
@@ -32,6 +38,8 @@ class Konversi2Controller extends Controller
                 'menuKaprodiKonversiSKS' => 'active',
                 'menuKaprodiKonversiCollapse' => request('menuKaprodiKonversiSKS', 'active') ? 'show' : 'hide',
                 'pengajuan' => Konversi2::with('mahasiswa', 'details')->whereIn('status', ['diajukan', 'dikembalikan'])->latest()->get(),
+                'matakuliahs' => $matakuliahs,
+                'mikrokredensials' => $mikrokredensials,
             );
             return view('kaprodi.konversi.sks.index', $data);
         } else {
@@ -44,6 +52,8 @@ class Konversi2Controller extends Controller
                 'items' => [
                     ['nama_item' => '', 'jenis' => 'matakuliah', 'sks' => '']
                 ],
+                'matakuliahs' => $matakuliahs,
+                'mikrokredensials' => $mikrokredensials,
             );
             return view('mahasiswa.konversi.sks.index', $data);
         }
@@ -119,6 +129,8 @@ class Konversi2Controller extends Controller
     }
     public function edit(Konversi2 $konversi)
     {
+        $matakuliahs = Matakuliah::select('id','nama_matakuliah','bobot')->get();
+        $mikrokredensials = Mikrokredensial::select('id','nama_mikrokredensial','bobot')->get();
         $user = Auth::user();
         if ($user->role == 'Admin') {
             $data = array(
@@ -127,6 +139,8 @@ class Konversi2Controller extends Controller
             'menuAdminKonversiSKS' => 'active',
             'menuAdminKonversiCollapse' => request('menuAdminKonversiSKS', 'active') ? 'show' : 'hide',
             'konversi' => $konversi->load('mahasiswa', 'details'),
+            'matakuliahs' => $matakuliahs,
+            'mikrokredensials' => $mikrokredensials,
         );
         return view('admin.konversi.sks.edit', $data);
         } elseif ($user->role == 'Kaprodi') {
@@ -136,6 +150,8 @@ class Konversi2Controller extends Controller
             'menuKaprodiKonversiSKS' => 'active',
             'menuKaprodiKonversiCollapse' => request('menuKaprodiKonversiSKS', 'active') ? 'show' : 'hide',
             'konversi' => $konversi->load('mahasiswa', 'details'),
+            'matakuliahs' => $matakuliahs,
+            'mikrokredensials' => $mikrokredensials,
         );
         return view('kaprodi.konversi.sks.edit', $data);
         } else {
@@ -159,6 +175,8 @@ class Konversi2Controller extends Controller
             'menuMahasiswaKonversiSKS2' => 'active',
             'menuMahasiswaKonversiCollapse' => request('menuMahasiswaKonversiSKS2', 'active') ? 'show' : 'hide',
             'konversi' => $konversi,
+            'matakuliahs' => $matakuliahs,
+            'mikrokredensials' => $mikrokredensials,
         );
         return view('mahasiswa.konversi.sks.edit', $data);
         }

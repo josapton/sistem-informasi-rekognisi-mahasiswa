@@ -79,14 +79,29 @@
                             <div class="row">
                                 <div class="col-md-5">
                                     <label>Nama Matakuliah / Mikrokredensial</label>
-                                    <input type="text" name="nama_item[]" class="form-control" value="{{ $item->nama_item }}" required>
+                                    <select name="nama_item[]" class="form-control nama-item-select" required>
+                                        <option value="">-- Pilih Matakuliah / Mikrokredensial --</option>
+                                        <optgroup label="Matakuliah">
+                                            @foreach(($matakuliahs ?? []) as $m)
+                                                @php $text = $m->nama_matakuliah ?? ''; $sksVal = $m->bobot ?? 0; @endphp
+                                                <option value="{{ $text }}" data-sks="{{ $sksVal }}" data-type="matakuliah" {{ $item->nama_item == $text ? 'selected' : '' }}>{{ $text }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                        <optgroup label="Mikrokredensial">
+                                            @foreach(($mikrokredensials ?? []) as $mk)
+                                                @php $text = $mk->nama_mikrokredensial ?? ''; $sksVal = $mk->bobot ?? 0; @endphp
+                                                <option value="{{ $text }}" data-sks="{{ $sksVal }}" data-type="mikrokredensial" {{ $item->nama_item == $text ? 'selected' : '' }}>{{ $text }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label>Jenis</label>
-                                    <select name="jenis[]" class="form-control">
+                                    <select class="form-control jenis-display" disabled>
                                         <option value="matakuliah" {{ $item->jenis == 'matakuliah' ? 'selected' : '' }}>Matakuliah</option>
                                         <option value="mikrokredensial" {{ $item->jenis == 'mikrokredensial' ? 'selected' : '' }}>Mikrokredensial</option>
                                     </select>
+                                    <input type="hidden" name="jenis[]" value="{{ $item->jenis }}">
                                 </div>
                                 <div class="col-md-3">
                                     <label>Bobot SKS</label>
@@ -120,3 +135,53 @@
     </div>
 </div>
 @endsection
+ 
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const matakuliahs = @json($matakuliahs ?? []);
+        const mikrokredensials = @json($mikrokredensials ?? []);
+
+        function escapeHtml(unsafe) {
+            return String(unsafe).replace(/[&<>"']/g, function (m) { return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#039;"})[m]; });
+        }
+
+        function updateDisabledOptions() {
+            const selected = Array.from(document.querySelectorAll('.nama-item-select')).map(s => s.value).filter(v => v);
+            document.querySelectorAll('.nama-item-select').forEach(function(sel) {
+                sel.querySelectorAll('option').forEach(function(opt) {
+                    if (!opt.value) return;
+                    if (sel.value === opt.value) { opt.disabled = false; return; }
+                    opt.disabled = selected.includes(opt.value);
+                });
+            });
+        }
+
+        function wireSelect(selectEl) {
+            selectEl.addEventListener('change', function () {
+                const opt = selectEl.selectedOptions[0];
+                const sks = opt ? opt.dataset.sks || 0 : 0;
+                const row = selectEl.closest('.card');
+                if (!row) return;
+                const sksInput = row.querySelector('input[name="sks[]"]');
+                const jenisDisplay = row.querySelector('.jenis-display');
+                const jenisHidden = row.querySelector('input[name="jenis[]"]');
+                let type = '';
+                if (opt) type = opt.dataset.type || '';
+                if (sksInput) sksInput.value = sks;
+                if (jenisDisplay && type) {
+                    if (type === 'matakuliah' || type === 'mikrokredensial') jenisDisplay.value = type;
+                }
+                if (jenisHidden && type) jenisHidden.value = type;
+                updateDisabledOptions();
+            });
+        }
+
+        document.querySelectorAll('.nama-item-select').forEach(function(sel){
+            wireSelect(sel);
+            sel.dispatchEvent(new Event('change'));
+        });
+        updateDisabledOptions();
+    });
+</script>
+@endpush

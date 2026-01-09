@@ -58,6 +58,7 @@
                     <a class="collapse-item {{ $menuAdminCplList ?? '' }}" href="{{ route('cpl.index') }}">Kelola CPL</a>
                     <h6 class="collapse-header">Mata Kuliah:</h6>
                     <a class="collapse-item {{ $menuAdminMatakuliah ?? '' }}" href="{{ route('matakuliah.index') }}">Data Mata Kuliah</a>
+                    <a class="collapse-item {{ $menuAdminMikrokredensial ?? '' }}" href="{{ route('mikrokredensial.index') }}">Mikrokredensial</a>
                 </div>
             </div>
         </li>
@@ -116,6 +117,7 @@
                     <a class="collapse-item {{ $menuKaprodiCplList ?? '' }}" href="{{ route('cpl.index') }}">Kelola CPL</a>
                     <h6 class="collapse-header">Mata Kuliah:</h6>
                     <a class="collapse-item {{ $menuKaprodiMatakuliah ?? '' }}" href="{{ route('matakuliah.index') }}">Data Mata Kuliah</a>
+                    <a class="collapse-item {{ $menuKaprodiMikrokredensial ?? '' }}" href="{{ route('mikrokredensial.index') }}">Mikrokredensial</a>
                 </div>
             </div>
         </li>

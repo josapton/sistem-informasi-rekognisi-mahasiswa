@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('matakuliahs', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_matakuliah');
-            $table->integer('bobot');
-            $table->text('deskripsi')->nullable();
-            $table->timestamps();
-        });
+        if (! Schema::hasTable('matakuliahs')) {
+            Schema::create('matakuliahs', function (Blueprint $table) {
+                $table->id();
+                $table->string('nama_matakuliah');
+                $table->integer('bobot');
+                $table->text('deskripsi')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
