@@ -40,14 +40,29 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <label>Nama Matakuliah / Mikrokredensial</label>
-                                <input type="text" name="nama_item[]" class="form-control" value="{{ $detail->nama_item }}" required>
+                                <select name="nama_item[]" class="form-control nama-item-select" required>
+                                    <option value="">-- Pilih Matakuliah / Mikrokredensial --</option>
+                                    <optgroup label="Matakuliah">
+                                        @foreach(($matakuliahs ?? []) as $m)
+                                            @php $text = $m->nama_matakuliah ?? ''; $sksVal = $m->bobot ?? 0; @endphp
+                                            <option value="{{ $text }}" data-sks="{{ $sksVal }}" data-type="matakuliah" {{ $detail->nama_item == $text ? 'selected' : '' }}>{{ $text }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                    <optgroup label="Mikrokredensial">
+                                        @foreach(($mikrokredensials ?? []) as $mk)
+                                            @php $text = $mk->nama_mikrokredensial ?? ''; $sksVal = $mk->bobot ?? 0; @endphp
+                                            <option value="{{ $text }}" data-sks="{{ $sksVal }}" data-type="mikrokredensial" {{ $detail->nama_item == $text ? 'selected' : '' }}>{{ $text }}</option>
+                                        @endforeach
+                                    </optgroup>
+                                </select>
                             </div>
                             <div class="col-md-4">
                                 <label>Jenis</label>
-                                <select name="jenis[]" class="form-control">
+                                <select class="form-control jenis-display" disabled>
                                     <option value="matakuliah" {{ $detail->jenis == 'matakuliah' ? 'selected' : '' }}>Matakuliah</option>
                                     <option value="mikrokredensial" {{ $detail->jenis == 'mikrokredensial' ? 'selected' : '' }}>Mikrokredensial</option>
                                 </select>
+                                <input type="hidden" name="jenis[]" value="{{ $detail->jenis }}">
                             </div>
                             <div class="col-md-3">
                                 <label>Bobot SKS</label>
@@ -82,11 +97,66 @@
 {{-- Sertakan kembali script JavaScript untuk tambah baris --}}
 @push('scripts')
 <script>
-    // Kode JavaScript yang sama persis dengan yang ada di halaman create Anda
     document.addEventListener('DOMContentLoaded', function () {
         const tambahBtn = document.getElementById('tambah-baris-btn');
         const itemsContainer = document.getElementById('items-container');
-        
+
+        const matakuliahs = @json($matakuliahs ?? []);
+        const mikrokredensials = @json($mikrokredensials ?? []);
+
+        function buildNamaSelectHtml(selectedName = '') {
+            let html = '<select name="nama_item[]" class="form-control nama-item-select" required>';
+            html += '<option value="">-- Pilih Matakuliah / Mikrokredensial --</option>';
+            html += '<optgroup label="Matakuliah">';
+            matakuliahs.forEach(function(m){
+                const text = (m.nama || m.nama_matakuliah || m.title || '');
+                const sks = (m.sks || m.bobot || 0);
+                const selected = (text === selectedName) ? ' selected' : '';
+                html += `<option value="${escapeHtml(text)}" data-sks="${sks}" data-type="matakuliah"${selected}>${escapeHtml(text)}</option>`;
+            });
+            html += '</optgroup>';
+            html += '<optgroup label="Mikrokredensial">';
+            mikrokredensials.forEach(function(mk){
+                const text = (mk.nama || mk.nama_mikrokredensial || mk.title || '');
+                const sks = (mk.sks || mk.bobot || 0);
+                const selected = (text === selectedName) ? ' selected' : '';
+                html += `<option value="${escapeHtml(text)}" data-sks="${sks}" data-type="mikrokredensial"${selected}>${escapeHtml(text)}</option>`;
+            });
+            html += '</optgroup>';
+            html += '</select>';
+            return html;
+        }
+
+        function wireSelect(selectEl) {
+            selectEl.addEventListener('change', function (e) {
+                const opt = selectEl.selectedOptions[0];
+                const sks = opt ? opt.dataset.sks || 0 : 0;
+                const row = selectEl.closest('.item-konversi');
+                if (!row) return;
+                const sksInput = row.querySelector('input[name="sks[]"]');
+                const jenisDisplay = row.querySelector('.jenis-display');
+                const jenisHidden = row.querySelector('input[name="jenis[]"]');
+                let type = '';
+                if (opt) type = opt.dataset.type || '';
+                if (sksInput) {
+                    sksInput.value = sks;
+                }
+                if (jenisDisplay && type) {
+                    if (type === 'matakuliah' || type === 'mikrokredensial') jenisDisplay.value = type;
+                }
+                if (jenisHidden && type) {
+                    jenisHidden.value = type;
+                }
+                updateDisabledOptions();
+            });
+        }
+
+        // Wire existing selects and trigger initial fill
+        itemsContainer.querySelectorAll('.nama-item-select').forEach(function(sel){
+            wireSelect(sel);
+            sel.dispatchEvent(new Event('change'));
+        });
+
         tambahBtn.addEventListener('click', function () {
             let itemCount = itemsContainer.querySelectorAll('.item-konversi').length;
             const newRow = document.createElement('div');
@@ -95,13 +165,27 @@
                 <div class="card-body">
                     <h5>Item Konversi #<span class="item-number">${itemCount + 1}</span></h5>
                     <div class="row">
-                        <div class="col-md-5"><label>Nama Matakuliah / Mikrokredensial</label><input type="text" name="nama_item[]" class="form-control" required></div>
-                        <div class="col-md-4"><label>Jenis</label><select name="jenis[]" class="form-control"><option value="matakuliah">Matakuliah</option><option value="mikrokredensial">Mikrokredensial</option></select></div>
-                        <div class="col-md-3"><label>Bobot SKS</label><input type="number" name="sks[]" class="form-control" required></div>
+                        <div class="col-md-5">
+                            <label>Nama Matakuliah / Mikrokredensial</label>
+                            ${buildNamaSelectHtml()}
+                        </div>
+                        <div class="col-md-4">
+                            <label>Jenis</label>
+                            <select name="jenis[]" class="form-control">
+                                <option value="matakuliah">Matakuliah</option>
+                                <option value="mikrokredensial">Mikrokredensial</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Bobot SKS</label>
+                            <input type="number" step="0.1" name="sks[]" class="form-control" required>
+                        </div>
                     </div>
                 </div>
             `;
             itemsContainer.appendChild(newRow);
+            const sel = newRow.querySelector('.nama-item-select');
+            if (sel) wireSelect(sel);
         });
     });
 </script>

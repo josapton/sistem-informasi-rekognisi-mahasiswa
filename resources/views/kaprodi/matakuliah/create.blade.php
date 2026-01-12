@@ -29,7 +29,7 @@
             <div class="form-group">
                 <span class="text-danger">*</span>
                 <label for="bobot">Bobot</label>
-                <input type="number" name="bobot" id="bobot" class="form-control @error('bobot') is-invalid @enderror" value="{{ old('bobot') }}">
+                <input type="number" name="bobot" id="bobot" class="form-control @error('bobot') is-invalid @enderror" value="{{ old('bobot') }}" placeholder="Masukan Bobot">
                 @error('bobot')
                 <small class="text-danger">{{ $message }}</small>
                 @enderror
