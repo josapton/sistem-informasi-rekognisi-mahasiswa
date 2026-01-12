@@ -44,14 +44,24 @@
                                     <option value="">-- Pilih Matakuliah / Mikrokredensial --</option>
                                     <optgroup label="Matakuliah">
                                         @foreach(($matakuliahs ?? []) as $m)
-                                            @php $text = $m->nama_matakuliah ?? ''; $sksVal = $m->bobot ?? 0; @endphp
-                                            <option value="{{ $text }}" data-sks="{{ $sksVal }}" data-type="matakuliah" {{ $detail->nama_item == $text ? 'selected' : '' }}>{{ $text }}</option>
+                                            @php
+                                                $text = data_get($m, 'nama_matakuliah', '');
+                                                $sksVal = data_get($m, 'bobot', 0);
+                                            @endphp
+                                            @if($text !== '')
+                                                <option value="{{ $text }}" data-sks="{{ $sksVal }}" data-type="matakuliah" {{ $detail->nama_item == $text ? 'selected' : '' }}>{{ $text }}</option>
+                                            @endif
                                         @endforeach
                                     </optgroup>
                                     <optgroup label="Mikrokredensial">
                                         @foreach(($mikrokredensials ?? []) as $mk)
-                                            @php $text = $mk->nama_mikrokredensial ?? ''; $sksVal = $mk->bobot ?? 0; @endphp
-                                            <option value="{{ $text }}" data-sks="{{ $sksVal }}" data-type="mikrokredensial" {{ $detail->nama_item == $text ? 'selected' : '' }}>{{ $text }}</option>
+                                            @php
+                                                $text = data_get($mk, 'nama_mikrokredensial', '');
+                                                $sksVal = data_get($mk, 'bobot', 0);
+                                            @endphp
+                                            @if($text !== '')
+                                                <option value="{{ $text }}" data-sks="{{ $sksVal }}" data-type="mikrokredensial" {{ $detail->nama_item == $text ? 'selected' : '' }}>{{ $text }}</option>
+                                            @endif
                                         @endforeach
                                     </optgroup>
                                 </select>

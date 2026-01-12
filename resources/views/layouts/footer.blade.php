@@ -13,6 +13,9 @@
                 <a href="https://uby.ac.id" target="_blank">Universitas Boyolali</a>
                 -
                 <?php echo date("Y"); ?>
+                <div class="mt-1">
+                    <a class="small" href="https://github.com/josapton/sistem-informasi-rekognisi-mahasiswa" target="_blank">GitHub</a>
+                </div>
             </span>
         </div>
     </div>
