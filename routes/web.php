@@ -68,7 +68,7 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('matakuliah/edit/{id}', [\App\Http\Controllers\MatakuliahController::class, 'edit'])->name('matakuliah.edit');
         Route::post('matakuliah/update/{id}', [\App\Http\Controllers\MatakuliahController::class, 'update'])->name('matakuliah.update');
         Route::delete('matakuliah/destroy/{id}', [\App\Http\Controllers\MatakuliahController::class, 'destroy'])->name('matakuliah.destroy');
-        // Mikrokredensial (same behavior as Mata Kuliah but bobot decimal)
+
         Route::get('mikrokredensial', [\App\Http\Controllers\MikrokredensialController::class, 'index'])->name('mikrokredensial.index');
         Route::get('mikrokredensial/create', [\App\Http\Controllers\MikrokredensialController::class, 'create'])->name('mikrokredensial.create');
         Route::post('mikrokredensial/store', [\App\Http\Controllers\MikrokredensialController::class, 'store'])->name('mikrokredensial.store');
