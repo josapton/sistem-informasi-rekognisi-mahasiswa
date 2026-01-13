@@ -72,7 +72,7 @@
             @method('PUT')
 
             <div id="items-container">
-                 @foreach ($konversi->details as $index => $item)
+                @foreach(($konversi->details ?? []) as $index => $item)
                     <div class="card mb-3">
                         <div class="card-body">
                             <h5>Item Konversi #{{ $index + 1 }} (Bisa dimodifikasi)</h5>
@@ -83,14 +83,24 @@
                                         <option value="">-- Pilih Matakuliah / Mikrokredensial --</option>
                                         <optgroup label="Matakuliah">
                                             @foreach(($matakuliahs ?? []) as $m)
-                                                @php $text = $m->nama_matakuliah ?? ''; $sksVal = $m->bobot ?? 0; @endphp
-                                                <option value="{{ $text }}" data-sks="{{ $sksVal }}" data-type="matakuliah" {{ $item->nama_item == $text ? 'selected' : '' }}>{{ $text }}</option>
+                                                @php
+                                                    $text = data_get($m, 'nama_matakuliah', '');
+                                                    $sksVal = data_get($m, 'bobot', 0);
+                                                @endphp
+                                                @if($text !== '')
+                                                    <option value="{{ $text }}" data-sks="{{ $sksVal }}" data-type="matakuliah" {{ data_get($item, 'nama_item', '') == $text ? 'selected' : '' }}>{{ $text }}</option>
+                                                @endif
                                             @endforeach
                                         </optgroup>
                                         <optgroup label="Mikrokredensial">
                                             @foreach(($mikrokredensials ?? []) as $mk)
-                                                @php $text = $mk->nama_mikrokredensial ?? ''; $sksVal = $mk->bobot ?? 0; @endphp
-                                                <option value="{{ $text }}" data-sks="{{ $sksVal }}" data-type="mikrokredensial" {{ $item->nama_item == $text ? 'selected' : '' }}>{{ $text }}</option>
+                                                @php
+                                                    $text = data_get($mk, 'nama_mikrokredensial', '');
+                                                    $sksVal = data_get($mk, 'bobot', 0);
+                                                @endphp
+                                                @if($text !== '')
+                                                    <option value="{{ $text }}" data-sks="{{ $sksVal }}" data-type="mikrokredensial" {{ data_get($item, 'nama_item', '') == $text ? 'selected' : '' }}>{{ $text }}</option>
+                                                @endif
                                             @endforeach
                                         </optgroup>
                                     </select>
@@ -98,10 +108,10 @@
                                 <div class="col-md-4">
                                     <label>Jenis</label>
                                     <select class="form-control jenis-display" disabled>
-                                        <option value="matakuliah" {{ $item->jenis == 'matakuliah' ? 'selected' : '' }}>Matakuliah</option>
-                                        <option value="mikrokredensial" {{ $item->jenis == 'mikrokredensial' ? 'selected' : '' }}>Mikrokredensial</option>
+                                        <option value="matakuliah" {{ data_get($item, 'jenis', '') == 'matakuliah' ? 'selected' : '' }}>Matakuliah</option>
+                                        <option value="mikrokredensial" {{ data_get($item, 'jenis', '') == 'mikrokredensial' ? 'selected' : '' }}>Mikrokredensial</option>
                                     </select>
-                                    <input type="hidden" name="jenis[]" value="{{ $item->jenis }}">
+                                    <input type="hidden" name="jenis[]" value="{{ data_get($item, 'jenis', '') }}">
                                 </div>
                                 <div class="col-md-3">
                                     <label>Bobot SKS</label>
