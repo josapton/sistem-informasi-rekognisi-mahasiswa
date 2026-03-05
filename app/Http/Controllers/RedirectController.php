@@ -21,7 +21,7 @@ class RedirectController extends Controller
         }
 
         // Buat URL lengkap WhatsApp
-        $whatsappUrl = "https://web.whatsapp.com/send?phone=" . $phoneNumber;
+        $whatsappUrl = "https://wa.me/" . $phoneNumber;
 
         // Lakukan redirect ke URL eksternal
         return Redirect::away($whatsappUrl);
